@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Discipleship Platform</title>
+
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Quill Editor, Leaflet Map & Chart.js -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --hero-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+            --bg-light: #f8fafc;
+            --surface: #ffffff;
+            --surface-glass: rgba(255, 255, 255, 0.85);
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --sidebar-width: 270px;
+            --radius: 12px;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+            --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            --diagram-bg: #f1f5f9;
+        }
+
+        /* Dark Mode Theme Overrides */
+        body.dark-theme {
+            --bg-light: #090d16;
+            --surface: #111827;
+            --surface-glass: rgba(17, 24, 39, 0.85);
+            --text-dark: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: #1f2937;
+            --hero-bg: linear-gradient(135deg, #030712 0%, #0f172a 50%, #1e1b4b 100%);
+            --diagram-bg: #1e293b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; min-height: 100vh; overflow-x: hidden; }
+        .hidden { display: none !important; }
+
+        /* Navigation Bar */
+        nav {
+            background: var(--surface-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.85rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { font-weight: 800; font-size: 1.25rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; letter-spacing: -0.5px; }
+        .logo i { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.4rem; }
+        
+        .user-indicator {
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 30px;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        /* Buttons & Forms */
+        .btn { padding: 0.6rem 1.25rem; border-radius: var(--radius); font-weight: 600; cursor: pointer; border: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.875rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+        .btn-primary { background: var(--primary-gradient); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); }
+        .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35); }
+        .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text-dark); }
+        .btn-outline:hover:not(:disabled) { background: rgba(255, 255, 255, 0.05); border-color: var(--primary); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; border-radius: 8px; }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--text-dark);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .theme-toggle-btn:hover { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+
+        /* Container Layouts */
+        .container { max-width: 1280px; margin: 1.5rem auto; padding: 0 1rem; width: 100%; }
+        .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; word-wrap: break-word; }
+        .card-interactive:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+
+        /* Dashboard & Sidebar Layout */
+        .dashboard-layout { display: flex; gap: 1.5rem; min-height: 85vh; position: relative; }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem 0.85rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sidebar.collapsed { margin-left: calc(var(--sidebar-width) * -1 - 2rem); opacity: 0; visibility: hidden; }
+        .main-content { flex-grow: 1; min-width: 0; width: 100%; }
+
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li a {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.75rem 0.85rem; color: var(--text-muted); text-decoration: none;
+            border-radius: 10px; margin-bottom: 0.35rem; font-weight: 500; font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        .sidebar-menu li a:hover, .sidebar-menu li a.active { background: rgba(37, 99, 235, 0.1); color: var(--primary); font-weight: 600; }
+
+        /* Landing Hero */
+        .hero-section {
+            background: var(--hero-bg);
+            color: white;
+            padding: 4rem 1.25rem 3.5rem;
+            border-radius: 0 0 1.5rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
+        .hero-subtitle { max-width: 760px; margin: 0 auto 1.75rem; font-size: clamp(0.95rem, 2vw, 1.15rem); color: #cbd5e1; font-weight: 300; }
+
+        /* Scripture Card */
+        .scripture-card {
+            background: var(--surface);
+            border-left: 5px solid var(--warning);
+            padding: 1.5rem;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            box-shadow: var(--shadow-sm);
+            margin: 1.5rem 0;
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .scripture-text { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--text-dark); line-height: 1.7; font-style: italic; }
+        .scripture-ref { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--warning); margin-top: 0.75rem; display: block; font-style: normal; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Discipleship Framework Diagram Styles */
+        .framework-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem 1.5rem;
+            margin: 2.5rem 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .diagram-container {
+            width: 100%;
+            overflow-x: auto;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .framework-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Booklet Cover */
+        .booklet-cover {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white; border-radius: var(--radius); padding: 2.5rem 1.5rem;
+            text-align: center; margin-bottom: 1.75rem; position: relative;
+            border-top: 6px solid var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+        .booklet-cover h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.5rem); margin-bottom: 0.5rem; }
+        .booklet-cover h3 { color: #94a3b8; font-weight: 400; margin-bottom: 1.5rem; font-style: italic; font-size: 1rem; }
+        .booklet-meta { display: flex; justify-content: center; gap: 1.5rem; font-size: 0.85rem; color: #cbd5e1; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; flex-wrap: wrap; }
+
+        /* Video Frame with Anti-Scrubbing Warning Overlay */
+        .video-player-container {
+            position: relative; border-radius: var(--radius); overflow: hidden;
+            background: #000; box-shadow: var(--shadow-md); margin-bottom: 0.75rem;
+        }
+        .video-player-frame { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+        .video-player-frame iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+
+        .scrub-warning-toast {
+            position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);
+            background: rgba(239, 68, 68, 0.95); color: white;
+            padding: 0.5rem 1.25rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+            backdrop-filter: blur(6px); display: none; z-index: 20; text-align: center; width: 90%; max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        /* Form Controls */
+        .form-group { margin-bottom: 1.15rem; }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.85rem; color: var(--text-dark); }
+        .form-control { width: 100%; padding: 0.7rem 0.85rem; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.9rem; background: var(--surface); color: var(--text-dark); transition: border-color 0.2s; }
+        .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        /* Map & Quill Heights */
+        #map { height: 500px; width: 100%; border-radius: var(--radius); box-shadow: var(--shadow-md); }
+        #editor-container { height: 260px; margin-bottom: 1.25rem; border-radius: 0 0 8px 8px; background: var(--surface); color: var(--text-dark); }
+
+        /* Badges */
+        .badge { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.65rem; border-radius: 20px; font-size: 0.725rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge-pending { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .badge-completed { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .badge-active { background: rgba(37, 99, 235, 0.15); color: var(--primary); }
+        .badge-locked { background: rgba(100, 116, 139, 0.15); color: var(--text-muted); border: 1px solid var(--border); }
+
+        /* Map Custom Markers */
+        .map-root-icon { background: var(--primary-gradient); color: white; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white; box-shadow: var(--shadow-md); cursor: pointer; }
+        .map-branch-icon { width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; box-shadow: var(--shadow-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: bold; }
+        .map-branch-completed { background: var(--success); }
+        .map-branch-progress { background: var(--primary); }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .dashboard-layout { flex-direction: column; }
+            .sidebar { width: 100%; position: relative; }
+            .sidebar.collapsed { display: none !important; }
+            nav { padding: 0.75rem 1rem; }
+            .user-indicator { font-size: 0.75rem; padding: 0.3rem 0.6rem; }
+            #map { height: 380px; }
+            .framework-card { padding: 1.25rem 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAVIGATION BAR -->
+    <nav>
+        <div class="nav-left">
+            <button class="btn btn-outline btn-sm" id="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+            <div class="logo"><i class="fa-solid fa-cross"></i> DisciplePath</div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <button class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <div class="user-indicator" id="logged-in-user-bar">
+                <i class="fa-solid fa-circle-user"></i> <span id="user-display-text">Not Logged In</span>
+            </div>
+            <div id="nav-actions">
+                <button class="btn btn-primary btn-sm" onclick="showView('login-view')"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- LANDING VIEW WITH SCRIPTURES & FRAMEWORK DIAGRAM -->
+    <div id="landing-view" class="view-section">
+        <div class="hero-section">
+            <h1 class="hero-title">Global Five-Fold Discipleship Platform</h1>
+            <p class="hero-subtitle">Equipping Apostles, Prophets, Evangelists, Pastors, and Teachers to build, track, and deploy structured multi-tiered discipleship networks across nations.</p>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="showView('login-view')"><i class="fa-solid fa-right-to-bracket"></i> Access Ministry Portal</button>
+                <a href="#framework-section" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);"><i class="fa-solid fa-sitemap"></i> Explore Discipleship Framework</a>
+                <a href="#scripture-section" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);"><i class="fa-solid fa-bible"></i> Scripture Basis</a>
+            </div>
+        </div>
+
+        <div class="container">
+            
+            <!-- DETAILED DISCIPLESHIP FRAMEWORK PLATFORM DIAGRAM -->
+            <div id="framework-section" class="framework-card">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <span class="badge badge-active" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-diagram-project"></i> Core Blueprint</span>
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--text-dark);">Detailed Discipleship Framework Platform</h2>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 720px; margin: 0.5rem auto 0;">
+                        From the revelation of Christ to corporate maturity—a structured pathway for personal transformation, priesthood, kingdom stewardship, and exponential disciple-making.
+                    </p>
+                </div>
+
+                <div class="diagram-container">
+                    <img src="disc.png" alt="Detailed Discipleship Framework Platform Blueprint" class="framework-img" />
+                </div>
+            </div>
+
+            <!-- SCRIPTURAL FOUNDATIONS -->
+            <div id="scripture-section" style="margin-top: 2.5rem;">
+                <h2 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-scroll" style="color: var(--primary);"></i> Scriptural Foundations</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem; font-size:0.9rem;">The biblical directive governing our multi-tiered discipleship framework.</p>
+
+                <div class="scripture-card">
+                    <p class="scripture-text">
+                        "And he gave some, apostles; and some, prophets; and some, evangelists; and some, pastors and teachers; For the perfecting of the saints, for the work of the ministry, for the edifying of the body of Christ: Till we all come in the unity of the faith, and of the knowledge of the Son of God, unto a perfect man, unto the measure of the stature of the fulness of Christ."
+                    </p>
+                    <span class="scripture-ref">— Ephesians 4:11-13 (KJV)</span>
+                </div>
+
+                <div class="grid-2">
+                    <div class="scripture-card">
+                        <p class="scripture-text">
+                            "And the things that thou hast heard of me among many witnesses, the same commit thou to faithful men, who shall be able to teach others also."
+                        </p>
+                        <span class="scripture-ref">— 2 Timothy 2:2 (KJV)</span>
+                    </div>
+
+                    <div class="scripture-card">
+                        <p class="scripture-text">
+                            "Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost: Teaching them to observe all things whatsoever I have commanded you: and, lo, I am with you alway, even unto the end of the world. Amen."
+                        </p>
+                        <span class="scripture-ref">— Matthew 28:19-20 (KJV)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 2.5rem;">
+                <div class="card card-interactive">
+                    <i class="fa-solid fa-book-journal-whills" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.75rem;"></i>
+                    <h3>Sequential Booklet Tracks</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Modules lock sequentially. Every lesson material and video must be fully completed before unlocking the next booklet stage.</p>
+                </div>
+                <div class="card card-interactive">
+                    <i class="fa-solid fa-shield-cat" style="font-size: 2rem; color: var(--danger); margin-bottom: 0.75rem;"></i>
+                    <h3>Anti-Scrubbing Security</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Video fast-forwarding or scrubbing directly to the end timestamp is completely blocked to guarantee true learning engagement.</p>
+                </div>
+                <div class="card card-interactive">
+                    <i class="fa-solid fa-file-csv" style="font-size: 2rem; color: var(--success); margin-bottom: 0.75rem;"></i>
+                    <h3>Infinite Network Export</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Root Leaders can export complete multi-tier branches, sub-branches, and downstream disciples into structured CSV data.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIGN IN VIEW -->
+    <div id="login-view" class="view-section hidden">
+        <div class="container" style="max-width: 420px; margin-top: 3.5rem;">
+            <div class="card" style="box-shadow: var(--shadow-lg);">
+                <div style="text-align: center; margin-bottom: 1.25rem;">
+                    <div class="logo" style="justify-content: center; font-size: 1.6rem; margin-bottom: 0.35rem;"><i class="fa-solid fa-cross"></i> DisciplePath</div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Sign in to access your ministry portal</p>
+                </div>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="login-email" class="form-control" placeholder="leader@ministry.org" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Sign In to Dashboard</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div id="admin-view" class="view-section hidden">
+        <div class="container dashboard-layout">
+            <div class="sidebar" id="admin-sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active" id="btn-admin-analytics" onclick="switchAdminTab('analytics')"><i class="fa-solid fa-chart-pie"></i> Analytics Overview</a></li>
+                    <li><a href="#" id="btn-admin-curriculum" onclick="switchAdminTab('curriculum')"><i class="fa-solid fa-book-medical"></i> Curriculum Builder</a></li>
+                    <li><a href="#" id="btn-admin-root-reg" onclick="switchAdminTab('root-reg')"><i class="fa-solid fa-user-gear"></i> Register Root Leader</a></li>
+                    <li><a href="#" id="btn-admin-tree-map" onclick="switchAdminTab('tree-map')"><i class="fa-solid fa-globe"></i> Continuous Multi-Tier Map</a></li>
+                    <li><a href="#" id="btn-admin-approvals" onclick="switchAdminTab('approvals')"><i class="fa-solid fa-user-check"></i> Pending Approvals</a></li>
+                    <li><a href="#" onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</a></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <!-- ANALYTICS TAB -->
+                <div id="admin-tab-analytics" class="admin-tab">
+                    <h2><i class="fa-solid fa-chart-line" style="color:var(--primary);"></i> Platform Analytics</h2>
+                    <div class="grid-4" style="margin-top: 1.25rem;">
+                        <div class="card" style="border-left: 4px solid var(--primary);">
+                            <h4 style="color:var(--text-muted); font-size:0.8rem;">Total Modules</h4>
+                            <p id="stat-modules" style="font-size: 1.8rem; font-weight:800; color:var(--text-dark);">0</p>
+                        </div>
+                        <div class="card" style="border-left: 4px solid var(--success);">
+                            <h4 style="color:var(--text-muted); font-size:0.8rem;">Root Leaders</h4>
+                            <p id="stat-roots" style="font-size: 1.8rem; font-weight:800; color:var(--text-dark);">0</p>
+                        </div>
+                        <div class="card" style="border-left: 4px solid var(--warning);">
+                            <h4 style="color:var(--text-muted); font-size:0.8rem;">Active Disciples</h4>
+                            <p id="stat-disciples" style="font-size: 1.8rem; font-weight:800; color:var(--text-dark);">0</p>
+                        </div>
+                        <div class="card" style="border-left: 4px solid var(--danger);">
+                            <h4 style="color:var(--text-muted); font-size:0.8rem;">Pending Clearances</h4>
+                            <p id="stat-pending" style="font-size: 1.8rem; font-weight:800; color:var(--text-dark);">0</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.25rem;">
+                        <h3><i class="fa-solid fa-chart-bar" style="color:var(--primary);"></i> Five-Fold Ministry Office Breakdown</h3>
+                        <div style="height: 320px; position: relative; margin-top: 1rem;">
+                            <canvas id="fiveFoldChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CURRICULUM BUILDER TAB -->
+                <div id="admin-tab-curriculum" class="admin-tab hidden">
+                    <div class="card">
+                        <h2 id="curriculum-title-mode">Publish New Discipleship Booklet Module</h2>
+                        <form id="module-form" style="margin-top:1.25rem;">
+                            <input type="hidden" id="editing-module-id">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label>Booklet Order Level (Sequence Position, e.g. 1, 2, 3)</label>
+                                    <input type="number" id="module-order" class="form-control" min="1" value="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Booklet Topic Title</label>
+                                    <input type="text" id="module-topic" class="form-control" required placeholder="e.g. Booklet 1: Foundations of Faith">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Sub Topic / Lesson Focus</label>
+                                <input type="text" id="module-subtopic" class="form-control" required placeholder="e.g. Repentance & Eternal Salvation">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mandatory Reading Duration Lock (Seconds)</label>
+                                <input type="number" id="module-duration" class="form-control" required min="5" value="30">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Lesson Body Content</label>
+                                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                                    <input type="text" id="scripture-ref-input" class="form-control" placeholder="Insert Bible Ref (e.g. Luke 14:26)" style="max-width: 250px;">
+                                    <button type="button" class="btn btn-outline btn-sm" onclick="fetchAndInsertScripture()"><i class="fa-solid fa-bible"></i> Auto-Insert Verse</button>
+                                </div>
+                                <div id="editor-container"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>YouTube Embedded Video URLs (Anti-Forwarding Lock Enforced Automatically)</label>
+                                <div id="video-inputs-list">
+                                    <input type="url" class="form-control video-input-url" placeholder="https://www.youtube.com/watch?v=..." style="margin-bottom: 0.5rem;">
+                                </div>
+                                <button type="button" class="btn btn-outline btn-sm" onclick="addVideoField()"><i class="fa-solid fa-plus"></i> Add Video Link</button>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;"><i class="fa-solid fa-cloud-arrow-up"></i> Save & Publish Booklet Module</button>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <h3>Published Booklet Curriculum</h3>
+                        <div id="curriculum-list" style="margin-top: 1rem;"></div>
+                    </div>
+                </div>
+
+                <!-- REGISTER ROOT TAB -->
+                <div id="admin-tab-root-reg" class="admin-tab hidden">
+                    <div class="card">
+                        <h2>Register First-Tier Root Leader</h2>
+                        <form id="root-register-form" style="margin-top:1.25rem;">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="root-name" class="form-control" required placeholder="Pastor John Doe">
+                                </div>
+                                <div class="form-group">
+                                    <label>Five-Fold Ministry Office</label>
+                                    <select id="root-office" class="form-control" required>
+                                        <option value="Apostle">Apostle</option>
+                                        <option value="Prophet">Prophet</option>
+                                        <option value="Evangelist">Evangelist</option>
+                                        <option value="Pastor">Pastor</option>
+                                        <option value="Teacher">Teacher</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label>Church / Ministry Organization</label>
+                                    <input type="text" id="root-church" class="form-control" required placeholder="Grace Ministry International">
+                                </div>
+                                <div class="form-group">
+                                    <label>WhatsApp Phone (+CountryCode)</label>
+                                    <input type="tel" id="root-phone" class="form-control" placeholder="+254700000000" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="root-email" class="form-control" required placeholder="leader@domain.org">
+                            </div>
+                            <div class="form-group">
+                                <label>Geographic Coordinates</label>
+                                <div style="display:flex; gap:0.5rem; flex-wrap: wrap;">
+                                    <input type="text" id="root-lat" class="form-control" placeholder="Latitude" readonly required style="flex: 1; min-width: 120px;">
+                                    <input type="text" id="root-lng" class="form-control" placeholder="Longitude" readonly required style="flex: 1; min-width: 120px;">
+                                    <button type="button" class="btn btn-outline" onclick="detectLocation()"><i class="fa-solid fa-location-crosshairs"></i> Auto Detect</button>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Register & Dispatch Credentials via WhatsApp</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TREE MAP TAB -->
+                <div id="admin-tab-tree-map" class="admin-tab hidden">
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:1rem;">
+                            <div>
+                                <h2>Continuous Multi-Tier Discipleship Tree Map</h2>
+                                <p style="color:var(--text-muted); font-size:0.85rem;">Click any <strong>Root Leader</strong> marker to project its downstream network tree infinitely across all tiers.</p>
+                            </div>
+                            <div style="display:flex; gap:0.5rem; flex-wrap: wrap;">
+                                <button class="btn btn-primary btn-sm" onclick="renderAllRootsAndBranchesOnMap()"><i class="fa-solid fa-sitemap"></i> Project All Infinite Branches</button>
+                                <button class="btn btn-outline btn-sm" onclick="resetMapView()"><i class="fa-solid fa-rotate-left"></i> Reset View</button>
+                            </div>
+                        </div>
+                        <div id="map"></div>
+                    </div>
+                </div>
+
+                <!-- APPROVALS TAB -->
+                <div id="admin-tab-approvals" class="admin-tab hidden">
+                    <div class="card">
+                        <h2>Stage Completions & Branch Authorizations</h2>
+                        
+                        <h3 style="margin-top:1.5rem;">1. Pending Branch Account Authorizations</h3>
+                        <div id="branch-account-approvals-list" style="margin-top: 0.75rem;"></div>
+
+                        <h3 style="margin-top:1.5rem;">2. Booklet Stage Clearances (Approved by Root Leaders)</h3>
+                        <div id="stage-approvals-list" style="margin-top: 0.75rem;"></div>
+
+                        <hr style="margin: 2rem 0; border:0; border-top: 1px solid var(--border);">
+
+                        <h3>3. Global Member Directory</h3>
+                        <div id="approvals-list" style="margin-top: 1rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DISCIPLE DASHBOARD -->
+    <div id="disciple-view" class="view-section hidden">
+        <div class="container dashboard-layout">
+            <div class="sidebar" id="disciple-sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active" id="btn-disc-study" onclick="switchDiscipleTab('study')"><i class="fa-solid fa-graduation-cap"></i> Study Booklet Modules</a></li>
+                    <li><a href="#" id="btn-disc-progress" onclick="switchDiscipleTab('progress')"><i class="fa-solid fa-bars-progress"></i> Stage Progress Tracker</a></li>
+                    <li><a href="#" id="btn-disc-profile" onclick="switchDiscipleTab('profile')"><i class="fa-solid fa-user"></i> My Profile Settings</a></li>
+                    <li id="menu-my-disciples" class="hidden"><a href="#" id="btn-disc-branch" onclick="switchDiscipleTab('my-disciples')"><i class="fa-solid fa-users"></i> My Disciple Menu</a></li>
+                    <li><a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <!-- STUDY TAB -->
+                <div id="disciple-tab-study" class="disciple-tab">
+                    <div class="card" id="module-viewer-card">
+                        <div id="module-viewer-content">
+                            <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                                <i class="fa-solid fa-book-open-reader" style="font-size: 3rem; color: var(--border); margin-bottom: 1rem; display: block;"></i>
+                                <p>Select an unlocked discipleship booklet below to open the interactive lesson materials.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Sequential Discipleship Curriculum</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            Booklets unlock sequentially. You must complete all reading timers and watch all embedded videos in prior booklets before subsequent booklets become accessible.
+                        </p>
+                        <div id="disciple-modules-list"></div>
+                    </div>
+                </div>
+
+                <!-- PROGRESS TRACKER TAB -->
+                <div id="disciple-tab-progress" class="disciple-tab hidden">
+                    <div class="card">
+                        <h2>My Booklet Stage Progress Track</h2>
+                        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom: 1rem;">Real-time overview of your current booklet stage, video verification metrics, and completion approval status.</p>
+
+                        <div id="user-progress-summary" style="margin-top:1rem;"></div>
+
+                        <div style="margin-top:2rem;">
+                            <h3>Sequential Booklet Roadmap</h3>
+                            <div id="booklet-roadmap-list" style="margin-top: 1rem;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROFILE TAB -->
+                <div id="disciple-tab-profile" class="disciple-tab hidden">
+                    <div class="card">
+                        <h2>My Profile Settings</h2>
+                        <div id="user-profile-details" style="margin: 1.25rem 0;"></div>
+                        
+                        <hr style="margin: 1.5rem 0; border:0; border-top: 1px solid var(--border);">
+                        
+                        <h3>Security & Password Update</h3>
+                        <form id="change-pass-form" style="max-width: 420px; margin-top: 1rem;">
+                            <div class="form-group">
+                                <label>Current Password</label>
+                                <input type="password" id="current-password" class="form-control" placeholder="••••••••" required>
+                            </div>
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" id="new-password" class="form-control" placeholder="••••••••" required minlength="6">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Security Password</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- MY DISCIPLES TAB -->
+                <div id="disciple-tab-my-disciples" class="disciple-tab hidden">
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                            <div>
+                                <h2>Register New Branch Disciple</h2>
+                                <p style="font-size:0.85rem; color:var(--text-muted);">Accounts will be held for Admin clearance before WhatsApp login dispatch.</p>
+                            </div>
+                            <button class="btn btn-success" onclick="exportMyFullDownstreamBranchNetworkCSV()"><i class="fa-solid fa-file-csv"></i> Export Full Infinite Branches CSV</button>
+                        </div>
+                        <form id="branch-register-form" style="margin-top: 1.25rem;">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="branch-name" class="form-control" required placeholder="Disciple Full Name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" id="branch-email" class="form-control" required placeholder="disciple@domain.org">
+                                </div>
+                            </div>
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label>WhatsApp Number (+CountryCode)</label>
+                                    <input type="tel" id="branch-phone" class="form-control" placeholder="+254..." required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Church / Ministry Location</label>
+                                    <input type="text" id="branch-church" class="form-control" required placeholder="Branch Location">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Submit Branch Disciple for Admin Approval</button>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <h2>My Downstream Network Overview</h2>
+                        <div class="grid-4" style="margin: 1.25rem 0;">
+                            <div class="card" style="border:1px solid var(--border);">
+                                <h4 style="font-size:0.85rem; color:var(--success);">Completed</h4>
+                                <p id="cnt-completed" style="font-size:1.8rem; font-weight:800; color:var(--success);">0</p>
+                            </div>
+                            <div class="card" style="border:1px solid var(--border);">
+                                <h4 style="font-size:0.85rem; color:var(--primary);">Active</h4>
+                                <p id="cnt-active" style="font-size:1.8rem; font-weight:800; color:var(--primary);">0</p>
+                            </div>
+                            <div class="card" style="border:1px solid var(--border);">
+                                <h4 style="font-size:0.85rem; color:var(--danger);">Dropped</h4>
+                                <p id="cnt-dropped" style="font-size:1.8rem; font-weight:800; color:var(--danger);">0</p>
+                            </div>
+                            <div class="card" style="border:1px solid var(--border);">
+                                <h4 style="font-size:0.85rem; color:var(--warning);">Suspended</h4>
+                                <p id="cnt-suspended" style="font-size:1.8rem; font-weight:800; color:var(--warning);">0</p>
+                            </div>
+                        </div>
+
+                        <h3>Stage Approval Requests Pending Your Review</h3>
+                        <div id="branch-stage-approvals-by-root" style="margin-top: 0.75rem; margin-bottom: 1.5rem;"></div>
+
+                        <h3>All Downstream Network Disciples</h3>
+                        <div id="branch-disciples-list" style="margin-top: 0.75rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript & API Libraries -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { 
+            getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, 
+            updatePassword, EmailAuthProvider, reauthenticateWithCredential, createUserWithEmailAndPassword 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { 
+            getFirestore, collection, addDoc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, query, where, onSnapshot 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCP7muXhNSB2JZgs_8uURs1kkySG53_otk",
+            authDomain: "disciple-492b0.firebaseapp.com",
+            projectId: "disciple-492b0",
+            storageBucket: "disciple-492b0.firebasestorage.app",
+            messagingSenderId: "587923669688",
+            appId: "1:587923669688:web:2702ae662a9e9bd2496a4d",
+            measurementId: "G-6TM7Q85BH5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const secondaryApp = initializeApp(firebaseConfig, "SecondaryAuthApp");
+        const secondaryAuth = getAuth(secondaryApp);
+
+        let quill, map, rootMarkersGroup, branchRingsGroup, currentUserData = null, studyTimerInterval = null;
+        let userUnsubscribe = null, progressUnsubscribe = null, disciplesUnsubscribe = null;
+        let cachedAllUsers = [];
+        let fiveFoldChartInstance = null;
+
+        // Strict anti-scrubbing video states
+        let requiredVideoIds = [];
+        let watchedVideoIds = new Set();
+        let videoMaxWatchedTime = {}; 
+        let ytPlayers = {}; 
+        let videoWatchPollers = {}; 
+        let timerCompleted = false;
+
+        // Dark/Light Theme Switcher
+        window.toggleTheme = function() {
+            document.body.classList.toggle('dark-theme');
+            const icon = document.querySelector('#theme-toggle i');
+            if (document.body.classList.contains('dark-theme')) {
+                icon.className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
+        };
+
+        // Initialize Theme from localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            const icon = document.querySelector('#theme-toggle i');
+            if (icon) icon.className = 'fa-solid fa-sun';
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            quill = new Quill('#editor-container', {
+                theme: 'snow',
+                modules: { toolbar: [[{ 'header': [1, 2, false] }], ['bold', 'italic', 'underline'], [{ 'list': 'ordered'}, { 'list': 'bullet' }], ['clean']] }
+            });
+        });
+
+        function convertToEmbedUrl(url) {
+            if (!url) return '';
+            let videoId = extractYouTubeId(url);
+            return videoId ? `https://www.youtube.com/embed/${videoId}?enablejsapi=1&rel=0` : url;
+        }
+
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            if (url.includes('youtu.be/')) return url.split('youtu.be/')[1].split('?')[0];
+            if (url.includes('youtube.com/watch?v=')) return url.split('v=')[1].split('&')[0];
+            if (url.includes('m.youtube.com/watch?v=')) return url.split('v=')[1].split('&')[0];
+            if (url.includes('youtube.com/embed/')) return url.split('embed/')[1].split('?')[0];
+            return null;
+        }
+
+        window.toggleSidebar = function() {
+            const adminSb = document.getElementById('admin-sidebar');
+            const discipleSb = document.getElementById('disciple-sidebar');
+            if (adminSb) adminSb.classList.toggle('collapsed');
+            if (discipleSb) discipleSb.classList.toggle('collapsed');
+        };
+
+        window.showView = function(viewId) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            document.getElementById(viewId).classList.remove('hidden');
+        };
+
+        window.switchAdminTab = function(tabName) {
+            document.querySelectorAll('.admin-tab').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('#admin-sidebar .sidebar-menu a').forEach(el => el.classList.remove('active'));
+            document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
+            
+            const btnMap = { 'analytics': 'btn-admin-analytics', 'curriculum': 'btn-admin-curriculum', 'root-reg': 'btn-admin-root-reg', 'tree-map': 'btn-admin-tree-map', 'approvals': 'btn-admin-approvals' };
+            if (btnMap[tabName]) document.getElementById(btnMap[tabName]).classList.add('active');
+
+            if(tabName === 'tree-map') initMap();
+            if(tabName === 'analytics') loadAnalytics();
+            if(tabName === 'approvals') loadApprovalsAdmin();
+        };
+
+        window.switchDiscipleTab = function(tabName) {
+            if (tabName === 'my-disciples') {
+                const canAccess = currentUserData && (currentUserData.role === 'root' || (currentUserData.isApproved === true && currentUserData.isCompleted === true));
+                if (!canAccess) {
+                    alert("Access Denied: You cannot access the disciple menu until your stage is approved by your Root Leader and declared COMPLETED by the Admin.");
+                    switchDiscipleTab('study');
+                    return;
+                }
+            }
+
+            document.querySelectorAll('.disciple-tab').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('#disciple-sidebar .sidebar-menu a').forEach(el => el.classList.remove('active'));
+            document.getElementById(`disciple-tab-${tabName}`).classList.remove('hidden');
+            
+            const btnMap = { 'study': 'btn-disc-study', 'profile': 'btn-disc-profile', 'progress': 'btn-disc-progress', 'my-disciples': 'btn-disc-branch' };
+            if (btnMap[tabName]) document.getElementById(btnMap[tabName]).classList.add('active');
+
+            if(tabName === 'progress') loadDiscipleProgress();
+            if(tabName === 'my-disciples') loadMyDisciples();
+        };
+
+        function detachSnapshotListeners() {
+            if (userUnsubscribe) { userUnsubscribe(); userUnsubscribe = null; }
+            if (progressUnsubscribe) { progressUnsubscribe(); progressUnsubscribe = null; }
+            if (disciplesUnsubscribe) { disciplesUnsubscribe(); disciplesUnsubscribe = null; }
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            const userBarText = document.getElementById('user-display-text');
+            const navActions = document.getElementById('nav-actions');
+
+            detachSnapshotListeners();
+
+            if (user) {
+                userUnsubscribe = onSnapshot(doc(db, "users", user.uid), (userDoc) => {
+                    if (userDoc.exists()) {
+                        currentUserData = { id: user.uid, ...userDoc.data() };
+                        userBarText.innerHTML = `Logged in: <strong>${currentUserData.name}</strong> (${currentUserData.role.toUpperCase()})`;
+                        navActions.innerHTML = `<button class="btn btn-outline btn-sm" onclick="logout()"><i class="fa-solid fa-right-to-bracket"></i> Logout</button>`;
+
+                        if (currentUserData.role === 'admin') {
+                            showView('admin-view');
+                            loadCurriculumAdmin();
+                            loadApprovalsAdmin();
+                            loadAnalytics();
+                        } else {
+                            showView('disciple-view');
+                            setupDiscipleDashboard();
+                        }
+                    }
+                });
+            } else {
+                currentUserData = null;
+                userBarText.innerText = "Not Logged In";
+                navActions.innerHTML = `<button class="btn btn-primary btn-sm" onclick="showView('login-view')"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>`;
+                showView('landing-view');
+            }
+        });
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                await signInWithEmailAndPassword(
+                    auth, 
+                    document.getElementById('login-email').value.trim(), 
+                    document.getElementById('login-password').value.trim()
+                );
+            } catch (err) { alert("Authentication Error: " + err.message); }
+        });
+
+        window.logout = function() { 
+            detachSnapshotListeners();
+            signOut(auth); 
+        };
+
+        window.fetchAndInsertScripture = async function() {
+            const input = document.getElementById('scripture-ref-input').value.trim();
+            if (!input) return alert("Please specify reference (e.g. Luke 14:26)");
+            try {
+                const res = await fetch(`https://bible-api.com/${encodeURIComponent(input)}`);
+                const data = await res.json();
+                if (data.text) {
+                    const range = quill.getSelection(true);
+                    quill.insertText(range.index, `\n"${data.text.trim()}" — ${data.reference}\n`, { italic: true, bold: true });
+                }
+            } catch (err) { alert("Error loading scripture verse."); }
+        };
+
+        window.addVideoField = function() {
+            const input = document.createElement('input');
+            input.type = 'url';
+            input.className = 'form-control video-input-url';
+            input.placeholder = 'https://www.youtube.com/watch?v=...';
+            input.style.marginBottom = '0.5rem';
+            document.getElementById('video-inputs-list').appendChild(input);
+        };
+
+        document.getElementById('module-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('editing-module-id').value;
+            const rawVideos = Array.from(document.querySelectorAll('.video-input-url')).map(i => i.value.trim()).filter(i => i.length > 0);
+            const formattedVideos = rawVideos.map(convertToEmbedUrl);
+
+            const payload = {
+                order: parseInt(document.getElementById('module-order').value) || 1,
+                topic: document.getElementById('module-topic').value,
+                subtopic: document.getElementById('module-subtopic').value,
+                duration: parseInt(document.getElementById('module-duration').value),
+                content: quill.root.innerHTML,
+                videos: formattedVideos,
+                updatedAt: new Date()
+            };
+
+            if (editId) {
+                await updateDoc(doc(db, "modules", editId), payload);
+                alert("Booklet Module Updated!");
+            } else {
+                payload.createdAt = new Date();
+                await addDoc(collection(db, "modules"), payload);
+                alert("Booklet Module Published!");
+            }
+
+            document.getElementById('module-form').reset();
+            quill.setText('');
+            document.getElementById('editing-module-id').value = '';
+            loadCurriculumAdmin();
+        });
+
+        async function loadCurriculumAdmin() {
+            const container = document.getElementById('curriculum-list');
+            container.innerHTML = '';
+            const qSnap = await getDocs(collection(db, "modules"));
+            let modules = [];
+            qSnap.forEach(d => modules.push({ id: d.id, ...d.data() }));
+            modules.sort((a,b) => (a.order || 1) - (b.order || 1));
+
+            modules.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'card';
+                div.style.display = 'flex';
+                div.style.justifyContent = 'space-between';
+                div.style.alignItems = 'center';
+                div.style.flexWrap = 'wrap';
+                div.style.gap = '1rem';
+                div.innerHTML = `
+                    <div>
+                        <h4><span class="badge badge-active">Order: ${item.order || 1}</span> ${item.topic} - <small style="color:var(--text-muted);">${item.subtopic}</small></h4>
+                        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">Lock Timer: ${item.duration}s | Videos: ${item.videos.length}</p>
+                    </div>
+                    <div style="display:flex; gap:0.5rem;">
+                        <button class="btn btn-outline btn-sm" onclick="editModule('${item.id}')">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteModule('${item.id}')">Delete</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        window.editModule = async function(id) {
+            const docSnap = await getDoc(doc(db, "modules", id));
+            if(docSnap.exists()) {
+                const data = docSnap.data();
+                document.getElementById('editing-module-id').value = id;
+                document.getElementById('module-order').value = data.order || 1;
+                document.getElementById('module-topic').value = data.topic;
+                document.getElementById('module-subtopic').value = data.subtopic;
+                document.getElementById('module-duration').value = data.duration;
+                quill.root.innerHTML = data.content;
+                document.getElementById('curriculum-title-mode').innerText = "Edit Booklet Module";
+            }
+        };
+
+        window.deleteModule = async function(id) {
+            if(confirm("Delete module permanently?")) {
+                await deleteDoc(doc(db, "modules", id));
+                loadCurriculumAdmin();
+            }
+        };
+
+        window.detectLocation = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    document.getElementById('root-lat').value = pos.coords.latitude;
+                    document.getElementById('root-lng').value = pos.coords.longitude;
+                });
+            }
+        };
+
+        document.getElementById('root-register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const autoPassword = "DP-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+            const phone = document.getElementById('root-phone').value;
+            const email = document.getElementById('root-email').value.trim();
+            const name = document.getElementById('root-name').value;
+
+            try {
+                const userCred = await createUserWithEmailAndPassword(secondaryAuth, email, autoPassword);
+                const uid = userCred.user.uid;
+
+                await setDoc(doc(db, "users", uid), {
+                    name,
+                    office: document.getElementById('root-office').value,
+                    church: document.getElementById('root-church').value,
+                    phone, email,
+                    lat: parseFloat(document.getElementById('root-lat').value),
+                    lng: parseFloat(document.getElementById('root-lng').value),
+                    role: 'root', 
+                    status: 'active', 
+                    isApproved: true,
+                    isCompleted: true,
+                    stageStatus: 'completed',
+                    completedBookletOrders: [1, 2, 3, 4, 5, 100], 
+                    parentId: null
+                });
+
+                const waMsg = `Blessings ${name}, Credentials for DisciplePath:\nEmail: ${email}\nPassword: ${autoPassword}`;
+                window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(waMsg)}`, '_blank');
+                
+                alert(`Root Leader registered! Credentials sent via WhatsApp.`);
+                document.getElementById('root-register-form').reset();
+            } catch(err) {
+                alert("Root Account Creation Error: " + err.message);
+            }
+        });
+
+        async function loadAnalytics() {
+            const modulesSnap = await getDocs(collection(db, "modules"));
+            const usersSnap = await getDocs(collection(db, "users"));
+
+            let roots = 0, disciples = 0, pending = 0;
+            let fiveFoldCounts = { Apostle: 0, Prophet: 0, Evangelist: 0, Pastor: 0, Teacher: 0 };
+
+            usersSnap.forEach(d => {
+                const u = d.data();
+                if(u.role === 'root') {
+                    roots++;
+                    if(u.office && fiveFoldCounts[u.office] !== undefined) fiveFoldCounts[u.office]++;
+                }
+                if(u.role === 'branch') disciples++;
+                if(!u.isApproved || u.stageStatus === 'pending_admin_approval') pending++;
+            });
+
+            document.getElementById('stat-modules').innerText = modulesSnap.size;
+            document.getElementById('stat-roots').innerText = roots;
+            document.getElementById('stat-disciples').innerText = disciples;
+            document.getElementById('stat-pending').innerText = pending;
+
+            renderFiveFoldChart(fiveFoldCounts);
+        }
+
+        function renderFiveFoldChart(counts) {
+            const ctx = document.getElementById('fiveFoldChart').getContext('2d');
+            if (fiveFoldChartInstance) fiveFoldChartInstance.destroy();
+
+            fiveFoldChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Apostle', 'Prophet', 'Evangelist', 'Pastor', 'Teacher'],
+                    datasets: [{
+                        label: 'Registered Root Leaders',
+                        data: [counts.Apostle, counts.Prophet, counts.Evangelist, counts.Pastor, counts.Teacher],
+                        backgroundColor: ['#2563eb', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                }
+            });
+        }
+
+        async function loadApprovalsAdmin() {
+            const accountContainer = document.getElementById('branch-account-approvals-list');
+            const stageContainer = document.getElementById('stage-approvals-list');
+            const userContainer = document.getElementById('approvals-list');
+            
+            accountContainer.innerHTML = '';
+            stageContainer.innerHTML = '';
+            userContainer.innerHTML = '';
+
+            const qSnap = await getDocs(collection(db, "users"));
+            let pendingAccounts = 0, pendingStages = 0;
+
+            qSnap.forEach(docSnap => {
+                const u = docSnap.data();
+                const userId = docSnap.id;
+                if (u.role === 'admin') return;
+
+                if (u.isApproved === false) {
+                    pendingAccounts++;
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.style.borderLeft = '4px solid var(--warning)';
+                    card.style.display = 'flex';
+                    card.style.justifyContent = 'space-between';
+                    card.style.alignItems = 'center';
+                    card.style.flexWrap = 'wrap';
+                    card.style.gap = '1rem';
+                    card.innerHTML = `
+                        <div>
+                            <h4>${u.name} (${u.email})</h4>
+                            <p style="font-size:0.85rem; color:var(--text-muted);">Phone: ${u.phone} | Church: ${u.church}</p>
+                            <span class="badge badge-pending">New Registration - Pending Authorization</span>
+                        </div>
+                        <button class="btn btn-success btn-sm" onclick="approveBranchAccount('${userId}')"><i class="fa-solid fa-check"></i> Approve & Dispatch Credentials</button>
+                    `;
+                    accountContainer.appendChild(card);
+                }
+
+                if (u.stageStatus === 'pending_admin_approval') {
+                    pendingStages++;
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.style.borderLeft = '4px solid var(--primary)';
+                    card.style.display = 'flex';
+                    card.style.justifyContent = 'space-between';
+                    card.style.alignItems = 'center';
+                    card.style.flexWrap = 'wrap';
+                    card.style.gap = '1rem';
+                    card.innerHTML = `
+                        <div>
+                            <h4>${u.name}</h4>
+                            <p style="font-size:0.85rem; color:var(--text-muted);">Module: <strong>${u.lastCompletedTopic || 'Booklet Track'}</strong> (Order: ${u.pendingBookletOrder || 1})</p>
+                            <span class="badge badge-active">Root Approved - Needs Clearance</span>
+                        </div>
+                        <button class="btn btn-success btn-sm" onclick="declareUserCompletedByAdmin('${userId}', ${u.pendingBookletOrder || 1})"><i class="fa-solid fa-award"></i> Authorize Clearance & Unlock Next Booklet</button>
+                    `;
+                    stageContainer.appendChild(card);
+                }
+
+                const div = document.createElement('div');
+                div.className = 'card';
+                div.style.display = 'flex';
+                div.style.justifyContent = 'space-between';
+                div.style.alignItems = 'center';
+                div.style.flexWrap = 'wrap';
+                div.style.gap = '1rem';
+                div.innerHTML = `
+                    <div>
+                        <h4>${u.name} (${u.email})</h4>
+                        <p style="font-size:0.8rem; color:var(--text-muted);">Status: <strong>${u.status}</strong> | Approved: <strong>${u.isApproved ? 'Yes' : 'No'}</strong> | Completed Booklets: <strong>${(u.completedBookletOrders || []).length}</strong></p>
+                    </div>
+                    <div style="display:flex; gap:0.5rem;">
+                        ${u.status === 'suspended' ? `<button class="btn btn-success btn-sm" onclick="setUserStatus('${userId}', 'active')">Unsuspend</button>` : ''}
+                        ${u.status !== 'suspended' ? `<button class="btn btn-warning btn-sm" onclick="setUserStatus('${userId}', 'suspended')">Suspend</button>` : ''}
+                        <button class="btn btn-danger btn-sm" onclick="setUserStatus('${userId}', 'dropped')">Drop</button>
+                    </div>
+                `;
+                userContainer.appendChild(div);
+            });
+
+            if (pendingAccounts === 0) accountContainer.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">No pending branch account registrations.</p>`;
+            if (pendingStages === 0) stageContainer.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">No stage clearances waiting for admin authorization.</p>`;
+        }
+
+        window.approveBranchAccount = async function(userId) {
+            const userSnap = await getDoc(doc(db, "users", userId));
+            if (!userSnap.exists()) return;
+            const u = userSnap.data();
+
+            await updateDoc(doc(db, "users", userId), { isApproved: true, status: 'active' });
+
+            const waMsg = `Blessings ${u.name}, Your DisciplePath account has been APPROVED by Admin!\nEmail: ${u.email}\nPassword: ${u.tempPassword || 'Check with leader'}`;
+            window.open(`https://wa.me/${u.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(waMsg)}`, '_blank');
+
+            alert("Branch account approved & credentials dispatched!");
+            loadApprovalsAdmin();
+            loadAnalytics();
+        };
+
+        window.declareUserCompletedByAdmin = async function(userId, bookletOrder) {
+            const userSnap = await getDoc(doc(db, "users", userId));
+            if (!userSnap.exists()) return;
+            const uData = userSnap.data();
+
+            let existingOrders = uData.completedBookletOrders || [];
+            if (!existingOrders.includes(bookletOrder)) {
+                existingOrders.push(bookletOrder);
+            }
+
+            await updateDoc(doc(db, "users", userId), { 
+                isCompleted: true, 
+                stageStatus: 'completed', 
+                completedBookletOrders: existingOrders,
+                approvedAt: new Date() 
+            });
+
+            alert(`Booklet Order ${bookletOrder} Cleared! Next booklet unlocked.`);
+            loadApprovalsAdmin();
+            loadAnalytics();
+        };
+
+        window.setUserStatus = async function(id, status) {
+            await updateDoc(doc(db, "users", id), { status });
+            loadApprovalsAdmin();
+            loadAnalytics();
+        };
+
+        // MAP SYSTEM WITH INFINITE CONTINUOUS DRILL-DOWN
+        function initMap() {
+            if (!map) {
+                map = L.map('map').setView([0, 0], 2);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                rootMarkersGroup = L.layerGroup().addTo(map);
+                branchRingsGroup = L.layerGroup().addTo(map);
+            }
+            renderMapData();
+        }
+
+        window.resetMapView = function() {
+            if (branchRingsGroup) branchRingsGroup.clearLayers();
+            if (map) map.setView([0, 0], 2);
+        };
+
+        async function renderMapData() {
+            rootMarkersGroup.clearLayers();
+            branchRingsGroup.clearLayers();
+
+            const usersSnap = await getDocs(collection(db, "users"));
+            cachedAllUsers = [];
+            usersSnap.forEach(d => cachedAllUsers.push({ id: d.id, ...d.data() }));
+
+            const rootUsers = cachedAllUsers.filter(u => u.role === 'root');
+
+            rootUsers.forEach(root => {
+                if (!root.lat || !root.lng) return;
+
+                const rootIcon = L.divIcon({
+                    className: 'map-root-icon',
+                    html: `<i class="fa-solid fa-crown"></i>`,
+                    iconSize: [34, 34]
+                });
+
+                const rootMarker = L.marker([root.lat, root.lng], { icon: rootIcon }).addTo(rootMarkersGroup);
+                const directBranchesCount = cachedAllUsers.filter(u => u.parentId === root.id).length;
+
+                rootMarker.bindPopup(`
+                    <div style="font-size:0.875rem;">
+                        <strong>Root Leader:</strong> ${root.name}<br>
+                        <strong>Office:</strong> ${root.office}<br>
+                        <strong>Church:</strong> ${root.church}<br>
+                        <strong>Direct Branches:</strong> ${directBranchesCount}<br>
+                        <small style="color:var(--primary); font-weight:600;">Click marker to expand infinite sub-network!</small>
+                    </div>
+                `);
+
+                rootMarker.on('click', () => {
+                    branchRingsGroup.clearLayers();
+                    expandChildBranchesHighlight(root, 1, 0.04);
+                });
+            });
+        }
+
+        function expandChildBranchesHighlight(parentNode, tierLevel, radiusOffset) {
+            const childBranches = cachedAllUsers.filter(u => u.parentId === parentNode.id);
+            if (childBranches.length === 0) return;
+
+            const parentLat = parentNode.lat || 0;
+            const parentLng = parentNode.lng || 0;
+
+            L.circle([parentLat, parentLng], {
+                color: '#2563eb', fillColor: '#bfdbfe', fillOpacity: 0.2, radius: (radiusOffset * 111000)
+            }).addTo(branchRingsGroup);
+
+            childBranches.forEach((child, index) => {
+                const angle = (index / childBranches.length) * (2 * Math.PI);
+                const childLat = parentLat + (radiusOffset * Math.sin(angle));
+                const childLng = parentLng + (radiusOffset * Math.cos(angle));
+
+                child.lat = childLat;
+                child.lng = childLng;
+
+                let statusClass = 'map-branch-progress';
+                if (child.isCompleted) statusClass = 'map-branch-completed';
+
+                const branchIcon = L.divIcon({
+                    className: `map-branch-icon ${statusClass}`,
+                    html: `T${tierLevel}`,
+                    iconSize: [24, 24]
+                });
+
+                L.polyline([[parentLat, parentLng], [childLat, childLng]], { color: '#2563eb', weight: 3, opacity: 0.8 }).addTo(branchRingsGroup);
+
+                const childMarker = L.marker([childLat, childLng], { icon: branchIcon }).addTo(branchRingsGroup);
+                childMarker.bindPopup(`<strong>Tier ${tierLevel} Disciple:</strong> ${child.name}<br><strong>Church:</strong> ${child.church}`);
+
+                childMarker.on('click', () => {
+                    expandChildBranchesHighlight(child, tierLevel + 1, radiusOffset * 0.6);
+                });
+            });
+
+            map.setView([parentLat, parentLng], Math.min(9 + tierLevel, 16));
+        }
+
+        window.renderAllRootsAndBranchesOnMap = async function() {
+            branchRingsGroup.clearLayers();
+            const rootUsers = cachedAllUsers.filter(u => u.role === 'root');
+            rootUsers.forEach(root => {
+                if (root.lat && root.lng) projectRecursiveSubBranchesAll(root, 1, 0.05);
+            });
+            alert("Projected full multi-tiered branch network!");
+        };
+
+        function projectRecursiveSubBranchesAll(parentNode, tierLevel, radiusOffset) {
+            const childBranches = cachedAllUsers.filter(u => u.parentId === parentNode.id);
+            if (childBranches.length === 0) return;
+
+            const parentLat = parentNode.lat || 0;
+            const parentLng = parentNode.lng || 0;
+
+            childBranches.forEach((child, index) => {
+                const angle = (index / childBranches.length) * (2 * Math.PI);
+                const childLat = parentLat + (radiusOffset * Math.sin(angle));
+                const childLng = parentLng + (radiusOffset * Math.cos(angle));
+
+                child.lat = childLat;
+                child.lng = childLng;
+
+                let statusClass = 'map-branch-progress';
+                if (child.isCompleted) statusClass = 'map-branch-completed';
+
+                const branchIcon = L.divIcon({
+                    className: `map-branch-icon ${statusClass}`, html: `T${tierLevel}`, iconSize: [20, 20]
+                });
+
+                L.polyline([[parentLat, parentLng], [childLat, childLng]], { color: tierLevel === 1 ? '#2563eb' : '#10b981', weight: 2, dashArray: '4, 4' }).addTo(branchRingsGroup);
+
+                const childMarker = L.marker([childLat, childLng], { icon: branchIcon }).addTo(branchRingsGroup);
+                childMarker.bindPopup(`<strong>Tier ${tierLevel}:</strong> ${child.name}`);
+
+                projectRecursiveSubBranchesAll(child, tierLevel + 1, radiusOffset * 0.55);
+            });
+        }
+
+        async function setupDiscipleDashboard() {
+            document.getElementById('user-profile-details').innerHTML = `
+                <p style="margin-bottom:0.5rem;"><strong>Name:</strong> ${currentUserData.name || 'N/A'}</p>
+                <p style="margin-bottom:0.5rem;"><strong>Email:</strong> ${currentUserData.email || 'N/A'}</p>
+                <p style="margin-bottom:0.5rem;"><strong>Church:</strong> ${currentUserData.church || 'N/A'}</p>
+                <p style="margin-bottom:0.5rem;"><strong>Stage Authorization:</strong> ${currentUserData.isCompleted ? '<span class="badge badge-completed">COMPLETED</span>' : '<span class="badge badge-pending">IN PROGRESS</span>'}</p>
+            `;
+
+            const canAccessBranchMenu = (currentUserData.role === 'root') || (currentUserData.isApproved === true && currentUserData.isCompleted === true);
+
+            if (canAccessBranchMenu) {
+                document.getElementById('menu-my-disciples').classList.remove('hidden');
+            } else {
+                document.getElementById('menu-my-disciples').classList.add('hidden');
+                document.getElementById('disciple-tab-my-disciples').classList.add('hidden');
+            }
+
+            loadDiscipleModules();
+        }
+
+        // LOAD SEQUENTIAL BOOKLET MODULES
+        async function loadDiscipleModules() {
+            const container = document.getElementById('disciple-modules-list');
+            container.innerHTML = '';
+            
+            const qSnap = await getDocs(collection(db, "modules"));
+            let modules = [];
+            qSnap.forEach(d => modules.push({ id: d.id, ...d.data() }));
+            modules.sort((a,b) => (a.order || 1) - (b.order || 1));
+
+            const userCompletedOrders = currentUserData.completedBookletOrders || [];
+
+            modules.forEach((m, idx) => {
+                const bookletOrder = m.order || (idx + 1);
+                
+                let isUnlocked = false;
+                if (bookletOrder === 1) {
+                    isUnlocked = true;
+                } else {
+                    const priorOrderNeeded = bookletOrder - 1;
+                    if (userCompletedOrders.includes(priorOrderNeeded) || currentUserData.role === 'root') {
+                        isUnlocked = true;
+                    }
+                }
+
+                const isAlreadyFinished = userCompletedOrders.includes(bookletOrder);
+
+                const card = document.createElement('div');
+                card.className = `card ${isUnlocked ? 'card-interactive' : ''}`;
+                card.style.display = 'flex';
+                card.style.justifyContent = 'space-between';
+                card.style.alignItems = 'center';
+                card.style.flexWrap = 'wrap';
+                card.style.gap = '1rem';
+                if (!isUnlocked) card.style.opacity = '0.65';
+
+                card.innerHTML = `
+                    <div>
+                        <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
+                            <span class="badge ${isAlreadyFinished ? 'badge-completed' : (isUnlocked ? 'badge-active' : 'badge-locked')}">
+                                ${isAlreadyFinished ? 'FINISHED' : (isUnlocked ? 'UNLOCKED' : 'LOCKED')}
+                            </span>
+                            <strong style="font-size:0.9rem;">Booklet Stage ${bookletOrder}</strong>
+                        </div>
+                        <h4>${m.topic}</h4>
+                        <p style="font-size:0.85rem; color:var(--text-muted);">${m.subtopic}</p>
+                    </div>
+                    <div>
+                        ${isUnlocked ? 
+                            `<button class="btn btn-primary btn-sm" onclick="openModuleBooklet('${m.id}')"><i class="fa-solid fa-book-open"></i> ${isAlreadyFinished ? 'Revisit Booklet' : 'Launch Booklet'}</button>` :
+                            `<button class="btn btn-outline btn-sm" disabled><i class="fa-solid fa-lock"></i> Locked (Complete Booklet ${bookletOrder - 1} First)</button>`
+                        }
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // OPEN BOOKLET & STRICT ANTI-SCRUBBING ENGINE
+        window.openModuleBooklet = async function(moduleId) {
+            const docSnap = await getDoc(doc(db, "modules", moduleId));
+            if(!docSnap.exists()) return;
+
+            const m = docSnap.data();
+            const bookletOrder = m.order || 1;
+            const viewer = document.getElementById('module-viewer-content');
+
+            requiredVideoIds = [];
+            watchedVideoIds.clear();
+            videoMaxWatchedTime = {};
+            ytPlayers = {};
+            
+            Object.values(videoWatchPollers).forEach(p => clearInterval(p));
+            videoWatchPollers = {};
+
+            timerCompleted = false;
+
+            let videosHTML = '';
+            m.videos.forEach((v, index) => {
+                const videoId = extractYouTubeId(v);
+                if (videoId) {
+                    requiredVideoIds.push(videoId);
+                    videoMaxWatchedTime[videoId] = 0;
+                }
+
+                const formattedUrl = convertToEmbedUrl(v);
+                videosHTML += `
+                    <div style="margin-bottom:1.75rem;">
+                        <div class="video-player-container">
+                            <div class="scrub-warning-toast" id="toast-scrub-${index}">
+                                <i class="fa-solid fa-shield-halved"></i> Fast-Forwarding Blocked! Player reset to highest continuous timestamp.
+                            </div>
+                            <div class="video-player-frame">
+                                <iframe id="yt-player-${index}" src="${formattedUrl}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+                            <span style="font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-shield-cat"></i> Fast-Forward / End-Dragging Lock Active</span>
+                            <span id="video-status-${index}" style="font-size:0.8rem; font-weight:700; color:var(--danger);">
+                                <i class="fa-solid fa-circle-exclamation"></i> Must watch video completely from start to end
+                            </span>
+                        </div>
+                    </div>`;
+            });
+
+            viewer.innerHTML = `
+                <div class="booklet-cover">
+                    <span class="badge badge-active" style="margin-bottom:0.75rem; background:rgba(255,255,255,0.2); color:white;">Booklet Order ${bookletOrder}</span>
+                    <h1>${m.topic}</h1>
+                    <h3>${m.subtopic}</h3>
+                    <div class="booklet-meta">
+                        <span><i class="fa-solid fa-clock"></i> Lock Duration: ${m.duration}s</span>
+                        <span><i class="fa-solid fa-video"></i> ${m.videos.length} Embedded Lesson Videos</span>
+                    </div>
+                </div>
+
+                <div style="padding: 1.25rem 0; font-size:1.025rem; line-height:1.8; color:var(--text-dark);">${m.content}</div>
+
+                ${m.videos.length > 0 ? `<h3 style="margin: 2rem 0 1rem;"><i class="fa-solid fa-circle-play" style="color:var(--primary);"></i> Lesson Video Materials</h3>` : ''}
+                ${videosHTML}
+
+                <div style="margin-top:2.5rem; padding:1.75rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); text-align:center; box-shadow:var(--shadow-sm);">
+                    <h4 style="margin-bottom:0.5rem;">Booklet Stage Completion Requirements</h4>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">All required reading materials and videos in this booklet must be 100% completed.</p>
+                    
+                    <div id="timer-badge" style="font-size:1.2rem; font-weight:800; color:var(--danger); margin:0.5rem 0;">${m.duration} Seconds Reading Lock Remaining</div>
+                    <div id="video-completion-badge" style="font-size:0.9rem; font-weight:700; color:var(--danger); margin-bottom:1.25rem;">
+                        Videos Completed: 0 / ${requiredVideoIds.length}
+                    </div>
+
+                    <button id="btn-next-stage" class="btn btn-primary" disabled onclick="completeStage('${moduleId}', '${m.topic.replace(/'/g, "\\'")}', ${bookletOrder})">
+                        <i class="fa-solid fa-check-double"></i> Submit Booklet Stage for Approval
+                    </button>
+                </div>
+            `;
+
+            initYouTubeIframePlayers(m.videos);
+
+            let timeLeft = m.duration;
+            if(studyTimerInterval) clearInterval(studyTimerInterval);
+
+            studyTimerInterval = setInterval(() => {
+                timeLeft--;
+                const timerElem = document.getElementById('timer-badge');
+                if (timerElem) timerElem.innerText = `${timeLeft} Seconds Reading Lock Remaining`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(studyTimerInterval);
+                    timerCompleted = true;
+                    if (timerElem) {
+                        timerElem.innerText = "Mandatory Reading Duration Satisfied!";
+                        timerElem.style.color = "var(--success)";
+                    }
+                    checkAndEnableStageCompletion();
+                }
+            }, 1000);
+        };
+
+        // YOUTUBE iframe ANTI-FORWARDING & END-DRAGGING PREVENTION
+        function initYouTubeIframePlayers(videoUrls) {
+            videoUrls.forEach((v, index) => {
+                const videoId = extractYouTubeId(v);
+                if (!videoId) return;
+
+                ytPlayers[videoId] = new YT.Player(`yt-player-${index}`, {
+                    events: {
+                        'onStateChange': (event) => handlePlayerStateChange(event, videoId, index)
+                    }
+                });
+            });
+        }
+
+        function handlePlayerStateChange(event, videoId, index) {
+            const player = ytPlayers[videoId];
+            if (!player || typeof player.getDuration !== 'function') return;
+
+            const duration = player.getDuration();
+
+            if (event.data === 1) {
+                if (!videoWatchPollers[videoId]) {
+                    videoWatchPollers[videoId] = setInterval(() => {
+                        const currentTime = player.getCurrentTime();
+                        const maxWatched = videoMaxWatchedTime[videoId] || 0;
+
+                        if (currentTime - maxWatched > 1.5) {
+                            player.seekTo(maxWatched, true);
+                            showScrubWarningToast(index);
+                        } else {
+                            if (currentTime > maxWatched) {
+                                videoMaxWatchedTime[videoId] = currentTime;
+                            }
+                        }
+                    }, 500);
+                }
+            } 
+            else if (event.data === 0) {
+                if (videoWatchPollers[videoId]) {
+                    clearInterval(videoWatchPollers[videoId]);
+                    delete videoWatchPollers[videoId];
+                }
+
+                const maxWatched = videoMaxWatchedTime[videoId] || 0;
+                if (maxWatched >= duration - 2.5) {
+                    watchedVideoIds.add(videoId);
+                    const statusElem = document.getElementById(`video-status-${index}`);
+                    if (statusElem) {
+                        statusElem.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--success);"></i> Video Playback Fully Verified!`;
+                        statusElem.style.color = "var(--success)";
+                    }
+                    updateVideoProgressBadge();
+                    checkAndEnableStageCompletion();
+                } else {
+                    player.seekTo(maxWatched, true);
+                    showScrubWarningToast(index);
+                }
+            } 
+            else {
+                if (videoWatchPollers[videoId]) {
+                    clearInterval(videoWatchPollers[videoId]);
+                    delete videoWatchPollers[videoId];
+                }
+            }
+        }
+
+        function showScrubWarningToast(index) {
+            const toast = document.getElementById(`toast-scrub-${index}`);
+            if (toast) {
+                toast.style.display = 'block';
+                setTimeout(() => { toast.style.display = 'none'; }, 3000);
+            }
+        }
+
+        function updateVideoProgressBadge() {
+            const badge = document.getElementById('video-completion-badge');
+            if (badge) {
+                badge.innerText = `Videos Completed: ${watchedVideoIds.size} / ${requiredVideoIds.length}`;
+                if (watchedVideoIds.size === requiredVideoIds.length) {
+                    badge.style.color = "var(--success)";
+                }
+            }
+        }
+
+        function checkAndEnableStageCompletion() {
+            const allVideosDone = watchedVideoIds.size === requiredVideoIds.length;
+            const btn = document.getElementById('btn-next-stage');
+
+            if (timerCompleted && allVideosDone) {
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        // SUBMIT STAGE FOR APPROVAL
+        window.completeStage = async function(moduleId, topicTitle, bookletOrder) {
+            if (!currentUserData) return;
+
+            try {
+                await updateDoc(doc(db, "users", currentUserData.id), {
+                    stageStatus: 'pending_root_approval',
+                    lastCompletedTopic: topicTitle,
+                    pendingBookletOrder: bookletOrder,
+                    submittedAt: new Date()
+                });
+
+                alert("Stage Completion Submitted! Your leader must approve this stage before final clearance.");
+                switchDiscipleTab('progress');
+            } catch (err) {
+                alert("Error submitting stage completion: " + err.message);
+            }
+        };
+
+        // DISCIPLE PROGRESS TRACKER
+        function loadDiscipleProgress() {
+            const summaryContainer = document.getElementById('user-progress-summary');
+            if (!currentUserData) return;
+
+            const u = currentUserData;
+            let statusBadge = '<span class="badge badge-pending">In Progress</span>';
+            if (u.stageStatus === 'pending_root_approval') statusBadge = '<span class="badge badge-warning">Awaiting Leader Approval</span>';
+            if (u.stageStatus === 'pending_admin_approval') statusBadge = '<span class="badge badge-active">Awaiting Admin Clearance</span>';
+            if (u.stageStatus === 'completed') statusBadge = '<span class="badge badge-completed">Stage Cleared</span>';
+
+            summaryContainer.innerHTML = `
+                <div class="card" style="border-left: 5px solid var(--primary);">
+                    <h4>Current Account Status: ${statusBadge}</h4>
+                    <p style="margin-top:0.5rem; font-size:0.9rem;">
+                        <strong>Completed Booklet Tracks:</strong> ${(u.completedBookletOrders || []).length}<br>
+                        <strong>Last Topic Submitted:</strong> ${u.lastCompletedTopic || 'None'}<br>
+                        <strong>Network Node Access:</strong> ${u.isApproved ? 'Authorized' : 'Pending Authorization'}
+                    </p>
+                </div>
+            `;
+        }
+
+        // REGISTER BRANCH DISCIPLE (FOR ROOT & APPROVED COMPLETED DISCIPLES)
+        document.getElementById('branch-register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!currentUserData) return;
+            const canRegister = (currentUserData.role === 'root') || (currentUserData.isApproved === true && currentUserData.isCompleted === true);
+
+            if (!canRegister) {
+                return alert("Access Denied: You cannot register branch disciples until your account is approved by Admin.");
+            }
+
+            const autoPassword = "DP-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+            const email = document.getElementById('branch-email').value.trim();
+            const name = document.getElementById('branch-name').value;
+            const phone = document.getElementById('branch-phone').value;
+            const church = document.getElementById('branch-church').value;
+
+            try {
+                const userCred = await createUserWithEmailAndPassword(secondaryAuth, email, autoPassword);
+                const uid = userCred.user.uid;
+
+                await setDoc(doc(db, "users", uid), {
+                    name, email, phone, church,
+                    parentId: currentUserData.id,
+                    rootLeaderId: currentUserData.role === 'root' ? currentUserData.id : (currentUserData.rootLeaderId || currentUserData.id),
+                    role: 'branch',
+                    status: 'active',
+                    isApproved: false, 
+                    isCompleted: false,
+                    stageStatus: 'in_progress',
+                    completedBookletOrders: [],
+                    tempPassword: autoPassword,
+                    createdAt: new Date()
+                });
+
+                alert("Branch Disciple Account Created! It is pending Admin Approval before login dispatch.");
+                document.getElementById('branch-register-form').reset();
+                loadMyDisciples();
+            } catch (err) {
+                alert("Branch Registration Error: " + err.message);
+            }
+        });
+
+        // LOAD DOWNSTREAM NETWORK
+        async function loadMyDisciples() {
+            if (!currentUserData) return;
+
+            const approvalsContainer = document.getElementById('branch-stage-approvals-by-root');
+            const listContainer = document.getElementById('branch-disciples-list');
+            approvalsContainer.innerHTML = '';
+            listContainer.innerHTML = '';
+
+            const qSnap = await getDocs(query(collection(db, "users"), where("parentId", "==", currentUserData.id)));
+            let countCompleted = 0, countActive = 0, countDropped = 0, countSuspended = 0;
+
+            qSnap.forEach(docSnap => {
+                const u = docSnap.data();
+                const branchId = docSnap.id;
+
+                if (u.status === 'active') countActive++;
+                if (u.status === 'dropped') countDropped++;
+                if (u.status === 'suspended') countSuspended++;
+                if (u.isCompleted) countCompleted++;
+
+                if (u.stageStatus === 'pending_root_approval') {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.style.borderLeft = '4px solid var(--warning)';
+                    card.style.display = 'flex';
+                    card.style.justifyContent = 'space-between';
+                    card.style.alignItems = 'center';
+                    card.style.flexWrap = 'wrap';
+                    card.style.gap = '1rem';
+
+                    card.innerHTML = `
+                        <div>
+                            <h4>${u.name}</h4>
+                            <p style="font-size:0.85rem; color:var(--text-muted);">Submitted Stage: <strong>${u.lastCompletedTopic || 'Booklet Track'}</strong> (Order: ${u.pendingBookletOrder || 1})</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="approveDiscipleStageByRoot('${branchId}')">
+                            <i class="fa-solid fa-check"></i> Approve & Forward to Admin Clearance
+                        </button>
+                    `;
+                    approvalsContainer.appendChild(card);
+                }
+
+                const item = document.createElement('div');
+                item.className = 'card';
+                item.style.display = 'flex';
+                item.style.justifyContent = 'space-between';
+                item.style.alignItems = 'center';
+                item.style.flexWrap = 'wrap';
+                item.style.gap = '1rem';
+                item.innerHTML = `
+                    <div>
+                        <h4>${u.name} (${u.email})</h4>
+                        <p style="font-size:0.8rem; color:var(--text-muted);">Church: ${u.church} | Phone: ${u.phone} | Completed Booklets: ${(u.completedBookletOrders || []).length}</p>
+                    </div>
+                    <div>
+                        <span class="badge ${u.isApproved ? 'badge-completed' : 'badge-pending'}">${u.isApproved ? 'Authorized' : 'Pending Admin Approval'}</span>
+                    </div>
+                `;
+                listContainer.appendChild(item);
+            });
+
+            document.getElementById('cnt-completed').innerText = countCompleted;
+            document.getElementById('cnt-active').innerText = countActive;
+            document.getElementById('cnt-dropped').innerText = countDropped;
+            document.getElementById('cnt-suspended').innerText = countSuspended;
+
+            if (approvalsContainer.children.length === 0) {
+                approvalsContainer.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">No stage approvals pending your review.</p>`;
+            }
+        }
+
+        window.approveDiscipleStageByRoot = async function(branchId) {
+            await updateDoc(doc(db, "users", branchId), {
+                stageStatus: 'pending_admin_approval'
+            });
+            alert("Stage approved! Forwarded to Global Admin for final clearance & next booklet unlock.");
+            loadMyDisciples();
+        };
+
+        // EXPORT DOWNSTREAM NETWORK TO CSV
+        window.exportMyFullDownstreamBranchNetworkCSV = async function() {
+            if (!currentUserData) return;
+
+            const qSnap = await getDocs(collection(db, "users"));
+            let allUsers = [];
+            qSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
+
+            let downstream = [];
+            function collectDownstream(parentId) {
+                const children = allUsers.filter(u => u.parentId === parentId);
+                children.forEach(c => {
+                    downstream.push(c);
+                    collectDownstream(c.id);
+                });
+            }
+
+            collectDownstream(currentUserData.id);
+
+            if (downstream.length === 0) return alert("No downstream disciples found to export.");
+
+            let csvRows = ["ID,Name,Email,Phone,Church,Role,Status,IsApproved,CompletedBookletsCount"];
+            downstream.forEach(u => {
+                csvRows.push(`"${u.id}","${u.name}","${u.email}","${u.phone}","${u.church}","${u.role}","${u.status}",${u.isApproved},${(u.completedBookletOrders || []).length}`);
+            });
+
+            const blob = new Blob([csvRows.join("\n")], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', `Discipleship_Network_${currentUserData.name.replace(/\s+/g, '_')}.csv`);
+            a.click();
+        };
+
+        // PROFILE PASSWORD CHANGE
+        document.getElementById('change-pass-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currPass = document.getElementById('current-password').value;
+            const newPass = document.getElementById('new-password').value;
+            const user = auth.currentUser;
+
+            if (!user) return;
+
+            try {
+                const cred = EmailAuthProvider.credential(user.email, currPass);
+                await reauthenticateWithCredential(user, cred);
+                await updatePassword(user, newPass);
+                alert("Security Password Successfully Updated!");
+                document.getElementById('change-pass-form').reset();
+            } catch (err) {
+                alert("Password Update Failed: " + err.message);
+            }
+        });
+    </script>
+</body>
+</html>
