@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Discipleship Platform</title>
+    <title>Global Discipleship Platform - Knowledge of the Kingdom of Heaven</title>
 
     <!-- Google Fonts & Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <!-- Quill Editor, Leaflet Map, Chart.js & jsPDF for Signed Transcripts/Certificates -->
@@ -21,7 +21,7 @@
             --primary-dark: #1d4ed8;
             --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
             --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            --hero-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+            --hero-bg: linear-gradient(135deg, #080c14 0%, #0f172a 50%, #1e3a8a 100%);
             --bg-light: #f8fafc;
             --surface: #ffffff;
             --surface-glass: rgba(255, 255, 255, 0.85);
@@ -31,24 +31,25 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
             --sidebar-width: 270px;
             --radius: 12px;
             --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
             --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
             --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-            --diagram-bg: #f1f5f9;
+            --shadow-gold: 0 10px 30px -10px rgba(212, 175, 55, 0.3);
         }
 
         /* Dark Mode Theme Overrides */
         body.dark-theme {
-            --bg-light: #090d16;
+            --bg-light: #080c14;
             --surface: #111827;
             --surface-glass: rgba(17, 24, 39, 0.85);
             --text-dark: #f3f4f6;
             --text-muted: #9ca3af;
             --border: #1f2937;
-            --hero-bg: linear-gradient(135deg, #030712 0%, #0f172a 50%, #1e1b4b 100%);
-            --diagram-bg: #1e293b;
+            --hero-bg: linear-gradient(135deg, #030712 0%, #080c14 50%, #1e1b4b 100%);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
@@ -72,17 +73,17 @@
         }
 
         .nav-left { display: flex; align-items: center; gap: 1rem; }
-        .logo { font-weight: 800; font-size: 1.25rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; letter-spacing: -0.5px; }
-        .logo i { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.4rem; }
+        .logo { font-family: 'Cinzel', serif; font-weight: 800; font-size: 1.2rem; color: var(--gold); display: flex; align-items: center; gap: 0.5rem; letter-spacing: -0.5px; text-decoration: none; }
+        .logo i { color: var(--gold); font-size: 1.3rem; }
         
         .user-indicator {
             font-size: 0.85rem;
             font-weight: 500;
-            background: rgba(37, 99, 235, 0.1);
-            color: var(--primary);
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
             padding: 0.4rem 0.8rem;
             border-radius: 30px;
-            border: 1px solid rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -94,6 +95,8 @@
         .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
         .btn-primary { background: var(--primary-gradient); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); }
         .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35); }
+        .btn-gold { background: linear-gradient(135deg, var(--gold) 0%, #aa7c11 100%); color: #000; font-weight: 700; box-shadow: var(--shadow-gold); }
+        .btn-gold:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 25px -5px rgba(212, 175, 55, 0.5); }
         .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text-dark); }
         .btn-outline:hover:not(:disabled) { background: rgba(255, 255, 255, 0.05); border-color: var(--primary); }
         .btn-danger { background: var(--danger); color: white; }
@@ -122,8 +125,8 @@
         .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; word-wrap: break-word; }
         .card-interactive:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
-        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
 
         /* Dashboard & Sidebar Layout */
         .dashboard-layout { display: flex; gap: 1.5rem; min-height: 85vh; position: relative; }
@@ -154,20 +157,27 @@
         .hero-section {
             background: var(--hero-bg);
             color: white;
-            padding: 4rem 1.25rem 3.5rem;
-            border-radius: 0 0 1.5rem 1.5rem;
+            padding: 5rem 1.25rem 4rem;
+            border-radius: 0 0 2rem 2rem;
             text-align: center;
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-lg);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
         }
-        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
-        .hero-subtitle { max-width: 760px; margin: 0 auto 1.75rem; font-size: clamp(0.95rem, 2vw, 1.15rem); color: #cbd5e1; font-weight: 300; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1.2rem;
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); border-radius: 30px;
+            color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 1.5px;
+            text-transform: uppercase; margin-bottom: 1.5rem;
+        }
+        .hero-title { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.2; background: linear-gradient(135deg, #ffffff 0%, var(--gold-light) 50%, var(--gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-subtitle { max-width: 800px; margin: 0 auto 2rem; font-size: clamp(1rem, 2vw, 1.2rem); color: #cbd5e1; font-family: 'Playfair Display', serif; font-style: italic; }
 
         /* Scripture Card */
         .scripture-card {
             background: var(--surface);
-            border-left: 5px solid var(--warning);
+            border-left: 5px solid var(--gold);
             padding: 1.5rem;
             border-radius: 0 var(--radius) var(--radius) 0;
             box-shadow: var(--shadow-sm);
@@ -177,44 +187,60 @@
             border-bottom: 1px solid var(--border);
         }
         .scripture-text { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--text-dark); line-height: 1.7; font-style: italic; }
-        .scripture-ref { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--warning); margin-top: 0.75rem; display: block; font-style: normal; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .scripture-ref { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--gold); margin-top: 0.75rem; display: block; font-style: normal; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Discipleship Framework Diagram Styles */
-        .framework-card {
+        /* TREE PICTORIAL FRAMEWORK STYLES */
+        .tree-framework-wrapper {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 2rem 1.5rem;
-            margin: 2.5rem 0;
+            padding: 2.5rem 1.5rem;
+            margin: 3rem 0;
             box-shadow: var(--shadow-lg);
         }
 
-        .diagram-container {
-            width: 100%;
-            overflow-x: auto;
-            padding: 1rem 0;
-            display: flex;
-            justify-content: center;
+        .tree-root-container {
+            text-align: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 2.5rem;
+            border-bottom: 5px solid var(--gold);
+            box-shadow: var(--shadow-md);
         }
 
-        .framework-img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: var(--shadow-md);
-            display: block;
+        .phase-connector {
+            width: 4px;
+            height: 40px;
+            background: var(--gold);
             margin: 0 auto;
+            position: relative;
         }
+
+        .phase-card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+        .phase-card:hover { transform: translateY(-3px); border-color: var(--gold); }
+        .phase-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; font-size: 1.25rem; }
+        .phase-outcome { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border); font-size: 0.875rem; font-weight: 600; color: var(--success); display: flex; align-items: center; gap: 0.5rem; }
 
         /* Booklet Cover */
         .booklet-cover {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: white; border-radius: var(--radius); padding: 2.5rem 1.5rem;
             text-align: center; margin-bottom: 1.75rem; position: relative;
-            border-top: 6px solid var(--primary);
+            border-top: 6px solid var(--gold);
             box-shadow: var(--shadow-lg);
         }
-        .booklet-cover h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.5rem); margin-bottom: 0.5rem; }
+        .booklet-cover h1 { font-family: 'Cinzel', serif; font-size: clamp(1.6rem, 4vw, 2.5rem); margin-bottom: 0.5rem; }
         .booklet-cover h3 { color: #94a3b8; font-weight: 400; margin-bottom: 1.5rem; font-style: italic; font-size: 1rem; }
         .booklet-meta { display: flex; justify-content: center; gap: 1.5rem; font-size: 0.85rem; color: #cbd5e1; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; flex-wrap: wrap; }
 
@@ -265,7 +291,6 @@
             nav { padding: 0.75rem 1rem; }
             .user-indicator { font-size: 0.75rem; padding: 0.3rem 0.6rem; }
             #map { height: 380px; }
-            .framework-card { padding: 1.25rem 0.75rem; }
         }
     </style>
 </head>
@@ -275,7 +300,7 @@
     <nav>
         <div class="nav-left">
             <button class="btn btn-outline btn-sm" id="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
-            <div class="logo"><i class="fa-solid fa-cross"></i> DisciplePath</div>
+            <a href="#" class="logo"><i class="fa-solid fa-crown"></i> DisciplePath</a>
         </div>
 
         <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -286,84 +311,229 @@
                 <i class="fa-solid fa-circle-user"></i> <span id="user-display-text">Not Logged In</span>
             </div>
             <div id="nav-actions">
-                <button class="btn btn-primary btn-sm" onclick="showView('login-view')"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>
+                <button class="btn btn-gold btn-sm" onclick="showView('login-view')"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>
             </div>
         </div>
     </nav>
 
-    <!-- LANDING VIEW WITH SCRIPTURES & FRAMEWORK DIAGRAM -->
+    <!-- LANDING VIEW COVERING THE ENTIRE MESSAGE OF THE KINGDOM & TREE PICTORIAL FRAMEWORK -->
     <div id="landing-view" class="view-section">
         <div class="hero-section">
-            <h1 class="hero-title">Global Five-Fold Discipleship Platform</h1>
-            <p class="hero-subtitle">Equipping Apostles, Prophets, Evangelists, Pastors, and Teachers to build, track, and deploy structured multi-tiered discipleship networks across nations.</p>
+            <div class="hero-badge"><i class="fa-solid fa-scroll"></i> The Eternal Gospel Framework</div>
+            <h1 class="hero-title">The Knowledge of the Kingdom of Heaven</h1>
+            <p class="hero-subtitle">
+                "And this gospel of the kingdom shall be preached in all the world for a witness unto all nations; and then shall the end come." — Matthew 24:14
+            </p>
             <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                <button class="btn btn-primary" onclick="showView('login-view')"><i class="fa-solid fa-right-to-bracket"></i> Access Ministry Portal</button>
-                <a href="#framework-section" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);"><i class="fa-solid fa-sitemap"></i> Explore Discipleship Framework</a>
-                <a href="#scripture-section" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);"><i class="fa-solid fa-bible"></i> Scripture Basis</a>
+                <button class="btn btn-gold" onclick="showView('login-view')"><i class="fa-solid fa-right-to-bracket"></i> Access Ministry Portal</button>
+                <a href="#tree-framework-section" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);"><i class="fa-solid fa-tree"></i> Explore Tree Pictorial Framework</a>
+                <a href="#redemptive-narrative" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);"><i class="fa-solid fa-book-bible"></i> The 15 Kingdom Stages</a>
             </div>
         </div>
 
         <div class="container">
             
-            <!-- DETAILED DISCIPLESHIP FRAMEWORK PLATFORM DIAGRAM -->
-            <div id="framework-section" class="framework-card">
-                <div style="text-align: center; margin-bottom: 1.5rem;">
-                    <span class="badge badge-active" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-diagram-project"></i> Core Blueprint</span>
-                    <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--text-dark);">Detailed Discipleship Framework Platform</h2>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 720px; margin: 0.5rem auto 0;">
-                        From the revelation of Christ to corporate maturity—a structured pathway for personal transformation, priesthood, kingdom stewardship, and exponential disciple-making.
+            <!-- TREE PICTORIAL FRAMEWORK SECTION -->
+            <div id="tree-framework-section" class="tree-framework-wrapper">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <span class="badge badge-active" style="margin-bottom: 0.5rem; background: rgba(212, 175, 55, 0.15); color: var(--gold); border: 1px solid var(--gold);"><i class="fa-solid fa-tree"></i> Pictorial Framework Blueprint</span>
+                    <h2 style="font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--text-dark);">The Four-Phase Kingdom Tree Framework</h2>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 760px; margin: 0.5rem auto 0;">
+                        Rooted in divine creation and redemption, growing through progressive discipleship and vocational specialization, and bearing fruit in global multiplication.
                     </p>
                 </div>
 
-                <div class="diagram-container">
-                    <img src="disc.png" alt="Detailed Discipleship Framework Platform Blueprint" class="framework-img" />
-                </div>
-            </div>
-
-            <!-- SCRIPTURAL FOUNDATIONS -->
-            <div id="scripture-section" style="margin-top: 2.5rem;">
-                <h2 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-scroll" style="color: var(--primary);"></i> Scriptural Foundations</h2>
-                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem; font-size:0.9rem;">The biblical directive governing our multi-tiered discipleship framework.</p>
-
-                <div class="scripture-card">
-                    <p class="scripture-text">
-                        "And he gave some, apostles; and some, prophets; and some, evangelists; and some, pastors and teachers; For the perfecting of the saints, for the work of the ministry, for the edifying of the body of Christ: Till we all come in the unity of the faith, and of the knowledge of the Son of God, unto a perfect man, unto the measure of the stature of the fulness of Christ."
+                <!-- TREE ROOT / BASE -->
+                <div class="tree-root-container">
+                    <i class="fa-solid fa-seedling" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 0.75rem;"></i>
+                    <h3 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.4rem;">The Eternal Root: Christ the Cornerstone</h3>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; max-width: 650px; margin: 0.5rem auto 0; font-style: italic;">
+                        "For other foundation can no man lay than that is laid, which is Jesus Christ." — 1 Corinthians 3:11
                     </p>
-                    <span class="scripture-ref">— Ephesians 4:11-13 (KJV)</span>
                 </div>
 
-                <div class="grid-2">
-                    <div class="scripture-card">
-                        <p class="scripture-text">
-                            "And the things that thou hast heard of me among many witnesses, the same commit thou to faithful men, who shall be able to teach others also."
-                        </p>
-                        <span class="scripture-ref">— 2 Timothy 2:2 (KJV)</span>
-                    </div>
+                <div class="phase-connector"></div>
 
-                    <div class="scripture-card">
-                        <p class="scripture-text">
-                            "Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost: Teaching them to observe all things whatsoever I have commanded you: and, lo, I am with you alway, even unto the end of the world. Amen."
-                        </p>
-                        <span class="scripture-ref">— Matthew 28:19-20 (KJV)</span>
+                <!-- PHASE 1: FOUNDATION -->
+                <div class="phase-card">
+                    <span class="stage-number" style="position: absolute; top: 1.5rem; right: 1.5rem; font-family:'Cinzel'; color:var(--gold); font-weight:700;">PHASE 01</span>
+                    <h3><i class="fa-solid fa-mountain" style="color: var(--gold);"></i> Phase 1: Foundation</h3>
+                    <p class="card-text" style="margin-bottom: 1rem;">
+                        <strong>Focus:</strong> Stage 1 (Kingdom Story, Repentance, Gospel, Salvation, and Citizenship).
+                    </p>
+                    <div class="scripture-quote">
+                        "The time is fulfilled, and the kingdom of God is at hand: repent ye, and believe the gospel." — Mark 1:15
+                    </div>
+                    <p class="card-text">
+                        Establishing the foundational truths of creation, the fall, the kingdom promise, and personal regeneration. Believers awaken to their new spiritual identity under heaven's government.
+                    </p>
+                    <div class="phase-outcome">
+                        <i class="fa-solid fa-circle-check"></i> Outcome: Re-centered personal worldview and validated citizenship experience.
+                    </div>
+                </div>
+
+                <div class="phase-connector"></div>
+
+                <!-- PHASE 2: CONFORMATION -->
+                <div class="phase-card">
+                    <span class="stage-number" style="position: absolute; top: 1.5rem; right: 1.5rem; font-family:'Cinzel'; color:var(--gold); font-weight:700;">PHASE 02</span>
+                    <h3><i class="fa-solid fa-shield-halved" style="color: var(--gold);"></i> Phase 2: Conformation</h3>
+                    <p class="card-text" style="margin-bottom: 1rem;">
+                        <strong>Focus:</strong> Stage 2 (Progressive Discipleship: Character, Mind, and Fullness of Christ).
+                    </p>
+                    <div class="scripture-quote">
+                        "Till we all come in the unity of the faith, and of the knowledge of the Son of God, unto a perfect man, unto the measure of the stature of the fulness of Christ." — Ephesians 4:13
+                    </div>
+                    <p class="card-text">
+                        Deepening spiritual disciplines, renewing the mind with scriptural doctrine, subduing the flesh, and cultivating the holy character of Christ in daily living.
+                    </p>
+                    <div class="phase-outcome">
+                        <i class="fa-solid fa-circle-check"></i> Outcome: Ethical integrity, biblical worldview renewal, and spiritual discipline.
+                    </div>
+                </div>
+
+                <div class="phase-connector"></div>
+
+                <!-- PHASE 3: SPECIALIZATION -->
+                <div class="phase-card">
+                    <span class="stage-number" style="position: absolute; top: 1.5rem; right: 1.5rem; font-family:'Cinzel'; color:var(--gold); font-weight:700;">PHASE 03</span>
+                    <h3><i class="fa-solid fa-briefcase" style="color: var(--gold);"></i> Phase 3: Specialization (Kingdom Vocation)</h3>
+                    <p class="card-text" style="margin-bottom: 1rem;">
+                        <strong>Focus:</strong> Stage 3 (Governance and Vocational Tracks).
+                    </p>
+                    <div class="scripture-quote">
+                        "And whatever you do, do it heartily, as to the Lord and not to men... knowing that you will serve the Lord Christ." — Colossians 3:23-24
+                    </div>
+                    <p class="card-text">
+                        Students select a vocational domain (e.g., Technology, Healthcare, Agriculture, Media, Governance) and complete rigorous technical coursework integrated with Kingdom ethics and biblical stewardship.
+                    </p>
+                    <div class="phase-outcome">
+                        <i class="fa-solid fa-circle-check"></i> Outcome: Industry-level professional competence driven by Kingdom purpose.
+                    </div>
+                </div>
+
+                <div class="phase-connector"></div>
+
+                <!-- PHASE 4: DEPLOYMENT & MULTIPLICATION -->
+                <div class="phase-card" style="border-color: var(--gold); background: rgba(212, 175, 55, 0.02);">
+                    <span class="stage-number" style="position: absolute; top: 1.5rem; right: 1.5rem; font-family:'Cinzel'; color:var(--gold); font-weight:700;">PHASE 04</span>
+                    <h3><i class="fa-solid fa-seedling" style="color: var(--gold);"></i> Phase 4: Deployment & Multiplication (Kingdom Assignment)</h3>
+                    <p class="card-text" style="margin-bottom: 1rem;">
+                        <strong>Focus:</strong> Stage 4 (Kingdom Mission and Discipleship Multiplication).
+                    </p>
+                    <div class="scripture-quote">
+                        "And the things that thou hast heard of me among many witnesses, the same commit thou to faithful men, who shall be able to teach others also." — 2 Timothy 2:2
+                    </div>
+                    <p class="card-text">
+                        Capstone projects requiring students to solve a real-world community problem within their domain while mentoring junior disciples and expanding network branches.
+                    </p>
+                    <div class="phase-outcome">
+                        <i class="fa-solid fa-circle-check"></i> Outcome: Fully equipped, self-sustaining Kingdom citizens deployed into marketplace and civic arenas.
                     </div>
                 </div>
             </div>
 
-            <div class="grid-3" style="margin-top: 2.5rem;">
-                <div class="card card-interactive">
-                    <i class="fa-solid fa-book-journal-whills" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.75rem;"></i>
-                    <h3>Sequential Booklet Tracks</h3>
-                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Modules lock sequentially. Every lesson material and video must be fully completed before unlocking the next booklet stage.</p>
+            <!-- REDEMPTIVE NARRATIVE: THE 15 STAGES OF THE KINGDOM -->
+            <div id="redemptive-narrative" style="margin-top: 4rem;">
+                <div style="text-align: center; margin-bottom: 2.5rem;">
+                    <span class="badge badge-active" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-book-bible"></i> The Grand Timeline</span>
+                    <h2 style="font-family: 'Cinzel', serif; font-size: 2rem;">The 15 Stages of the Message of the Kingdom</h2>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 700px; margin: 0.5rem auto 0;">
+                        Tracing God's sovereign administration from eternity past to the consummation of all things.
+                    </p>
                 </div>
-                <div class="card card-interactive">
-                    <i class="fa-solid fa-shield-cat" style="font-size: 2rem; color: var(--danger); margin-bottom: 0.75rem;"></i>
-                    <h3>Anti-Scrubbing Security</h3>
-                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Video fast-forwarding or scrubbing directly to the end timestamp is completely blocked to guarantee true learning engagement.</p>
-                </div>
-                <div class="card card-interactive">
-                    <i class="fa-solid fa-file-pdf" style="font-size: 2rem; color: var(--success); margin-bottom: 0.75rem;"></i>
-                    <h3>Signed Transcripts & Certificates</h3>
-                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Digitally signed PDF transcripts per stage and a final PDF certificate upon completion, signed by both Admin and Root Leader.</p>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 01</span>
+                        <h4>Creation</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Original divine sovereignty established; humanity created in God's image with kingdom dominion over Earth.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Gen 1:1</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 02</span>
+                        <h4>The Fall</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Rebellion forfeited spiritual authority, introducing sin, spiritual death, and creation's groan.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Rom 5:12</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 03</span>
+                        <h4>Kingdom Promise</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">The Protoevangelium promising the Seed of the woman to crush the adversary and restore rule.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Gen 3:15</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 04</span>
+                        <h4>Israel</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">A chosen model nation entrusted with covenant law, priesthood, and divine government.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Ex 19:6</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 05</span>
+                        <h4>Prophets</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Messengers calling Israel back and foretelling a New Covenant written on human hearts.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Deut 18:15</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 06</span>
+                        <h4>King Promised</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">The Davidic Covenant guaranteeing an eternal throne and an everlasting ruler.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">2 Sam 7:16</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 07</span>
+                        <h4>Christ the King</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">The incarnation bringing the physical presence of the Kingdom of Heaven into time.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Matt 3:2</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 08</span>
+                        <h4>The Cross</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Substitutionary sacrifice disarming dark powers and purchasing citizens with blood.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Col 2:15</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 09</span>
+                        <h4>Resurrection</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Triumph over death validating messianic Kingship and inaugurating the New Creation.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Matt 28:18</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 10</span>
+                        <h4>New Birth</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Spiritual entry into the Kingdom through regeneration by the Holy Spirit.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">John 3:3</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 11</span>
+                        <h4>Kingdom Citizenship</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">New identity and lifestyle governed by heaven's constitution and spiritual values.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Phil 3:20</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 12</span>
+                        <h4>Discipleship</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Systematic maturation and training to walk as faithful spiritual ministers.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Matt 28:20</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 13</span>
+                        <h4>Kingdom Assignment</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Deploying believers as ambassadors into every domain of society.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">John 20:21</span>
+                    </div>
+                    <div class="card">
+                        <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 14</span>
+                        <h4>Multiplication</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Exponential growth where disciples make disciples across all nations.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">2 Tim 2:2</span>
+                    </div>
+                    <div class="card" style="border-color: var(--gold);">
+                        <span class="badge" style="background:var(--gold); color:#000; margin-bottom:0.5rem;">Stage 15</span>
+                        <h4 style="color:var(--gold);">Consummation</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">The Second Coming, final judgment, and eternal reign in the New Heavens and New Earth.</p>
+                        <span class="scripture-ref" style="margin-top:0.5rem;">Rev 11:15</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -374,7 +544,7 @@
         <div class="container" style="max-width: 420px; margin-top: 3.5rem;">
             <div class="card" style="box-shadow: var(--shadow-lg);">
                 <div style="text-align: center; margin-bottom: 1.25rem;">
-                    <div class="logo" style="justify-content: center; font-size: 1.6rem; margin-bottom: 0.35rem;"><i class="fa-solid fa-cross"></i> DisciplePath</div>
+                    <a href="#" class="logo" style="justify-content: center; font-size: 1.5rem; margin-bottom: 0.35rem;"><i class="fa-solid fa-crown"></i> DisciplePath</a>
                     <p style="color: var(--text-muted); font-size: 0.85rem;">Sign in to access your ministry portal</p>
                 </div>
                 <form id="login-form">
@@ -386,7 +556,7 @@
                         <label>Password</label>
                         <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Sign In to Dashboard</button>
+                    <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">Sign In to Dashboard</button>
                 </form>
             </div>
         </div>
@@ -915,7 +1085,7 @@
             } else {
                 currentUserData = null;
                 userBarText.innerText = "Not Logged In";
-                navActions.innerHTML = `<button class="btn btn-primary btn-sm" onclick="showView('login-view')"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>`;
+                navActions.innerHTML = `<button class="btn btn-gold btn-sm" onclick="showView('login-view')"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>`;
                 showView('landing-view');
             }
         });
