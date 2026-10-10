@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Discipleship Platform - Knowledge of the Kingdom of Heaven</title>
+    <title>Global Kingdom Platform - Knowledge of the Kingdom of Heaven</title>
 
     <!-- Google Fonts & Font Awesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -282,8 +282,9 @@
         .map-branch-icon { width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; box-shadow: var(--shadow-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: bold; }
         .map-branch-completed { background: var(--success); }
         .map-branch-progress { background: var(--primary); }
-footer {
-            border-top: 1px solid var(--card-border);
+
+        footer {
+            border-top: 1px solid var(--border);
             padding: 3rem 1.5rem;
             text-align: center;
             background: rgba(8, 12, 20, 0.95);
@@ -301,6 +302,7 @@ footer {
             color: var(--text-muted);
             font-size: 0.85rem;
         }
+
         /* Responsive Breakpoints */
         @media (max-width: 900px) {
             .dashboard-layout { flex-direction: column; }
@@ -318,7 +320,7 @@ footer {
     <nav>
         <div class="nav-left">
             <button class="btn btn-outline btn-sm" id="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
-            <a href="#" class="logo"><i class="fa-solid fa-crown"></i> DisciplePath</a>
+            <a href="#" class="logo"><i class="fa-solid fa-crown"></i> KingdomPath</a>
         </div>
 
         <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -449,15 +451,57 @@ footer {
                         <i class="fa-solid fa-circle-check"></i> Outcome: Fully equipped, self-sustaining Kingdom citizens deployed into marketplace and civic arenas.
                     </div>
                 </div>
+
+                <!-- NEW: KINGDOM MATRICES SOURCE IMAGE LINKS & FRAMEWORKS -->
+                <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px dashed var(--border);">
+                    <div style="text-align: center; margin-bottom: 1.75rem;">
+                        <span class="badge badge-active" style="background: rgba(37, 99, 235, 0.15); color: var(--primary);"><i class="fa-solid fa-images"></i> Visual Matrix Blueprints</span>
+                        <h3 style="font-family: 'Cinzel', serif; font-size: 1.8rem; margin-top: 0.5rem; color: var(--text-dark);">Kingdom Repentance & Vocational Matrices</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Interactive reference diagrams charting repentance alignment and marketplace stewardship.</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <!-- Matrix 1: Kingdom Repentance Matrix -->
+                        <div class="card" style="border-top: 4px solid var(--primary); display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <h4 style="font-family: 'Cinzel', serif; color: var(--primary); margin-bottom: 0.5rem;"><i class="fa-solid fa-rotate"></i> Kingdom Repentance Matrix</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                                    Illustrates the shift from worldly autonomy to divine governance—turning from secular self-rule to the absolute lordship of Jesus Christ.
+                                </p>
+                            </div>
+                            <div style="text-align: center;">
+                                <a href="Repentance_matrix.jpg" target="_blank" class="btn btn-outline btn-sm" style="width: 100%;">
+                                    <i class="fa-solid fa-external-link-alt"></i> View Kingdom Repentance Matrix Image
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Matrix 2: Kingdom Stewardship and Vocational Matrix -->
+                        <div class="card" style="border-top: 4px solid var(--gold); display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <h4 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 0.5rem;"><i class="fa-solid fa-chart-line"></i> Kingdom Stewardship & Vocational Matrix</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                                    Outlines how professional skills, resources, and governance domains are consecrated and deployed for societal transformation and kingdom impact.
+                                </p>
+                            </div>
+                            <div style="text-align: center;">
+                                <a href="kingdom_stewardship.jpg" target="_blank" class="btn btn-gold btn-sm" style="width: 100%;">
+                                    <i class="fa-solid fa-external-link-alt"></i> View Stewardship & Vocational Matrix Image
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- REDEMPTIVE NARRATIVE: THE 15 STAGES OF THE KINGDOM -->
+            <!-- REDEMPTIVE NARRATIVE: THE 15 STAGES OF THE KINGDOM (WITH ALL HIGHLIGHTED SCRIPTURES & TEXTS INCLUDED) -->
             <div id="redemptive-narrative" style="margin-top: 4rem;">
                 <div style="text-align: center; margin-bottom: 2.5rem;">
                     <span class="badge badge-active" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-book-bible"></i> The Grand Timeline</span>
                     <h2 style="font-family: 'Cinzel', serif; font-size: 2rem;">The 15 Stages of the Message of the Kingdom</h2>
                     <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 700px; margin: 0.5rem auto 0;">
-                        Tracing God's sovereign administration from eternity past to the consummation of all things.
+                        Tracing God's sovereign administration from eternity past to the consummation of all things, complete with foundational scriptural declarations.
                     </p>
                 </div>
 
@@ -466,91 +510,150 @@ footer {
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 01</span>
                         <h4>Creation</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Original divine sovereignty established; humanity created in God's image with kingdom dominion over Earth.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Gen 1:1</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "In the beginning God created the heaven and the earth."
+                            <span class="scripture-ref">Genesis 1:1</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 02</span>
                         <h4>The Fall</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Rebellion forfeited spiritual authority, introducing sin, spiritual death, and creation's groan.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Rom 5:12</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "Wherefore, as by one man sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned."
+                            <span class="scripture-ref">Romans 5:12</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 03</span>
                         <h4>Kingdom Promise</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">The Protoevangelium promising the Seed of the woman to crush the adversary and restore rule.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Gen 3:15</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "And I will put enmity between thee and the woman, and between thy seed and her seed; it shall bruise thy head, and thou shalt bruise his heel."
+                            <span class="scripture-ref">Genesis 3:15</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 04</span>
                         <h4>Israel</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">A chosen model nation entrusted with covenant law, priesthood, and divine government.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Ex 19:6</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "And ye shall be unto me a kingdom of priests, and an holy nation. These are the words which thou shalt speak unto the children of Israel."
+                            <span class="scripture-ref">Exodus 19:6</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 05</span>
                         <h4>Prophets</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Messengers calling Israel back and foretelling a New Covenant written on human hearts.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Deut 18:15</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "The Lord thy God will raise up unto thee a Prophet from the midst of thee, of thy brethren, like unto me; unto him ye shall hearken."
+                            <span class="scripture-ref">Deuteronomy 18:15</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 06</span>
                         <h4>King Promised</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">The Davidic Covenant guaranteeing an eternal throne and an everlasting ruler.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">2 Sam 7:16</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "And thine house and thy kingdom shall be established for ever before thee: thy throne shall be established for ever."
+                            <span class="scripture-ref">2 Samuel 7:16</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 07</span>
                         <h4>Christ the King</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">The incarnation bringing the physical presence of the Kingdom of Heaven into time.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Matt 3:2</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "And saying, Repent ye: for the kingdom of heaven is at hand."
+                            <span class="scripture-ref">Matthew 3:2</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 08</span>
                         <h4>The Cross</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Substitutionary sacrifice disarming dark powers and purchasing citizens with blood.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Col 2:15</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "And having spoiled principalities and powers, he made a shew of them openly, triumphing over them in it."
+                            <span class="scripture-ref">Colossians 2:15</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 09</span>
                         <h4>Resurrection</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Triumph over death validating messianic Kingship and inaugurating the New Creation.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Matt 28:18</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "And Jesus came and spake unto them, saying, All power is given unto me in heaven and in earth."
+                            <span class="scripture-ref">Matthew 28:18</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 10</span>
                         <h4>New Birth</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Spiritual entry into the Kingdom through regeneration by the Holy Spirit.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">John 3:3</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God."
+                            <span class="scripture-ref">John 3:3</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 11</span>
                         <h4>Kingdom Citizenship</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">New identity and lifestyle governed by heaven's constitution and spiritual values.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Phil 3:20</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "For our conversation is in heaven; from whence also we look for the Saviour, the Lord Jesus Christ."
+                            <span class="scripture-ref">Philippians 3:20</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 12</span>
                         <h4>Discipleship</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Systematic maturation and training to walk as faithful spiritual ministers.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Matt 28:20</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "Teaching them to observe all things whatsoever I have commanded you: and, lo, I am with you alway, even unto the end of the world."
+                            <span class="scripture-ref">Matthew 28:20</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 13</span>
                         <h4>Kingdom Assignment</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Deploying believers as ambassadors into every domain of society.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">John 20:21</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "Then said Jesus to them again, Peace be unto you: as my Father hath sent me, even so send I you."
+                            <span class="scripture-ref">John 20:21</span>
+                        </div>
                     </div>
+
                     <div class="card">
                         <span class="badge badge-active" style="margin-bottom:0.5rem;">Stage 14</span>
                         <h4>Multiplication</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Exponential growth where disciples make disciples across all nations.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">2 Tim 2:2</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "And the things that thou hast heard of me among many witnesses, the same commit thou to faithful men, who shall be able to teach others also."
+                            <span class="scripture-ref">2 Timothy 2:2</span>
+                        </div>
                     </div>
+
                     <div class="card" style="border-color: var(--gold);">
                         <span class="badge" style="background:var(--gold); color:#000; margin-bottom:0.5rem;">Stage 15</span>
                         <h4 style="color:var(--gold);">Consummation</h4>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">The Second Coming, final judgment, and eternal reign in the New Heavens and New Earth.</p>
-                        <span class="scripture-ref" style="margin-top:0.5rem;">Rev 11:15</span>
+                        <div class="scripture-quote" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.75rem;">
+                            "And the seventh angel sounded; and there were great voices in heaven, saying, The kingdoms of this world are become the kingdoms of our Lord, and of his Christ; and he shall reign for ever and ever."
+                            <span class="scripture-ref">Revelation 11:15</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -562,7 +665,7 @@ footer {
         <div class="container" style="max-width: 420px; margin-top: 3.5rem;">
             <div class="card" style="box-shadow: var(--shadow-lg);">
                 <div style="text-align: center; margin-bottom: 1.25rem;">
-                    <a href="#" class="logo" style="justify-content: center; font-size: 1.5rem; margin-bottom: 0.35rem;"><i class="fa-solid fa-crown"></i> DisciplePath</a>
+                    <a href="#" class="logo" style="justify-content: center; font-size: 1.5rem; margin-bottom: 0.35rem;"><i class="fa-solid fa-crown"></i> KingdomPath</a>
                     <p style="color: var(--text-muted); font-size: 0.85rem;">Sign in to access your ministry portal</p>
                 </div>
                 <form id="login-form">
@@ -1268,7 +1371,7 @@ footer {
                     parentId: null
                 });
 
-                const waMsg = `Blessings ${name}, Credentials for DisciplePath:\nEmail: ${email}\nPassword: ${autoPassword}`;
+                const waMsg = `Blessings ${name}, Credentials for KingdomPath:\nEmail: ${email}\nPassword: ${autoPassword}`;
                 window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 
                 alert(`Root Leader registered! Credentials sent via WhatsApp.`);
@@ -1418,7 +1521,7 @@ footer {
 
             await updateDoc(doc(db, "users", userId), { isApproved: true, status: 'active' });
 
-            const waMsg = `Blessings ${u.name}, Your DisciplePath account has been APPROVED by Admin!\nEmail: ${u.email}\nPassword: ${u.tempPassword || 'Check with leader'}`;
+            const waMsg = `Blessings ${u.name}, Your KingdomPath account has been APPROVED by Admin!\nEmail: ${u.email}\nPassword: ${u.tempPassword || 'Check with leader'}`;
             window.open(`https://wa.me/${u.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(waMsg)}`, '_blank');
 
             alert("Branch account approved & credentials dispatched!");
@@ -2289,11 +2392,12 @@ footer {
             }
         });
     </script>
-       <!-- FOOTER -->
+
+    <!-- FOOTER -->
     <footer>
         <div class="footer-logo">GLOBAL KINGDOM OF HEAVEN PLATFORM</div>
         <p class="footer-text">
-            © 2026 Global Discipleship Platform. Equipping Nations with the Knowledge of the Gospel of the Kingdom of Heaven.
+            © 2026 Global Kingdom Platform. Equipping Nations with the Knowledge of the Gospel of the Kingdom of Heaven.
         </p>
     </footer>
 </body>
