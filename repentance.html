@@ -1,0 +1,575 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Kingdom Repentance Matrix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Marcellus&family=Spectral:ital,wght@0,400;1,400;1,500&display=swap">
+<style>
+/* Layout: header with the thesis verses and a Self-governed to God-governed turn graphic; the five core questions as a three-column matrix; the three movements of repentance; then 28 vocations as side-by-side Fallen and Kingdom rows. */
+:root {
+  --bg: #EEF0F6;
+  --surface: #FFFFFF;
+  --surface-2: #E3E8F1;
+  --ink: #0E1B3A;
+  --muted: #475577;
+  --line: #C9D1E1;
+  --navy: #14285A;
+  --gold: #8F5F0E;
+  --gold-fill: #D9A441;
+  --on-gold: #1A1204;
+  --fall: #A3202D;
+  --fall-bg: #FBECED;
+  --fall-solid: #8E1B27;
+  --king: #17694A;
+  --king-bg: #E7F5EE;
+  --king-solid: #145C40;
+  --c-sci: #1B7556;
+  --c-care: #B0345A;
+  --c-soc: #2757C2;
+  --c-build: #7544B0;
+  --c-tech: #0B7690;
+  --c-church: #8F5F0E;
+  --font-display: "Marcellus", "Trajan Pro", Georgia, serif;
+  --font-body: "Albert Sans", "Segoe UI", system-ui, sans-serif;
+  --font-verse: "Spectral", Georgia, "Times New Roman", serif;
+  --shadow: 0 1px 2px rgba(14,27,58,.06), 0 8px 24px -12px rgba(14,27,58,.18);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0A1330; --surface: #111C42; --surface-2: #19265A; --ink: #EEF1F9; --muted: #AAB5D2; --line: #27366A;
+    --navy: #0A1330; --gold: #E8BB62; --gold-fill: #E8BB62; --on-gold: #1A1204;
+    --fall: #FF9AA2; --fall-bg: #2A1526; --fall-solid: #6E1D2E;
+    --king: #6FD6A6; --king-bg: #0F2B25; --king-solid: #11513E;
+    --c-sci: #5FD0A3; --c-care: #F28FAB; --c-soc: #8DAEFF; --c-build: #BE9FF2; --c-tech: #62CFE8; --c-church: #E8BB62;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0A1330; --surface: #111C42; --surface-2: #19265A; --ink: #EEF1F9; --muted: #AAB5D2; --line: #27366A;
+  --navy: #0A1330; --gold: #E8BB62; --gold-fill: #E8BB62; --on-gold: #1A1204;
+  --fall: #FF9AA2; --fall-bg: #2A1526; --fall-solid: #6E1D2E;
+  --king: #6FD6A6; --king-bg: #0F2B25; --king-solid: #11513E;
+  --c-sci: #5FD0A3; --c-care: #F28FAB; --c-soc: #8DAEFF; --c-build: #BE9FF2; --c-tech: #62CFE8; --c-church: #E8BB62;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.6);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 18px; line-height: 1.6;
+  padding-inline: clamp(16px, 4vw, 56px); padding-block: 0 72px;
+}
+.wrap { max-width: 1280px; margin-inline: auto; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--gold-fill); outline-offset: 2px; border-radius: 6px; }
+a { color: inherit; }
+h1, h2, h3 { text-wrap: balance; }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-size: 1.05rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.topnav { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.topnav a { text-decoration: none; font-weight: 600; font-size: .98rem; padding: 10px 14px; border-radius: 8px; min-height: 44px; display: inline-flex; align-items: center; }
+.topnav a:hover { background: var(--surface-2); }
+.theme-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 18px; cursor: pointer; font-weight: 600; font-size: .95rem; min-height: 44px; }
+.theme-btn:hover { border-color: var(--gold-fill); }
+
+/* Header */
+.hero { display: grid; gap: 40px; padding-block: 28px 64px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 960px) { .hero { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 64px; align-items: center; } }
+.eyebrow { font-weight: 700; letter-spacing: .16em; text-transform: uppercase; font-size: .85rem; color: var(--muted); margin: 0 0 18px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.5rem, 7vw, 5.2rem); line-height: 1.02; margin: 0 0 28px; letter-spacing: -.005em; }
+h1 em { font-style: normal; color: var(--gold); }
+.lede { font-size: 1.3rem; max-width: 42ch; color: var(--muted); margin: 0 0 32px; }
+.verses { display: grid; gap: 18px; max-width: 52ch; border-top: 2px solid var(--gold-fill); padding-top: 22px; }
+.verses q { quotes: none; font-family: var(--font-verse); font-style: italic; font-size: 1.45rem; line-height: 1.45; display: block; }
+.verses cite { display: block; margin-top: 6px; font-style: normal; font-weight: 700; font-size: .95rem; letter-spacing: .08em; color: var(--gold); }
+
+.turn { display: grid; gap: 14px; }
+.turn-block { border-radius: 12px; padding: 26px 28px; box-shadow: var(--shadow); }
+.turn-block small { display: block; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; opacity: .85; margin-bottom: 6px; }
+.turn-block strong { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 3.4vw, 2.3rem); line-height: 1.1; display: block; }
+.turn-block span { display: block; margin-top: 8px; font-size: 1.05rem; line-height: 1.45; }
+.turn-a { background: var(--fall-solid); color: #fff; }
+.turn-b { background: var(--king-solid); color: #fff; }
+.turn-arrow { display: flex; align-items: center; justify-content: center; gap: 14px; color: var(--gold); font-weight: 700; letter-spacing: .18em; text-transform: uppercase; font-size: .95rem; }
+.turn-arrow::before, .turn-arrow::after { content: ""; flex: 1; height: 2px; background: var(--gold-fill); }
+.turn-arrow svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 2.4; }
+
+/* Section headings */
+section.block { padding-top: 72px; scroll-margin-top: 24px; }
+.sec-head { display: grid; gap: 10px; margin-bottom: 36px; max-width: 70ch; }
+.sec-head .eyebrow { margin: 0; }
+.sec-head h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.08; margin: 0; }
+.sec-head p { margin: 0; font-size: 1.2rem; color: var(--muted); }
+
+/* Core matrix */
+.qmatrix { display: grid; gap: 18px; }
+.qhead { display: none; }
+.qrow { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+@media (min-width: 960px) {
+  .qhead, .qrow { grid-template-columns: minmax(0, .85fr) minmax(0, 1fr) minmax(0, 1.2fr); }
+  .qhead { display: grid; gap: 0; border-radius: 12px; overflow: hidden; font-family: var(--font-display); font-size: 1.4rem; line-height: 1.2; }
+  .qhead > div { padding: 22px 28px; color: #fff; }
+  .qhead .h-q { background: var(--navy); }
+  .qhead .h-f { background: var(--fall-solid); }
+  .qhead .h-k { background: var(--king-solid); }
+  :root[data-theme="dark"] .qhead .h-q { background: var(--surface-2); }
+}
+@media (min-width: 960px) and (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .qhead .h-q { background: var(--surface-2); } }
+.qhead small { display: block; font-family: var(--font-body); font-size: .95rem; opacity: .85; margin-top: 2px; }
+.qcell { padding: 28px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.q-q { background: var(--navy); color: #fff; flex-direction: row; gap: 20px; align-items: flex-start; }
+:root[data-theme="dark"] .q-q { background: var(--surface-2); color: var(--ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .q-q { background: var(--surface-2); color: var(--ink); } }
+.q-q svg { width: 56px; height: 56px; flex: 0 0 auto; stroke: var(--gold-fill); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.q-q h3 { font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: 1.1; margin: 0 0 6px; }
+.q-q .sub { color: var(--gold-fill); font-weight: 700; font-size: 1.1rem; letter-spacing: .02em; display: block; }
+.q-q p { margin: 8px 0 0; font-size: 1.05rem; line-height: 1.45; opacity: .9; }
+.q-f { background: var(--fall-bg); }
+.q-k { background: var(--king-bg); }
+.lab { font-size: .78rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 700; }
+.q-f .lab, .vfall .lab { color: var(--fall); }
+.q-k .lab, .vking .lab { color: var(--king); }
+@media (min-width: 960px) { .qcell .lab { display: none; } }
+.big { font-size: 1.3rem; line-height: 1.45; font-weight: 500; margin: 0; }
+
+.refs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.refs li { display: grid; gap: 1px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.q-f .refs, .vfall .refs { border-color: color-mix(in srgb, var(--fall) 28%, transparent); }
+.q-k .refs, .vking .refs { border-color: color-mix(in srgb, var(--king) 28%, transparent); }
+.q-f .refs li, .vfall .refs li { border-color: color-mix(in srgb, var(--fall) 28%, transparent); }
+.q-k .refs li, .vking .refs li { border-color: color-mix(in srgb, var(--king) 28%, transparent); }
+.refs li:last-child { border-bottom: 0; }
+.ref { font-weight: 700; font-size: 1.05rem; letter-spacing: .01em; }
+.q-f .ref, .vfall .ref { color: var(--fall); }
+.q-k .ref, .vking .ref { color: var(--king); }
+.gloss { font-size: 1rem; color: var(--muted); line-height: 1.45; }
+
+/* Movements */
+.moves { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr); counter-reset: none; }
+@media (min-width: 960px) { .moves { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; } }
+.move { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 30px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px; position: relative; min-width: 0; }
+.move .step { font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--gold); }
+.move h3 { font-family: var(--font-display); font-weight: 400; font-size: 2rem; margin: 0; line-height: 1.1; }
+.move .does { font-size: 1.25rem; font-weight: 600; margin: 0; }
+.move .refs { border-color: var(--line); }
+.move .ref { color: var(--gold); }
+@media (min-width: 960px) { .move:not(:last-child)::after { content: "\2192"; position: absolute; right: -26px; top: 50%; transform: translateY(-50%); font-size: 1.8rem; color: var(--gold); background: var(--bg); width: 22px; text-align: center; z-index: 2; } }
+
+/* Vocations */
+.toolbar { background: var(--bg); border-block: 1px solid var(--line); padding-block: 14px; margin-bottom: 40px; z-index: 20; }
+@media (min-width: 900px) { .toolbar { position: sticky; top: env(safe-area-inset-top, 0px); } }
+.toolbar-inner { display: grid; gap: 14px; }
+.search { position: relative; min-width: 0; }
+.search input { width: 100%; min-height: 52px; padding: 12px 16px 12px 48px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-size: 1.05rem; }
+.search input::placeholder { color: var(--muted); }
+.search svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; stroke: var(--muted); fill: none; stroke-width: 2; }
+.chips { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.chip { flex: 0 0 auto; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; font-size: 1rem; white-space: nowrap; }
+.chip:hover { border-color: var(--gold-fill); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip .n { font-variant-numeric: tabular-nums; opacity: .7; font-weight: 500; }
+.dot { width: 14px; height: 14px; border-radius: 50%; background: currentColor; display: inline-block; flex: 0 0 auto; }
+.status { font-size: .95rem; color: var(--muted); }
+
+#vocResults { display: grid; gap: 72px; }
+.domain-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin-bottom: 24px; }
+.domain-head h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0; line-height: 1.1; display: flex; align-items: center; gap: 14px; }
+.domain-head p { margin: 0; color: var(--muted); font-size: 1.1rem; flex: 1 1 280px; min-width: 0; }
+.vlist { display: grid; gap: 22px; }
+.vrow { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+@media (min-width: 1000px) { .vrow { grid-template-columns: minmax(0, .85fr) minmax(0, 1.05fr) minmax(0, 1.3fr); } }
+.vcell { padding: 28px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.vfield { gap: 12px; }
+.vfield .tag { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
+.vfield h4 { font-family: var(--font-display); font-weight: 400; font-size: 1.85rem; line-height: 1.15; margin: 0; }
+.turnline { margin: 0; font-family: var(--font-verse); font-style: italic; font-size: 1.15rem; line-height: 1.45; color: var(--gold); }
+.turnline b { display: block; font-family: var(--font-body); font-style: normal; font-size: .75rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+.vfall { background: var(--fall-bg); }
+.vking { background: var(--king-bg); }
+.vtext { margin: 0; font-size: 1.2rem; line-height: 1.5; font-weight: 500; }
+
+.empty { text-align: center; padding: 72px 16px; color: var(--muted); font-size: 1.2rem; }
+.empty button { margin-top: 16px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 10px 22px; cursor: pointer; font-weight: 600; min-height: 46px; }
+
+/* Closing */
+.closing { margin-top: 96px; background: var(--navy); color: #fff; border-radius: 14px; padding: clamp(32px, 6vw, 72px); display: grid; gap: 22px; }
+:root[data-theme="dark"] .closing { background: var(--surface-2); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .closing { background: var(--surface-2); } }
+.closing h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.9rem, 4.6vw, 3.3rem); line-height: 1.1; margin: 0; }
+.closing q { quotes: none; font-family: var(--font-verse); font-style: italic; font-size: 1.45rem; line-height: 1.5; max-width: 54ch; display: block; }
+.closing .refline { font-weight: 700; letter-spacing: .08em; color: #E8BB62; font-size: 1rem; }
+footer { margin-top: 32px; color: var(--muted); font-size: .95rem; max-width: 72ch; }
+
+@media (max-width: 560px) {
+  body { font-size: 17px; }
+  .qcell, .vcell, .move { padding: 22px; }
+  .q-q svg { width: 44px; height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">Kingdom Repentance</div>
+    <div class="topnav">
+      <a href="#questions">Five questions</a>
+      <a href="#movements">The turn</a>
+      <a href="#vocations">Vocations</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Change colour theme">Theme: Auto</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Change of mind, worldview and direction</p>
+      <h1>Kingdom Repentance <em>Matrix</em></h1>
+      <p class="lede" id="lede">Repentance is more than regret. It moves a life, and a whole field of work, from self-governed to God-governed.</p>
+      <div class="verses">
+        <div><q>I tell you, Nay: but, except ye repent, ye shall all likewise perish.</q><cite>LUKE 13:3 (KJV)</cite></div>
+        <div><q>Repent: for the kingdom of heaven is at hand.</q><cite>MATTHEW 4:17 (KJV)</cite></div>
+      </div>
+    </div>
+    <div class="turn" aria-label="From self-governed to God-governed">
+      <div class="turn-block turn-a"><small>Fallen worldview</small><strong>Self-governed</strong><span>I define, direct and justify myself.</span></div>
+      <div class="turn-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg>Repent</div>
+      <div class="turn-block turn-b"><small>Kingdom worldview</small><strong>God-governed</strong><span>Christ defines, directs and sends me.</span></div>
+    </div>
+  </header>
+
+  <section class="block" id="questions" aria-labelledby="qh">
+    <div class="sec-head">
+      <p class="eyebrow">The foundation</p>
+      <h2 id="qh">Five questions every life answers</h2>
+      <p>Everyone answers these, whether they say so or not. Repentance changes the answers.</p>
+    </div>
+    <div class="qmatrix" id="qmatrix"></div>
+  </section>
+
+  <section class="block" id="movements" aria-labelledby="mh">
+    <div class="sec-head">
+      <p class="eyebrow">The path</p>
+      <h2 id="mh">Three movements of the turn</h2>
+      <p>Each movement leads to the next. A changed mind renews the worldview, and a renewed worldview changes direction.</p>
+    </div>
+    <div class="moves" id="moves"></div>
+  </section>
+
+  <section class="block" id="vocations" aria-labelledby="vh">
+    <div class="sec-head">
+      <p class="eyebrow">The calling</p>
+      <h2 id="vh">Repentance in every field of work</h2>
+      <p id="vlede">Every discipline can be self-governed or God-governed. See the fallen pattern, the turn, and the Kingdom pattern for each.</p>
+    </div>
+    <div class="toolbar" id="toolbar">
+      <div class="toolbar-inner">
+        <div class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Search a field, a verse, or a theme" aria-label="Search fields, verses and themes" autocomplete="off">
+        </div>
+        <div class="chips" id="chips" role="group" aria-label="Filter by domain"></div>
+        <div class="status" id="status" aria-live="polite"></div>
+      </div>
+    </div>
+    <div id="vocResults"></div>
+  </section>
+
+  <section class="closing" aria-label="Closing">
+    <h2>Seek first the kingdom of God</h2>
+    <q>But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you.</q>
+    <div class="refline">MATTHEW 6:33 (KJV) · 2 CORINTHIANS 5:17 · 1 CORINTHIANS 10:31</div>
+  </section>
+  <footer>Verse references are given for study. The short note beside each reference is a plain-word summary of the passage. The worldview statements are a framework for reflection to test with Scripture, your church and trusted mentors.</footer>
+</div>
+
+<script>
+(function () {
+  var ICONS = {
+    person: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>',
+    globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.2 3 3.2 15 0 18M12 3c-3.2 3-3.2 15 0 18"/>',
+    target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
+    gear: '<circle cx="12" cy="12" r="7.5" stroke-dasharray="2.6 2.6" stroke-width="3.2"/><circle cx="12" cy="12" r="5.6"/><circle cx="12" cy="12" r="2.2"/>',
+    road: '<path d="M8.5 21 11 3h2l2.5 18"/><path d="M12 6v3M12 12v3M12 18v2"/>'
+  };
+
+  var Q = [
+    { q: "Who am I?", s: "Identity", d: "My true identity, value and position.", i: "person",
+      f: "Defined by ethnicity, career, wealth, social status or old wounds.",
+      fr: [["Ephesians 2:1-3", "Following the course of this world, dead in trespasses"], ["Romans 1:21-23", "They exchanged the glory of God for images"], ["Jeremiah 9:23-24", "Do not boast in wisdom, strength or riches"]],
+      k: "An image-bearer of God, a redeemed citizen, a royal ambassador and a child of God.",
+      kr: [["Genesis 1:27", "Made in the image of God"], ["Ephesians 1:7", "Redemption through his blood"], ["John 1:12", "The right to become children of God"], ["2 Corinthians 5:20", "We are ambassadors for Christ"], ["Philippians 3:20", "Our citizenship is in heaven"], ["Galatians 3:28", "All are one in Christ Jesus"]] },
+    { q: "Where am I from?", s: "Origin and source", d: "My origin, roots and heritage.", i: "globe",
+      f: "An accident of blind chance or fate, with no Maker behind it.",
+      fr: [["Psalm 14:1", "The fool says in his heart, there is no God"], ["Romans 1:25", "They worshiped the creation instead of the Creator"], ["Jeremiah 2:13", "They have left the fountain of living water"]],
+      k: "Formed on purpose by God, so my ultimate origin is divine.",
+      kr: [["Genesis 2:7", "God forms man and breathes life into him"], ["Psalm 139:13-16", "Knit together in my mother's womb"], ["Acts 17:24-28", "In him we live and move and have our being"], ["Isaiah 64:8", "We are the clay and you are the potter"], ["Colossians 1:16", "All things were created through him and for him"]] },
+    { q: "Why am I here?", s: "Purpose and assignment", d: "My reason for existence and divine mandate.", i: "target",
+      f: "Self-preservation, accumulation, pleasure or personal ambition.",
+      fr: [["Luke 12:15", "Life does not consist in the abundance of possessions"], ["James 4:3", "You ask wrongly, to spend it on your passions"], ["Ecclesiastes 2:4-11", "Great projects and pleasures, yet all vanity"]],
+      k: "To advance God's kingdom, reflect his righteousness, love him and serve others.",
+      kr: [["Matthew 6:33", "Seek first the kingdom and his righteousness"], ["Matthew 5:16", "Let your light shine before others"], ["Mark 12:29-31", "Love God with everything and love your neighbor"], ["Ephesians 2:10", "Created for good works prepared beforehand"]] },
+    { q: "What can I do?", s: "Potential and ability", d: "My gifts, talents and capacity.", i: "gear",
+      f: "Limited to natural talent and personal strength, used for survival or advancement.",
+      fr: [["John 15:5", "Apart from me you can do nothing"], ["Jeremiah 17:5", "Cursed is the one who trusts in man"], ["James 3:14-16", "Selfish ambition brings disorder and every vile practice"]],
+      k: "Use Spirit-given gifts and skills to extend God's rule in every domain of life.",
+      kr: [["1 Corinthians 12:7-11", "The Spirit gives gifts for the common good"], ["Romans 12:6-8", "Different gifts, used with generosity and diligence"], ["Exodus 31:3", "God fills Bezalel with skill, ability and knowledge"], ["Philippians 4:13", "I can do all things through him who strengthens me"]] },
+    { q: "Where am I going?", s: "Destiny", d: "My future, eternal hope and final destination.", i: "road",
+      f: "Death, uncertainty or an aimless dissolving into nothing.",
+      fr: [["Romans 6:23a", "The wages of sin is death"], ["Hebrews 9:27", "Appointed once to die, and after that judgment"], ["Matthew 7:13-14", "The broad road leads to destruction"]],
+      k: "Resurrection, forgiveness through Christ, and reigning with him in the new creation.",
+      kr: [["Revelation 21:1-5", "A new heaven and new earth, and all things made new"], ["2 Timothy 2:12", "If we endure, we will also reign with him"], ["Romans 8:16-17", "Children of God, heirs with Christ"], ["Romans 6:23b", "The gift of God is eternal life in Christ Jesus"]] }
+  ];
+
+  var MOVES = [
+    { s: "Movement one", n: "Repentance", d: "Changes your mind",
+      r: [["Mark 1:15", "Repent and believe the good news"], ["Acts 3:19", "Turn back so your sins may be wiped away"], ["2 Corinthians 7:10", "Godly sorrow leads to repentance without regret"]] },
+    { s: "Movement two", n: "Transformation", d: "Changes your worldview",
+      r: [["Romans 12:2", "Be transformed by the renewing of your mind"], ["2 Corinthians 5:17", "In Christ, a new creation"], ["Ephesians 4:22-24", "Put off the old self and put on the new"]] },
+    { s: "Movement three", n: "Kingdom Living", d: "Re-orients your direction",
+      r: [["Matthew 6:33", "Seek first the kingdom of God"], ["Colossians 3:23-24", "Work wholeheartedly, as for the Lord"], ["1 Corinthians 10:31", "Do everything for the glory of God"]] }
+  ];
+
+  var CL = {
+    sci:    { n: "Creation & Science", d: "Study what God made and care for it with humility.", v: "--c-sci" },
+    care:   { n: "Health & Care", d: "Heal, comfort and strengthen people in body and mind.", v: "--c-care" },
+    soc:    { n: "Society & Order", d: "Build just, wise and peaceful communities.", v: "--c-soc" },
+    build:  { n: "Craft & Build", d: "Make beautiful, durable things and places.", v: "--c-build" },
+    tech:   { n: "Technology & Media", d: "Shape the tools and stories that carry ideas.", v: "--c-tech" },
+    church: { n: "Church & Mission", d: "Make disciples and equip God's people.", v: "--c-church" }
+  };
+  var ORDER = ["sci", "care", "soc", "build", "tech", "church"];
+
+  var V = [
+    { n: "Physical & Life Sciences", c: "sci", t: "From knowledge as pride to knowledge as worship",
+      f: "Nature is treated as all there is, and knowledge becomes a tool for pride and control.",
+      fr: [["Romans 1:21-22", "Claiming to be wise, they became fools"], ["1 Corinthians 8:1", "Knowledge puffs up, but love builds up"]],
+      k: "Study creation to know the Creator, hold knowledge with humility, and share it for the good of others.",
+      kr: [["Psalm 19:1", "The heavens declare the glory of God"], ["Proverbs 25:2", "It is the glory of kings to search things out"], ["Colossians 1:16-17", "All things were made through Christ and hold together in him"]] },
+    { n: "Astronomy & Space Science", c: "sci", t: "From worshiping the sky to wondering at its Maker",
+      f: "The cosmos is worshiped or conquered, and wonder never reaches the One who made it.",
+      fr: [["Deuteronomy 4:19", "Do not bow down to the sun, moon and stars"], ["Romans 1:25", "They worshiped the creation instead of the Creator"]],
+      k: "Read the heavens as testimony, explore with awe, and honor the Maker in the scale of space.",
+      kr: [["Psalm 8:3-4", "Looking at the sky, we ask what humanity is"], ["Isaiah 40:26", "God calls every star by name"], ["Job 38:31-33", "Do you know the laws that govern the heavens?"]] },
+    { n: "Mathematics & Data Science", c: "sci", t: "From manipulating with numbers to measuring honestly",
+      f: "Numbers and data are used to profile, persuade and control people.",
+      fr: [["Amos 8:5", "Making the measure small and cheating with false scales"], ["Proverbs 20:23", "Differing weights are an abomination to the Lord"]],
+      k: "Measure honestly, and let data serve truth and the common good.",
+      kr: [["Proverbs 11:1", "A just weight is his delight"], ["Psalm 90:12", "Teach us to number our days"], ["Isaiah 40:12", "God measures the waters and heavens by hand"]] },
+    { n: "Agriculture, Environment & Food", c: "sci", t: "From exploiting the land to keeping it",
+      f: "Land is a resource to drain for quick profit, and food becomes a lever for power.",
+      fr: [["Isaiah 5:8", "Woe to those who join field to field until no room is left"], ["Ezekiel 34:18", "Is it too little to eat good pasture, that you trample the rest?"]],
+      k: "Steward land, water and creatures as the Lord's, and build food systems that feed everyone.",
+      kr: [["Genesis 2:15", "Adam is placed in the garden to work it and keep it"], ["Psalm 24:1", "The earth is the Lord's and everything in it"], ["Leviticus 19:9-10", "Leave the edges of the field for the poor"]] },
+
+    { n: "Medicine & Public Health", c: "care", t: "From health as a market to healing as mercy",
+      f: "Health becomes a market where life is valued by usefulness or wealth.",
+      fr: [["Ezekiel 34:4", "The weak are not strengthened and the sick are not healed"], ["Mark 5:25-26", "A woman spends everything on physicians and only gets worse"]],
+      k: "Heal every person as an image-bearer of God, beginning with those who cannot pay.",
+      kr: [["Matthew 9:35", "Jesus heals every disease and sickness"], ["Luke 10:33-35", "The Samaritan treats wounds and pays for ongoing care"], ["Exodus 15:26", "I am the Lord who heals you"]] },
+    { n: "Nursing & Caregiving", c: "care", t: "From care as a task to care as presence",
+      f: "Care becomes a transaction, and the sick and the old are seen as a cost.",
+      fr: [["Matthew 25:42-43", "I was sick and you did not look after me"], ["Proverbs 21:13", "Whoever shuts his ear to the poor will not be heard"]],
+      k: "Serve the vulnerable with gentleness, dignity and presence.",
+      kr: [["1 Thessalonians 2:7", "Gentle as a nursing mother caring for her children"], ["Isaiah 42:3", "A bruised reed he will not break"], ["Matthew 25:36", "I was sick and you looked after me"]] },
+    { n: "Pharmacy & Biomedical Research", c: "care", t: "From profit on suffering to cures for neighbors",
+      f: "Cures are priced for the highest bidder, and research treats life as disposable.",
+      fr: [["Amos 8:5-6", "Cheating the needy and selling them the leftovers"], ["Micah 2:1-2", "Those with power scheme to take what the weak have"]],
+      k: "Seek cures out of love for neighbor, price them fairly, and protect every life.",
+      kr: [["Ezekiel 47:12", "Leaves of the trees are for healing"], ["Deuteronomy 30:19", "Choose life, that you and your children may live"], ["Matthew 7:12", "Do to others what you would want done to you"]] },
+    { n: "Psychology, Counseling & Social Work", c: "care", t: "From soothing words to truthful healing",
+      f: "Healing is offered without truth, with self as the cure, or people are reduced to labels.",
+      fr: [["Jeremiah 6:14", "They heal the wound lightly, saying peace when there is no peace"], ["2 Timothy 4:3", "People gather teachers who say what they want to hear"]],
+      k: "Counsel with truth and compassion, restoring people to God and to one another.",
+      kr: [["Isaiah 61:1-3", "Bind up the brokenhearted and comfort those who mourn"], ["2 Corinthians 1:3-4", "Comforted by God so we can comfort others"], ["Galatians 6:1-2", "Restore gently and carry one another's burdens"]] },
+    { n: "Sports, Fitness & Athletics", c: "care", t: "From glory-seeking to disciplined integrity",
+      f: "The body becomes an idol, fame outranks character, and winning excuses anything.",
+      fr: [["Proverbs 16:18", "Pride goes before destruction"], ["Galatians 5:26", "Do not become conceited, provoking and envying one another"]],
+      k: "Train the body as a steward, compete with integrity, and keep the character the crowd cannot see.",
+      kr: [["1 Corinthians 9:24-27", "Run to win, with self-control in training"], ["1 Timothy 4:8", "Bodily training has value, godliness has value in every way"], ["Colossians 3:23", "Work at it with all your heart, as for the Lord"]] },
+
+    { n: "Governance, Law & Public Policy", c: "soc", t: "From power for self to authority as service",
+      f: "Power serves the powerful, and laws are written to favor the strong and exploit the weak.",
+      fr: [["Isaiah 10:1-2", "Woe to those who write unjust decrees and rob the poor of justice"], ["Proverbs 29:2", "When the wicked rule, the people groan"]],
+      k: "Use authority as service: restrain evil, protect the poor, and establish justice and order.",
+      kr: [["Romans 13:1-4", "Authority is God's servant for the good of the people"], ["Micah 6:8", "Do justice, love mercy, walk humbly"], ["Proverbs 31:8-9", "Speak up for those who cannot speak for themselves"]] },
+    { n: "Business, Finance & Economics", c: "soc", t: "From wealth as security to wealth as stewardship",
+      f: "Wealth becomes identity and security, profit comes first, and wages are withheld.",
+      fr: [["Luke 12:16-21", "The rich fool stores up for himself and is not rich toward God"], ["James 5:1-4", "Wages held back cry out against the rich"]],
+      k: "Create value honestly, pay fairly, give generously, and manage everything as God's.",
+      kr: [["Matthew 25:14-30", "Servants are rewarded for investing what they were given"], ["Deuteronomy 8:18", "God gives the power to create wealth"], ["Proverbs 3:9", "Honor the Lord with your wealth"]] },
+    { n: "Education & Academia", c: "soc", t: "From proud learning to wise discipleship",
+      f: "Learning is cut off from the fear of the Lord, and pride in knowing replaces wisdom.",
+      fr: [["Colossians 2:8", "Do not be taken captive by empty philosophy"], ["2 Timothy 3:7", "Always learning but never reaching knowledge of the truth"]],
+      k: "Renew minds, teach truth, and disciple the next generation in wisdom.",
+      kr: [["Proverbs 1:7", "The fear of the Lord is the beginning of knowledge"], ["Deuteronomy 6:6-7", "Teach God's words diligently to your children"], ["2 Timothy 2:2", "Pass on the teaching to faithful people who will teach others"]] },
+    { n: "History, Humanities & Philosophy", c: "soc", t: "From fashionable ideas to tested truth",
+      f: "Memory is rewritten to serve power, and ideas are judged by fashion.",
+      fr: [["Acts 17:21", "Athens spends its time on nothing but the latest idea"], ["2 Timothy 4:3-4", "They turn away from the truth to myths"]],
+      k: "Remember honestly, think clearly, and test every idea against the truth.",
+      kr: [["Psalm 78:1-7", "Tell the next generation what the Lord has done"], ["Acts 17:22-28", "Paul engages Athens' philosophers and poets"], ["1 Thessalonians 5:21", "Test everything and hold fast to what is good"]] },
+    { n: "Languages & Translation", c: "soc", t: "From making a name to making truth known",
+      f: "Words become weapons of pride and division, as at Babel.",
+      fr: [["Genesis 11:4", "Let us make a name for ourselves"], ["James 3:5-6", "The tongue is a small fire that sets much ablaze"]],
+      k: "Carry truth across tongues so every people hears it in its own language.",
+      kr: [["Acts 2:6-11", "Each person hears the gospel in their own language"], ["Revelation 7:9", "Every nation, tribe and tongue stands before the throne"], ["Nehemiah 8:8", "The law is read clearly and explained"]] },
+    { n: "Sociology & Community Development", c: "soc", t: "From blaming groups to seeking the city's good",
+      f: "People are reduced to categories, blamed as groups, and treated by rank.",
+      fr: [["Genesis 4:9", "Am I my brother's keeper?"], ["James 2:1-4", "Favoring the rich over the poor is partiality"]],
+      k: "Seek the welfare of the city and treat every person as God's image-bearer.",
+      kr: [["Jeremiah 29:7", "Seek the welfare of the city where you live"], ["Acts 17:26", "From one man God made every nation"], ["Galatians 3:28", "All are one in Christ Jesus"]] },
+    { n: "Family & Early Childhood", c: "soc", t: "From a home for self to a home for God",
+      f: "Children are treated as projects or burdens, and the home exists for self-fulfilment.",
+      fr: [["2 Timothy 3:2-3", "Lovers of self, without natural affection"], ["Proverbs 29:15", "A child left to himself brings shame to his mother"]],
+      k: "Make the home the first school of faith, love and character.",
+      kr: [["Deuteronomy 6:6-7", "Faith is taught at home, walking and resting"], ["Psalm 127:3", "Children are a heritage from the Lord"], ["Mark 10:14", "Let the children come to me"]] },
+    { n: "Humanitarian Aid & Social Justice", c: "soc", t: "From charity for image to love for neighbor",
+      f: "Aid becomes image or guilt-management, and the poor are ignored or used.",
+      fr: [["Amos 2:6-7", "They sell the righteous for silver and the needy for sandals"], ["Isaiah 1:23", "Rulers do not defend the fatherless"]],
+      k: "Defend and serve the vulnerable because they bear God's image.",
+      kr: [["Isaiah 58:6-7", "Share your bread with the hungry and shelter the homeless"], ["James 1:27", "Pure religion looks after orphans and widows"], ["Matthew 25:35-36", "I was hungry, a stranger, in prison, and you came"]] },
+    { n: "Security & Public Safety", c: "soc", t: "From force without limits to protection with restraint",
+      f: "Force is used without restraint, and violence becomes the first answer.",
+      fr: [["Psalm 11:5", "The Lord's soul hates the one who loves violence"], ["Ezekiel 22:6", "Rulers bent on shedding blood"]],
+      k: "Protect the innocent with restraint, discipline and honesty.",
+      kr: [["Romans 13:4", "Authority bears the sword to punish wrongdoing"], ["Luke 3:14", "Soldiers: no extortion, be content with your pay"], ["Nehemiah 4:13-18", "Guards are posted while the wall goes up"]] },
+    { n: "Diplomacy & International Relations", c: "soc", t: "From the pride of nations to peacemaking",
+      f: "National pride, deceit and the appetite for conflict drive nations apart.",
+      fr: [["James 4:1-2", "Quarrels come from desires at war within you"], ["Proverbs 6:16-19", "The Lord hates one who sows discord"]],
+      k: "Be ambassadors who make peace and build trust across lines of conflict.",
+      kr: [["2 Corinthians 5:20", "We are ambassadors for Christ"], ["Matthew 5:9", "Blessed are the peacemakers"], ["Romans 12:18", "Live at peace with everyone, as far as it depends on you"]] },
+
+    { n: "Engineering, Architecture & Construction", c: "build", t: "From monuments of pride to works that serve",
+      f: "Buildings become monuments to pride, corners are cut at the cost of lives, and cities rise without justice.",
+      fr: [["Genesis 11:3-4", "Babel's builders raise a tower to make a name for themselves"], ["Habakkuk 2:12", "Woe to him who builds a town with blood"]],
+      k: "Design with wisdom, build to last, and serve people and place.",
+      kr: [["Exodus 35:30-35", "Bezalel and Oholiab are gifted for building and design"], ["Proverbs 24:3-4", "By wisdom a house is built"], ["Nehemiah 2:17-18", "Nehemiah rallies the people to rebuild the wall"]] },
+    { n: "Arts, Music & Design", c: "build", t: "From art for self to beauty for the Giver",
+      f: "Art glorifies the self, numbs the conscience, or sells beauty without truth.",
+      fr: [["Daniel 3:4-7", "Music summons the nation to worship a golden image"], ["Amos 6:4-6", "Idle songs while the nation's ruin goes ungrieved"]],
+      k: "Create beauty that points to the Giver and gives voice to worship and culture.",
+      kr: [["Exodus 31:1-5", "The Spirit fills Bezalel for artistic work"], ["1 Chronicles 25:1-7", "Skilled musicians are set apart for worship"], ["Psalm 150", "Praise him with every instrument"]] },
+    { n: "Fashion, Textiles & Craft", c: "build", t: "From vanity and exploitation to dignity and fair trade",
+      f: "Image outranks character, and garments are made by workers who are not paid fairly.",
+      fr: [["1 Peter 3:3-4", "Real adornment is a gentle spirit, not outward display"], ["Jeremiah 22:13", "Woe to him who makes his neighbor work for nothing"]],
+      k: "Make good things honestly, pay fairly, and clothe people with dignity.",
+      kr: [["Exodus 28:2-3", "Skilled workers make garments for glory and beauty"], ["Proverbs 31:13, 24", "She works with willing hands and sells linen garments"], ["Acts 9:39", "The widows show the tunics Tabitha made"]] },
+    { n: "Culinary Arts & Hospitality", c: "build", t: "From feasting alone to opening the table",
+      f: "Feasts are for self and status, with no room for the person at the gate.",
+      fr: [["Luke 16:19-21", "A rich man feasts daily while Lazarus waits at his gate"], ["Isaiah 5:11-12", "Woe to those who feast and do not regard the Lord's work"]],
+      k: "Set tables that welcome strangers and those who cannot repay you.",
+      kr: [["Genesis 18:1-8", "Abraham and Sarah prepare a meal for visitors"], ["Luke 14:12-14", "Invite those who cannot repay you"], ["Romans 12:13", "Practice hospitality"]] },
+    { n: "Transport, Aviation & Logistics", c: "build", t: "From trade in people to service of need",
+      f: "Goods move for profit alone, and trade ignores the cost to people and creation.",
+      fr: [["Revelation 18:11-13", "The merchants' cargo includes the bodies and souls of men"], ["Ezekiel 28:16", "In the abundance of your trade you were filled with violence"]],
+      k: "Connect people and nations, deliver what is needed, and do it safely and honestly.",
+      kr: [["Proverbs 31:14", "Like merchant ships, she brings food from afar"], ["Psalm 107:23-24", "Those who sail the sea see the works of the Lord"], ["Acts 27", "Paul's sea voyage: planning, crew and storm survival"]] },
+
+    { n: "Technology, AI & Cybersecurity", c: "tech", t: "From trusting the tool to stewarding the tool",
+      f: "Tools deceive, addict or watch people, and trust moves from God to machines and data.",
+      fr: [["Psalm 115:4-8", "Those who make idols become like them"], ["Psalm 20:7", "Some trust in chariots, but we trust the name of the Lord"]],
+      k: "Build tools that serve people, protect the vulnerable, tell the truth and keep a faithful guard.",
+      kr: [["Exodus 31:3", "God fills Bezalel with skill, ability and knowledge"], ["Nehemiah 4:9", "We prayed and posted a guard day and night"], ["Proverbs 14:15", "The prudent give thought to their steps"]] },
+    { n: "Media, Film & Communications", c: "tech", t: "From manufacturing desire to telling true stories",
+      f: "Stories normalise sin, manipulate desire and spread lies for attention.",
+      fr: [["Isaiah 5:20", "Woe to those who call evil good and good evil"], ["Romans 1:32", "They approve of those who practice evil"]],
+      k: "Tell beautiful, truthful stories that turn the imagination toward the good.",
+      kr: [["Philippians 4:8", "Think on what is true, lovely and admirable"], ["Matthew 13:34", "Jesus teaches the crowds through parables"], ["John 8:32", "The truth will set you free"]] },
+    { n: "Journalism & Publishing", c: "tech", t: "From spin and silence to honest witness",
+      f: "Truth is sold, spun or silenced, and reputations are burned for attention.",
+      fr: [["Exodus 23:1", "Do not spread a false report"], ["Proverbs 19:5", "A false witness will not go unpunished"]],
+      k: "Report truthfully, write plainly, and hold power to account.",
+      kr: [["Ephesians 4:25", "Put away falsehood and speak truth"], ["Habakkuk 2:2", "Write the vision plainly on tablets"], ["Luke 1:1-4", "Luke compiles a careful, orderly account"]] },
+
+    { n: "Missions, Ministry & Theology", c: "church", t: "From religion as performance to discipleship",
+      f: "Faith becomes performance, platform or control, and ministry becomes a way to gain.",
+      fr: [["Micah 3:11", "Priests teach for a price and prophets for money"], ["Matthew 23:27-28", "Whitewashed tombs: clean outside, dead inside"]],
+      k: "Make disciples of every nation, equip the church, and serve rather than rule.",
+      kr: [["Matthew 28:18-20", "Go and make disciples of all nations"], ["Ephesians 4:11-12", "Leaders equip God's people for works of service"], ["Acts 1:8", "You will be my witnesses to the ends of the earth"]] }
+  ];
+
+  var state = { q: "", c: "all" };
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (ch) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]; }); };
+
+  function refsHTML(list) {
+    return '<ul class="refs">' + list.map(function (x) { return '<li><span class="ref">' + esc(x[0]) + '</span><span class="gloss">' + esc(x[1]) + '</span></li>'; }).join("") + '</ul>';
+  }
+
+  var nVerses = Q.reduce(function (n, x) { return n + x.fr.length + x.kr.length; }, 0) + V.reduce(function (n, x) { return n + x.fr.length + x.kr.length; }, 0) + MOVES.reduce(function (n, x) { return n + x.r.length; }, 0);
+  $("vlede").textContent = "Every discipline can be self-governed or God-governed. See the fallen pattern, the turn, and the Kingdom pattern for each of " + V.length + " fields, with " + nVerses + " passages of Scripture across the page.";
+
+  // Core matrix
+  $("qmatrix").innerHTML =
+    '<div class="qhead" aria-hidden="true"><div class="h-q">Key Question<small>Life\'s fundamental answers</small></div><div class="h-f">Fallen Worldview<small>Self-governed</small></div><div class="h-k">Kingdom Worldview<small>God-governed</small></div></div>' +
+    Q.map(function (x) {
+      return '<div class="qrow">' +
+        '<div class="qcell q-q"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[x.i] + '</svg><div><h3>' + esc(x.q) + '</h3><span class="sub">' + esc(x.s) + '</span><p>' + esc(x.d) + '</p></div></div>' +
+        '<div class="qcell q-f"><span class="lab">Fallen worldview, self-governed</span><p class="big">' + esc(x.f) + '</p>' + refsHTML(x.fr) + '</div>' +
+        '<div class="qcell q-k"><span class="lab">Kingdom worldview, God-governed</span><p class="big">' + esc(x.k) + '</p>' + refsHTML(x.kr) + '</div>' +
+        '</div>';
+    }).join("");
+
+  // Movements
+  $("moves").innerHTML = MOVES.map(function (m) {
+    return '<article class="move"><span class="step">' + esc(m.s) + '</span><h3>' + esc(m.n) + '</h3><p class="does">' + esc(m.d) + '</p>' + refsHTML(m.r) + '</article>';
+  }).join("");
+
+  // Chips
+  var N = {}; ORDER.forEach(function (k) { N[k] = 0; }); V.forEach(function (f) { N[f.c]++; });
+  $("chips").innerHTML = '<button type="button" class="chip" data-chip="all" aria-pressed="true">All fields <span class="n">' + V.length + '</span></button>' +
+    ORDER.map(function (k) {
+      return '<button type="button" class="chip" data-chip="' + k + '" aria-pressed="false"><span class="dot" style="color:var(' + CL[k].v + ')"></span>' + esc(CL[k].n) + ' <span class="n">' + N[k] + '</span></button>';
+    }).join("");
+
+  function matches(f) {
+    if (state.c !== "all" && f.c !== state.c) return false;
+    var q = state.q.trim().toLowerCase();
+    if (!q) return true;
+    var hay = [f.n, f.t, f.f, f.k, CL[f.c].n, f.fr.concat(f.kr).map(function (x) { return x[0] + " " + x[1]; }).join(" ")].join(" ").toLowerCase();
+    return q.split(/\s+/).every(function (w) { return hay.indexOf(w) !== -1; });
+  }
+
+  function rowHTML(f) {
+    return '<article class="vrow">' +
+      '<div class="vcell vfield"><span class="tag" style="color:var(' + CL[f.c].v + ')"><span class="dot"></span>' + esc(CL[f.c].n) + '</span><h4>' + esc(f.n) + '</h4><p class="turnline"><b>The turn</b>' + esc(f.t) + '</p></div>' +
+      '<div class="vcell vfall"><span class="lab">Fallen worldview</span><p class="vtext">' + esc(f.f) + '</p>' + refsHTML(f.fr) + '</div>' +
+      '<div class="vcell vking"><span class="lab">Kingdom worldview</span><p class="vtext">' + esc(f.k) + '</p>' + refsHTML(f.kr) + '</div>' +
+      '</article>';
+  }
+
+  function render() {
+    var list = V.filter(matches), html = "";
+    ORDER.forEach(function (k) {
+      var items = list.filter(function (f) { return f.c === k; });
+      if (!items.length) return;
+      html += '<div><div class="domain-head"><h3><span class="dot" style="color:var(' + CL[k].v + ')"></span>' + esc(CL[k].n) + '</h3><p>' + esc(CL[k].d) + '</p></div><div class="vlist">' + items.map(rowHTML).join("") + '</div></div>';
+    });
+    if (!list.length) html = '<div class="empty">No field matches that search.<br><button type="button" id="clearBtn">Clear search and filters</button></div>';
+    $("vocResults").innerHTML = html;
+    $("status").textContent = "Showing " + list.length + " of " + V.length + " fields";
+    var cb = $("clearBtn"); if (cb) cb.addEventListener("click", reset);
+  }
+  function setChip(c) {
+    state.c = c;
+    Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-chip") === c)); });
+    render();
+  }
+  function reset() { state.q = ""; $("q").value = ""; setChip("all"); }
+  $("q").addEventListener("input", function (e) { state.q = e.target.value; render(); });
+  $("chips").addEventListener("click", function (e) { var b = e.target.closest(".chip"); if (b) setChip(b.getAttribute("data-chip")); });
+
+  var themes = ["auto", "light", "dark"], ti = 0;
+  $("themeBtn").addEventListener("click", function () {
+    ti = (ti + 1) % 3;
+    var t = themes[ti], root = document.documentElement;
+    if (t === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", t);
+    $("themeBtn").textContent = "Theme: " + t.charAt(0).toUpperCase() + t.slice(1);
+  });
+
+  render();
+})();
+</script>
+
+</body></html>

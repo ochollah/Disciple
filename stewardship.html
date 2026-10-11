@@ -1,0 +1,470 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Kingdom Stewardship Matrix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Marcellus&family=Spectral:ital,wght@0,400;1,400;1,500&display=swap">
+<style>
+/* Layout: a tall header with the thesis verse and a domain index, a sticky search/filter bar, then domain sections as card grids or a three-column matrix. */
+:root {
+  --bg: #EDF0F6;
+  --surface: #FFFFFF;
+  --surface-2: #E3E8F1;
+  --ink: #0E1B3A;
+  --muted: #475577;
+  --line: #C9D1E1;
+  --navy: #14285A;
+  --gold: #8F5F0E;
+  --gold-fill: #D9A441;
+  --on-gold: #1A1204;
+  --c-sci: #1B7556;
+  --c-care: #B0345A;
+  --c-soc: #2757C2;
+  --c-build: #7544B0;
+  --c-tech: #0B7690;
+  --c-church: #8F5F0E;
+  --font-display: "Marcellus", "Trajan Pro", Georgia, serif;
+  --font-body: "Albert Sans", "Segoe UI", system-ui, sans-serif;
+  --font-verse: "Spectral", Georgia, "Times New Roman", serif;
+  --shadow: 0 1px 2px rgba(14,27,58,.06), 0 8px 24px -12px rgba(14,27,58,.18);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0A1330;
+    --surface: #111C42;
+    --surface-2: #19265A;
+    --ink: #EEF1F9;
+    --muted: #AAB5D2;
+    --line: #27366A;
+    --navy: #0A1330;
+    --gold: #E8BB62;
+    --gold-fill: #E8BB62;
+    --on-gold: #1A1204;
+    --c-sci: #5FD0A3;
+    --c-care: #F28FAB;
+    --c-soc: #8DAEFF;
+    --c-build: #BE9FF2;
+    --c-tech: #62CFE8;
+    --c-church: #E8BB62;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0A1330;
+  --surface: #111C42;
+  --surface-2: #19265A;
+  --ink: #EEF1F9;
+  --muted: #AAB5D2;
+  --line: #27366A;
+  --navy: #0A1330;
+  --gold: #E8BB62;
+  --gold-fill: #E8BB62;
+  --on-gold: #1A1204;
+  --c-sci: #5FD0A3;
+  --c-care: #F28FAB;
+  --c-soc: #8DAEFF;
+  --c-build: #BE9FF2;
+  --c-tech: #62CFE8;
+  --c-church: #E8BB62;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.6);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
+  padding-inline: clamp(16px, 4vw, 56px);
+  padding-block: 0 72px;
+}
+.wrap { max-width: 1280px; margin-inline: auto; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--gold-fill); outline-offset: 2px; border-radius: 6px; }
+a { color: inherit; }
+
+/* Top bar */
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-size: 1.05rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.theme-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 18px; cursor: pointer; font-weight: 600; font-size: .95rem; min-height: 44px; }
+.theme-btn:hover { border-color: var(--gold-fill); }
+
+/* Header */
+.hero { display: grid; gap: 40px; padding-block: 28px 56px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 960px) { .hero { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 64px; align-items: end; } }
+.eyebrow { font-weight: 700; letter-spacing: .16em; text-transform: uppercase; font-size: .85rem; color: var(--muted); margin: 0 0 18px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.5rem, 7vw, 5.2rem); line-height: 1.02; margin: 0 0 28px; text-wrap: balance; letter-spacing: -.005em; }
+h1 em { font-style: normal; color: var(--gold); }
+.lede { font-size: 1.3rem; max-width: 40ch; color: var(--muted); margin: 0 0 32px; }
+.verse { border-top: 2px solid var(--gold-fill); padding-top: 22px; max-width: 46ch; }
+.verse q { quotes: none; font-family: var(--font-verse); font-style: italic; font-size: 1.5rem; line-height: 1.45; display: block; }
+.verse cite { display: block; margin-top: 12px; font-style: normal; font-weight: 600; font-size: 1rem; letter-spacing: .06em; color: var(--gold); }
+
+.index { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 8px; box-shadow: var(--shadow); }
+.index h2 { font-size: .85rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 0; padding: 16px 16px 8px; font-weight: 700; }
+.index ul { list-style: none; margin: 0; padding: 0; }
+.index button { all: unset; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: 14px 1fr auto; align-items: center; gap: 14px; padding: 14px 16px; cursor: pointer; border-radius: 8px; font-size: 1.1rem; font-weight: 600; min-height: 52px; }
+.index button:hover { background: var(--surface-2); }
+.index button:focus-visible { outline: 3px solid var(--gold-fill); }
+.index .count { font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 500; }
+.dot { width: 14px; height: 14px; border-radius: 50%; background: currentColor; display: inline-block; }
+
+/* Toolbar */
+.toolbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-block: 1px solid var(--line); padding-block: 14px; }
+.toolbar-inner { display: grid; gap: 14px; }
+.tools-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.search { flex: 1 1 280px; min-width: 0; position: relative; }
+.search input { width: 100%; min-height: 52px; padding: 12px 16px 12px 48px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-size: 1.05rem; }
+.search input::placeholder { color: var(--muted); }
+.search svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; stroke: var(--muted); fill: none; stroke-width: 2; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 0 22px; min-height: 52px; cursor: pointer; font-weight: 600; font-size: 1rem; }
+.seg button[aria-pressed="true"] { background: var(--navy); color: #fff; }
+:root[data-theme="dark"] .seg button[aria-pressed="true"] { background: var(--gold-fill); color: var(--on-gold); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .seg button[aria-pressed="true"] { background: var(--gold-fill); color: var(--on-gold); } }
+.chips { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.chip { flex: 0 0 auto; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; font-size: 1rem; white-space: nowrap; }
+.chip:hover { border-color: var(--gold-fill); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip[aria-pressed="true"] .dot { box-shadow: 0 0 0 2px var(--bg); }
+.status { font-size: .95rem; color: var(--muted); }
+
+/* Sections */
+main { padding-top: 48px; display: grid; gap: 72px; }
+.domain-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin-bottom: 24px; }
+.domain-head h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0; line-height: 1.1; display: flex; align-items: center; gap: 14px; }
+.domain-head p { margin: 0; color: var(--muted); font-size: 1.1rem; flex: 1 1 280px; min-width: 0; }
+
+.cards { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 20px; min-width: 0; box-shadow: var(--shadow); transition: transform .2s ease, border-color .2s ease; }
+.card:hover { transform: translateY(-3px); border-color: var(--tone); }
+.card h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.75rem; line-height: 1.15; margin: 0; text-wrap: balance; }
+.tag { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--tone); }
+.mission { font-size: 1.2rem; line-height: 1.5; margin: 0; font-weight: 500; }
+.refs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.refs li { display: grid; gap: 2px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.ref { font-weight: 700; font-size: 1.05rem; color: var(--gold); letter-spacing: .01em; }
+.gloss { font-size: 1.02rem; color: var(--muted); line-height: 1.5; }
+.callings { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.callings span { font-size: .92rem; font-weight: 600; background: var(--surface-2); border-radius: 6px; padding: 5px 11px; }
+
+/* Matrix view */
+.matrix { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
+.mhead, .mrow { display: grid; grid-template-columns: minmax(0, 1fr); }
+.mhead { display: none; }
+@media (min-width: 900px) {
+  .mhead, .mrow { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1.2fr); }
+  .mhead { display: grid; background: var(--navy); color: #fff; font-family: var(--font-display); font-size: 1.25rem; }
+  :root[data-theme="dark"] .mhead { background: var(--surface-2); }
+  .mhead div { padding: 18px 24px; }
+}
+@media (min-width: 900px) and (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mhead { background: var(--surface-2); } }
+.mrow { border-top: 1px solid var(--line); }
+.mhead + .mrow { border-top: 0; }
+.mcell { padding: 20px 24px; min-width: 0; }
+.mcell::before { content: attr(data-label); display: block; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+@media (min-width: 900px) { .mcell::before { display: none; } .mcell { padding: 24px; } }
+.mname { font-family: var(--font-display); font-size: 1.45rem; line-height: 1.2; display: block; }
+.mrefs { font-size: 1.1rem; font-weight: 600; color: var(--gold); line-height: 1.7; }
+.mrefs span { display: block; }
+.mmission { font-size: 1.15rem; line-height: 1.5; }
+
+.empty { text-align: center; padding: 72px 16px; color: var(--muted); font-size: 1.2rem; }
+.empty button { margin-top: 16px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 10px 22px; cursor: pointer; font-weight: 600; min-height: 46px; }
+
+/* Closing */
+.closing { margin-top: 88px; background: var(--navy); color: #fff; border-radius: 14px; padding: clamp(32px, 6vw, 72px); display: grid; gap: 22px; }
+:root[data-theme="dark"] .closing { background: var(--surface-2); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .closing { background: var(--surface-2); } }
+.closing h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.8rem, 4.5vw, 3.2rem); line-height: 1.1; margin: 0; text-wrap: balance; }
+.closing q { quotes: none; font-family: var(--font-verse); font-style: italic; font-size: 1.4rem; line-height: 1.5; max-width: 52ch; display: block; opacity: .95; }
+.closing .refline { font-weight: 700; letter-spacing: .08em; color: #E8BB62; font-size: 1rem; }
+footer { margin-top: 32px; color: var(--muted); font-size: .95rem; max-width: 70ch; }
+
+@media (max-width: 560px) {
+  body { font-size: 17px; }
+  .card { padding: 22px; }
+  .seg { width: 100%; }
+  .seg button { flex: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .card { transition: none; }
+  .card:hover { transform: none; }
+}
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">Kingdom Stewardship</div>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Change colour theme">Theme: Auto</button>
+  </div>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">A map of callings for every field of study</p>
+      <h1>Kingdom Stewardship <em>&amp;</em> Vocational Matrix</h1>
+      <p class="lede" id="lede">Thirty-one fields of study and work, each grounded in Scripture and tied to a mission in the world.</p>
+      <div class="verse">
+        <q>Whether therefore ye eat, or drink, or whatsoever ye do, do all to the glory of God.</q>
+        <cite>1 Corinthians 10:31 (KJV)</cite>
+      </div>
+    </div>
+    <nav class="index" aria-label="Jump to a domain">
+      <h2>Six domains</h2>
+      <ul id="indexList"></ul>
+    </nav>
+  </header>
+
+  <div class="toolbar" id="toolbar">
+    <div class="toolbar-inner">
+      <div class="tools-row">
+        <div class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Search a field, a verse, or a calling" aria-label="Search fields, verses and callings" autocomplete="off">
+        </div>
+        <div class="seg" role="group" aria-label="Layout">
+          <button type="button" id="vCards" aria-pressed="true">Cards</button>
+          <button type="button" id="vMatrix" aria-pressed="false">Matrix</button>
+        </div>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter by domain"></div>
+      <div class="status" id="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <main id="results"></main>
+
+  <section class="closing" aria-label="Closing">
+    <h2>Every discipline under the Lordship of Christ</h2>
+    <q>And whatsoever ye do, do it heartily, as to the Lord, and not unto men.</q>
+    <div class="refline">COLOSSIANS 1:16-17 · COLOSSIANS 3:23 · 1 CORINTHIANS 10:31</div>
+  </section>
+  <footer>Verse references are given for study. The short notes beside each reference are plain-word summaries of the passage, and each mission line is a statement of vocation to explore with your church and mentors.</footer>
+</div>
+
+<script>
+(function () {
+  var CL = {
+    sci:    { n: "Creation & Science", d: "Study what God made and care for it with humility.", v: "--c-sci" },
+    care:   { n: "Health & Care", d: "Heal, comfort and strengthen people in body and mind.", v: "--c-care" },
+    soc:    { n: "Society & Order", d: "Build just, wise and peaceful communities.", v: "--c-soc" },
+    build:  { n: "Craft & Build", d: "Make beautiful, durable things and places.", v: "--c-build" },
+    tech:   { n: "Technology & Media", d: "Shape the tools and stories that carry ideas.", v: "--c-tech" },
+    church: { n: "Church & Mission", d: "Make disciples and equip God's people.", v: "--c-church" }
+  };
+  var ORDER = ["sci", "care", "soc", "build", "tech", "church"];
+
+  var D = [
+    { n: "Physical & Life Sciences", c: "sci", m: "Study creation, reveal wonder, steward knowledge with humility.",
+      r: [["Psalm 19:1", "The heavens declare the glory of God"], ["Romans 1:20", "Creation makes God's power visible to all"], ["Job 38–41", "God's questions humble human knowledge"], ["Proverbs 25:2", "Kings honor the search for what God has hidden"]],
+      k: ["Biologist", "Chemist", "Physicist", "Lab researcher"] },
+    { n: "Mathematics & Data Science", c: "sci", m: "Measure creation faithfully; bring clarity to complexity.",
+      r: [["Isaiah 40:12", "God measures waters and heavens by hand"], ["1 Kings 7:23", "The bronze sea is cast to exact dimensions"], ["Psalm 90:12", "Teach us to number our days"], ["Luke 14:28", "Count the cost before you build"]],
+      k: ["Statistician", "Actuary", "Data scientist", "Cryptographer"] },
+    { n: "Astronomy & Space Science", c: "sci", m: "Read the heavens as testimony and honor the Maker in the scale of space.",
+      r: [["Psalm 8:3-4", "Looking at the sky, we ask what humanity is"], ["Isaiah 40:26", "God calls each star by name"], ["Job 38:31-33", "Do you know the laws that govern the heavens?"], ["Genesis 1:14", "Lights set in the sky for signs and seasons"]],
+      k: ["Astronomer", "Astrophysicist", "Satellite engineer", "Science educator"] },
+    { n: "Agriculture & Food Systems", c: "sci", m: "Steward land, water and creatures; build sustainable food systems.",
+      r: [["Genesis 2:15", "Adam is placed in the garden to work it and keep it"], ["Proverbs 12:11", "Those who work their land have plenty of bread"], ["Leviticus 25:3-5", "The land receives a Sabbath rest"], ["Leviticus 19:9-10", "Harvest edges are left for the poor"]],
+      k: ["Farmer", "Agronomist", "Food scientist", "Supply-chain planner"] },
+    { n: "Environment & Conservation", c: "sci", m: "Care for ecosystems as the Lord's possession and restore what has been damaged.",
+      r: [["Genesis 2:15", "Humanity is given the garden to work and keep"], ["Psalm 24:1", "The earth and all in it belong to the Lord"], ["Job 12:7-10", "Ask the animals and the earth, and they will teach you"], ["Psalm 104:10-14", "God waters the land and feeds every creature"]],
+      k: ["Ecologist", "Conservation officer", "Water engineer", "Climate analyst"] },
+    { n: "Veterinary & Animal Science", c: "sci", m: "Care for the creatures entrusted to us and protect the animal health that sustains human life.",
+      r: [["Proverbs 12:10", "The righteous know the needs of their animals"], ["Genesis 2:19-20", "Adam names every living creature"], ["Exodus 23:5", "Help an animal in trouble, even your enemy's"], ["Jonah 4:11", "God's concern reaches the many animals of Nineveh"]],
+      k: ["Veterinarian", "Animal scientist", "Wildlife biologist", "Livestock health officer"] },
+    { n: "Geology, Mining & Energy", c: "sci", m: "Draw on the earth's resources responsibly and power communities without plundering the land.",
+      r: [["Deuteronomy 8:9", "A land whose rocks are iron and hills hold copper"], ["Job 28:1-2", "People mine silver, gold and iron from the earth"], ["1 Chronicles 29:2", "David gathers gold, silver, bronze and iron for the temple"], ["Genesis 2:11-12", "The land of Havilah has good gold"]],
+      k: ["Geologist", "Mining engineer", "Energy engineer", "Hydrologist"] },
+
+    { n: "Medicine & Public Health", c: "care", m: "Alleviate suffering; honor the sanctity of life; bring healing.",
+      r: [["Matthew 9:35", "Jesus heals every disease and sickness"], ["Luke 10:33-35", "The Samaritan treats wounds and pays for ongoing care"], ["Exodus 15:26", "I am the Lord who heals you"], ["Colossians 4:14", "Luke, the beloved physician, serves with Paul"], ["Leviticus 13", "Early public-health rules of inspection and isolation"]],
+      k: ["Physician", "Epidemiologist", "Surgeon", "Community health worker"] },
+    { n: "Nursing & Caregiving", c: "care", m: "Serve the vulnerable with gentleness, dignity and presence.",
+      r: [["Matthew 25:36", "I was sick and you looked after me"], ["1 Thessalonians 2:7", "Gentle as a nursing mother caring for her children"], ["Isaiah 42:3", "A bruised reed he will not break"], ["Luke 10:34", "Wounds are bandaged and a place of care is arranged"]],
+      k: ["Nurse", "Midwife", "Palliative caregiver", "Home-care worker"] },
+    { n: "Pharmacy & Biomedical Research", c: "care", m: "Discover and distribute remedies; pursue cures with integrity and fair access.",
+      r: [["Ezekiel 47:12", "Leaves of the trees are for healing"], ["Proverbs 17:22", "A cheerful heart is good medicine"], ["1 Timothy 5:23", "Paul advises a little wine for Timothy's stomach"], ["Genesis 1:29", "Seed-bearing plants are given as provision"]],
+      k: ["Pharmacist", "Clinical researcher", "Biochemist", "Medical device developer"] },
+    { n: "Psychology, Counseling & Social Work", c: "care", m: "Heal the brokenhearted; counsel with truth and compassion.",
+      r: [["Isaiah 61:1-3", "Bind up the brokenhearted and comfort those who mourn"], ["Galatians 6:2", "Carry one another's burdens"], ["2 Corinthians 1:3-4", "Comforted by God so we can comfort others"], ["Proverbs 11:14", "Plans succeed with many counselors"], ["Psalm 147:3", "He heals the brokenhearted and binds their wounds"]],
+      k: ["Counselor", "Clinical psychologist", "Social worker", "Trauma-recovery facilitator"] },
+    { n: "Sports, Fitness & Athletics", c: "care", m: "Discipline the body; pursue excellence; compete with integrity.",
+      r: [["1 Corinthians 9:24-27", "Run to win, with self-control in training"], ["2 Timothy 4:7", "I have fought the good fight and finished the race"], ["1 Timothy 4:8", "Physical training has value, godliness has value in every way"], ["Hebrews 12:1", "Run with endurance the race set before us"]],
+      k: ["Athlete", "Coach", "Physiotherapist", "Sports administrator"] },
+
+    { n: "Governance, Law & Public Policy", c: "soc", m: "Restrain evil; defend the poor; establish justice and order.",
+      r: [["Romans 13:1-4", "Authority is God's servant for the good of the people"], ["Amos 5:24", "Let justice roll down like waters"], ["Micah 6:8", "Do justice, love mercy, walk humbly"], ["Proverbs 31:8-9", "Speak up for those who cannot speak for themselves"], ["Proverbs 29:4", "A king gives a land stability by justice"]],
+      k: ["Legislator", "Judge", "Lawyer", "Policy analyst", "Civil servant"] },
+    { n: "Business, Finance & Economics", c: "soc", m: "Create economic value; practice stewardship; lift communities.",
+      r: [["Genesis 41", "Joseph plans grain storage and saves a nation"], ["Matthew 25:14-30", "Servants are rewarded for investing what they were given"], ["Proverbs 31:16", "She considers a field and buys it"], ["Deuteronomy 8:18", "God gives the power to create wealth"], ["Proverbs 11:1", "Honest scales please the Lord"]],
+      k: ["Entrepreneur", "Accountant", "Banker", "Economist"] },
+    { n: "Education, Research & Academia", c: "soc", m: "Renew minds; discover God's laws of nature; disciple generations.",
+      r: [["2 Timothy 2:2", "Pass teaching to faithful people who will teach others"], ["Daniel 1:17", "God gives young scholars knowledge and understanding"], ["Proverbs 1:7", "The fear of the Lord is the beginning of knowledge"], ["Deuteronomy 6:6-7", "Teach God's words diligently to your children"]],
+      k: ["Teacher", "Professor", "Researcher", "Curriculum designer"] },
+    { n: "History, Humanities & Philosophy", c: "soc", m: "Remember faithfully, think clearly, and test every idea against the truth.",
+      r: [["Psalm 78:1-7", "Tell the coming generation what the Lord has done"], ["Acts 17:22-28", "Paul engages Athens' philosophers and poets"], ["Colossians 2:8", "Test philosophies against Christ"], ["Deuteronomy 32:7", "Remember the days of old"]],
+      k: ["Historian", "Philosopher", "Archivist", "Museum curator"] },
+    { n: "Languages, Linguistics & Translation", c: "soc", m: "Carry truth across tongues so every people hears it in its own language.",
+      r: [["Genesis 11:1-9", "Babel scatters one language into many"], ["Acts 2:6-11", "Each person hears the gospel in their own language"], ["Revelation 7:9", "Every nation, tribe and tongue stands before the throne"], ["Nehemiah 8:8", "The law is read clearly and explained"]],
+      k: ["Translator", "Linguist", "Interpreter", "Bible-translation specialist"] },
+    { n: "Sociology & Community Development", c: "soc", m: "Understand communities and strengthen the places where people live.",
+      r: [["Jeremiah 29:7", "Seek the welfare of the city where you live"], ["Genesis 1:27", "Every person bears the image of God"], ["Acts 17:26", "From one man God made every nation"], ["Nehemiah 5:1-13", "Nehemiah confronts economic exploitation"]],
+      k: ["Sociologist", "Anthropologist", "Urban planner", "Community organizer"] },
+    { n: "Family & Early Childhood", c: "soc", m: "Protect and nurture the home as the first school of faith and character.",
+      r: [["Deuteronomy 6:6-7", "Faith is taught at home, walking and resting"], ["Proverbs 22:6", "Train up a child in the way he should go"], ["Psalm 127:3", "Children are a heritage from the Lord"], ["Mark 10:14", "Let the children come to me"]],
+      k: ["Early-years teacher", "Family therapist", "Pediatric specialist", "Adoption and foster worker"] },
+    { n: "Humanitarian Aid & Social Justice", c: "soc", m: "Feed the hungry, shelter the stranger, and free the oppressed.",
+      r: [["Isaiah 58:6-7", "Share bread with the hungry and shelter the homeless"], ["James 1:27", "Pure religion looks after orphans and widows"], ["Matthew 25:35-36", "I was hungry, a stranger, in prison, and you came"], ["Proverbs 14:31", "Oppressing the poor insults their Maker"]],
+      k: ["Aid worker", "Refugee advocate", "Non-profit leader", "Human rights lawyer"] },
+    { n: "Security, Military & Public Safety", c: "soc", m: "Protect the innocent with restraint, discipline and integrity.",
+      r: [["Romans 13:4", "Authority bears the sword to punish wrongdoing"], ["Nehemiah 4:13-18", "Guards are posted while the wall goes up"], ["Luke 3:14", "John tells soldiers: no extortion, be content with your pay"], ["Matthew 8:5-13", "Jesus commends the faith of a centurion"]],
+      k: ["Police officer", "Firefighter", "Soldier", "Emergency responder"] },
+    { n: "Diplomacy & International Relations", c: "soc", m: "Make peace between nations and build trust across lines of conflict.",
+      r: [["2 Corinthians 5:20", "We are ambassadors for Christ"], ["Matthew 5:9", "Blessed are the peacemakers"], ["Romans 12:18", "Live at peace with everyone, as far as it depends on you"], ["Proverbs 15:1", "A gentle answer turns away wrath"]],
+      k: ["Diplomat", "Mediator", "Foreign-affairs analyst", "Peacebuilder"] },
+
+    { n: "Engineering, Architecture & Construction", c: "build", m: "Design faithfully; build durable cities and sacred spaces.",
+      r: [["Exodus 35:30-35", "Bezalel and Oholiab are gifted for building and design"], ["1 Chronicles 22", "David prepares plans and materials for the temple"], ["Nehemiah 2", "Nehemiah surveys the ruins and plans the wall"], ["Proverbs 24:3-4", "By wisdom a house is built"], ["Luke 14:28-30", "A builder estimates the cost before the tower"]],
+      k: ["Civil engineer", "Architect", "Surveyor", "Project manager"] },
+    { n: "Arts, Music & Design", c: "build", m: "Create beauty; give voice to worship and culture.",
+      r: [["Exodus 35:35", "God fills craftsmen, engravers and weavers with skill"], ["1 Chronicles 25:1-7", "Skilled musicians are set apart for temple worship"], ["Psalm 150", "Praise him with every instrument"], ["Exodus 31:1-5", "The Spirit fills Bezalel for artistic work"]],
+      k: ["Musician", "Painter", "Designer", "Songwriter"] },
+    { n: "Fashion, Textiles & Craft", c: "build", m: "Clothe people with dignity; honor honest craft and fair trade.",
+      r: [["Exodus 28:2-3", "Skilled workers make garments for glory and beauty"], ["Proverbs 31:13, 24", "She works with willing hands and sells linen garments"], ["Acts 9:39", "The widows show the tunics Tabitha made"], ["Acts 16:14", "Lydia is a dealer in purple cloth"]],
+      k: ["Fashion designer", "Tailor", "Textile maker", "Artisan entrepreneur"] },
+    { n: "Culinary Arts & Hospitality", c: "build", m: "Set tables that welcome strangers and gather communities.",
+      r: [["Genesis 18:1-8", "Abraham and Sarah prepare a meal for visitors"], ["Hebrews 13:2", "Some have welcomed angels without knowing it"], ["Luke 14:12-14", "Invite those who cannot repay you"], ["Romans 12:13", "Practice hospitality"]],
+      k: ["Chef", "Baker", "Hotelier", "Food-ministry coordinator"] },
+    { n: "Transport, Aviation & Logistics", c: "build", m: "Move people and goods safely, connecting nations and feeding cities.",
+      r: [["Genesis 6:14-16", "God gives Noah the design for a vessel"], ["Psalm 107:23-24", "Those who sail the sea see the works of the Lord"], ["Proverbs 31:14", "Like merchant ships, she brings food from afar"], ["Acts 27", "Paul's sea voyage: planning, crew and storm survival"]],
+      k: ["Pilot", "Naval architect", "Logistics planner", "Transport engineer"] },
+
+    { n: "Technology, AI & Cybersecurity", c: "tech", m: "Build digital infrastructure; promote truth, security and ethics; steward data for global mission.",
+      r: [["Exodus 31:3", "God fills Bezalel with skill, ability and knowledge"], ["Proverbs 25:2", "It is the glory of kings to search things out"], ["Daniel 1:17", "God gives understanding in all learning and wisdom"], ["Nehemiah 4:9", "We prayed and posted a guard day and night"], ["Proverbs 14:15", "The prudent give thought to their steps"]],
+      k: ["Software engineer", "AI researcher", "Security analyst", "Data steward"] },
+    { n: "Media, Film & Communications", c: "tech", m: "Shape public imagination; counter deception; tell beautiful, truthful stories.",
+      r: [["Matthew 13:34", "Jesus teaches the crowds through parables"], ["John 8:32", "The truth will set you free"], ["Philippians 4:8", "Think on what is true, lovely and admirable"], ["Proverbs 18:21", "Life and death are in the power of the tongue"]],
+      k: ["Filmmaker", "Storyteller", "Producer", "Communications strategist"] },
+    { n: "Journalism & Publishing", c: "tech", m: "Report truthfully, write plainly, and hold power to account.",
+      r: [["Proverbs 12:17", "A truthful witness gives honest evidence"], ["Ephesians 4:25", "Put away falsehood and speak truth"], ["Habakkuk 2:2", "Write the vision plainly on tablets"], ["Luke 1:1-4", "Luke compiles a careful, orderly account"]],
+      k: ["Reporter", "Editor", "Author", "Publisher"] },
+
+    { n: "Missions, Ministry & Theology", c: "church", m: "Make disciples of all nations; equip the church.",
+      r: [["Matthew 28:18-20", "Go and make disciples of all nations"], ["Acts 1:8", "You will be my witnesses to the ends of the earth"], ["Ephesians 4:11-12", "Leaders equip God's people for works of service"], ["Romans 10:14-15", "How will they hear without someone sent to tell them?"]],
+      k: ["Missionary", "Pastor", "Theologian", "Church planter"] }
+  ];
+
+  var state = { q: "", c: "all", v: "cards" };
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (ch) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]; }); };
+
+  var totalRefs = D.reduce(function (n, f) { return n + f.r.length; }, 0);
+  $("lede").textContent = D.length + " fields of study and work, " + totalRefs + " passages of Scripture, and one mission for each: to serve God and people in the place you are called.";
+
+  function counts() { var o = {}; ORDER.forEach(function (k) { o[k] = 0; }); D.forEach(function (f) { o[f.c]++; }); return o; }
+  var N = counts();
+
+  $("indexList").innerHTML = ORDER.map(function (k) {
+    return '<li><button type="button" data-jump="' + k + '" style="color:var(' + CL[k].v + ')"><span class="dot"></span><span style="color:var(--ink)">' + esc(CL[k].n) + '</span><span class="count">' + N[k] + '</span></button></li>';
+  }).join("");
+
+  $("chips").innerHTML = '<button type="button" class="chip" data-chip="all" aria-pressed="true">All fields <span class="count">' + D.length + '</span></button>' +
+    ORDER.map(function (k) {
+      return '<button type="button" class="chip" data-chip="' + k + '" aria-pressed="false" style="color:var(' + CL[k].v + ')"><span class="dot"></span><span style="color:inherit">' + esc(CL[k].n) + '</span></button>';
+    }).join("");
+  // chip label colour: keep text readable on both states
+  Array.prototype.forEach.call(document.querySelectorAll(".chip[data-chip]"), function (b) {
+    var span = b.querySelector("span:not(.dot):not(.count)");
+    if (span) span.style.color = "inherit";
+    b.style.color = "";
+    var dot = b.querySelector(".dot");
+    if (dot && CL[b.getAttribute("data-chip")]) dot.style.color = "var(" + CL[b.getAttribute("data-chip")].v + ")";
+  });
+
+  function matches(f) {
+    if (state.c !== "all" && f.c !== state.c) return false;
+    var q = state.q.trim().toLowerCase();
+    if (!q) return true;
+    var hay = [f.n, f.m, CL[f.c].n, f.k.join(" "), f.r.map(function (x) { return x[0] + " " + x[1]; }).join(" ")].join(" ").toLowerCase();
+    return q.split(/\s+/).every(function (w) { return hay.indexOf(w) !== -1; });
+  }
+
+  function cardHTML(f) {
+    return '<article class="card" style="--tone:var(' + CL[f.c].v + ')">' +
+      '<span class="tag"><span class="dot"></span>' + esc(CL[f.c].n) + '</span>' +
+      '<h3>' + esc(f.n) + '</h3>' +
+      '<p class="mission">' + esc(f.m) + '</p>' +
+      '<ul class="refs">' + f.r.map(function (x) { return '<li><span class="ref">' + esc(x[0]) + '</span><span class="gloss">' + esc(x[1]) + '</span></li>'; }).join("") + '</ul>' +
+      '<div class="callings">' + f.k.map(function (c) { return '<span>' + esc(c) + '</span>'; }).join("") + '</div>' +
+      '</article>';
+  }
+
+  function matrixHTML(list) {
+    return '<div class="matrix"><div class="mhead"><div>Vocational Field</div><div>Biblical Foundation</div><div>Kingdom Mission</div></div>' +
+      list.map(function (f) {
+        return '<div class="mrow">' +
+          '<div class="mcell" data-label="Vocational Field"><span class="mname">' + esc(f.n) + '</span></div>' +
+          '<div class="mcell" data-label="Biblical Foundation"><div class="mrefs">' + f.r.map(function (x) { return '<span>' + esc(x[0]) + '</span>'; }).join("") + '</div></div>' +
+          '<div class="mcell" data-label="Kingdom Mission"><div class="mmission">' + esc(f.m) + '</div></div>' +
+          '</div>';
+      }).join("") + '</div>';
+  }
+
+  function render() {
+    var list = D.filter(matches);
+    var html = "";
+    ORDER.forEach(function (k) {
+      var items = list.filter(function (f) { return f.c === k; });
+      if (!items.length) return;
+      html += '<section id="d-' + k + '" aria-labelledby="h-' + k + '" style="scroll-margin-top:200px">' +
+        '<div class="domain-head"><h2 id="h-' + k + '" style="--tone:var(' + CL[k].v + ')"><span class="dot" style="color:var(' + CL[k].v + ')"></span>' + esc(CL[k].n) + '</h2><p>' + esc(CL[k].d) + '</p></div>' +
+        (state.v === "cards" ? '<div class="cards">' + items.map(cardHTML).join("") + '</div>' : matrixHTML(items)) +
+        '</section>';
+    });
+    if (!list.length) html = '<div class="empty">No field matches that search.<br><button type="button" id="clearBtn">Clear search and filters</button></div>';
+    $("results").innerHTML = html;
+    $("status").textContent = "Showing " + list.length + " of " + D.length + " fields";
+    var cb = $("clearBtn"); if (cb) cb.addEventListener("click", reset);
+  }
+
+  function setChip(c) {
+    state.c = c;
+    Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-chip") === c)); });
+    render();
+  }
+  function reset() { state.q = ""; $("q").value = ""; setChip("all"); }
+
+  $("q").addEventListener("input", function (e) { state.q = e.target.value; render(); });
+  $("chips").addEventListener("click", function (e) { var b = e.target.closest(".chip"); if (b) setChip(b.getAttribute("data-chip")); });
+  $("indexList").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-jump]"); if (!b) return;
+    state.q = ""; $("q").value = ""; setChip(b.getAttribute("data-jump"));
+    var t = $("toolbar"); if (t && t.scrollIntoView) t.scrollIntoView({ block: "start" });
+  });
+  function setView(v) {
+    state.v = v;
+    $("vCards").setAttribute("aria-pressed", String(v === "cards"));
+    $("vMatrix").setAttribute("aria-pressed", String(v === "matrix"));
+    render();
+  }
+  $("vCards").addEventListener("click", function () { setView("cards"); });
+  $("vMatrix").addEventListener("click", function () { setView("matrix"); });
+
+  var themes = ["auto", "light", "dark"], ti = 0;
+  $("themeBtn").addEventListener("click", function () {
+    ti = (ti + 1) % 3;
+    var t = themes[ti], root = document.documentElement;
+    if (t === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", t);
+    $("themeBtn").textContent = "Theme: " + t.charAt(0).toUpperCase() + t.slice(1);
+  });
+
+  render();
+})();
+</script>
+
+</body></html>
