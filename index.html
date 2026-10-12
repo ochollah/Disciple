@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Kingdom Platform - Knowledge of the Kingdom of Heaven</title>
+    <title>Global Kingdom Platform - Gospel of the Kingdom of Heaven</title>
 
     <!-- Google Fonts & Font Awesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -340,7 +340,7 @@
     <div id="landing-view" class="view-section">
         <div class="hero-section">
             <div class="hero-badge"><i class="fa-solid fa-scroll"></i> The Eternal Gospel Framework</div>
-            <h1 class="hero-title">The Knowledge of the Kingdom of Heaven</h1>
+            <h1 class="hero-title">The Knowledge of The Gospel of the Kingdom of Heaven</h1>
             <p class="hero-subtitle">
                 "And this gospel of the kingdom shall be preached in all the world for a witness unto all nations; and then shall the end come." — Matthew 24:14
             </p>
@@ -377,9 +377,9 @@
                 <!-- PHASE 1: FOUNDATION -->
                 <div class="phase-card">
                     <span class="stage-number" style="position: absolute; top: 1.5rem; right: 1.5rem; font-family:'Cinzel'; color:var(--gold); font-weight:700;">PHASE 01</span>
-                    <h3><i class="fa-solid fa-mountain" style="color: var(--gold);"></i> Phase 1: Foundation</h3>
+                    <h3><i class="fa-solid fa-mountain" style="color: var(--gold);"></i>Foundation</h3>
                     <p class="card-text" style="margin-bottom: 1rem;">
-                        <strong>Focus:</strong> (Kingdom Story, Repentance, Gospel, Salvation, and Citizenship).
+                        <strong>Focus:</strong> (Kingdom Origin Story, Repentance, Gospel, Salvation, and Citizenship).
                     </p>
                     <div class="scripture-quote">
                         "The time is fulfilled, and the kingdom of God is at hand: repent ye, and believe the gospel." — Mark 1:15
@@ -397,7 +397,7 @@
                 <!-- PHASE 2: CONFORMATION -->
                 <div class="phase-card">
                     <span class="stage-number" style="position: absolute; top: 1.5rem; right: 1.5rem; font-family:'Cinzel'; color:var(--gold); font-weight:700;">PHASE 02</span>
-                    <h3><i class="fa-solid fa-shield-halved" style="color: var(--gold);"></i> Phase 2: Conformation</h3>
+                    <h3><i class="fa-solid fa-shield-halved" style="color: var(--gold);"></i> Conformation</h3>
                     <p class="card-text" style="margin-bottom: 1rem;">
                         <strong>Focus:</strong> (Progressive Discipleship: Character, Mind, and Fullness of Christ).
                     </p>
@@ -417,9 +417,9 @@
                 <!-- PHASE 3: SPECIALIZATION -->
                 <div class="phase-card">
                     <span class="stage-number" style="position: absolute; top: 1.5rem; right: 1.5rem; font-family:'Cinzel'; color:var(--gold); font-weight:700;">PHASE 03</span>
-                    <h3><i class="fa-solid fa-briefcase" style="color: var(--gold);"></i> Phase 3: Specialization (Kingdom Vocation)</h3>
+                    <h3><i class="fa-solid fa-briefcase" style="color: var(--gold);"></i> Specialization (Kingdom Vocation)</h3>
                     <p class="card-text" style="margin-bottom: 1rem;">
-                        <strong>Focus:</strong> (Governance and Vocational Tracks).
+                        <strong>Focus:</strong> (Kingdom Governance and Vocation).
                     </p>
                     <div class="scripture-quote">
                         "And whatever you do, do it heartily, as to the Lord and not to men... knowing that you will serve the Lord Christ." — Colossians 3:23-24
@@ -437,7 +437,7 @@
                 <!-- PHASE 4: DEPLOYMENT & MULTIPLICATION -->
                 <div class="phase-card" style="border-color: var(--gold); background: rgba(212, 175, 55, 0.02);">
                     <span class="stage-number" style="position: absolute; top: 1.5rem; right: 1.5rem; font-family:'Cinzel'; color:var(--gold); font-weight:700;">PHASE 04</span>
-                    <h3><i class="fa-solid fa-seedling" style="color: var(--gold);"></i> Phase 4: Deployment & Multiplication (Kingdom Assignment)</h3>
+                    <h3><i class="fa-solid fa-seedling" style="color: var(--gold);"></i> Deployment & Multiplication (Kingdom Assignment)</h3>
                     <p class="card-text" style="margin-bottom: 1rem;">
                         <strong>Focus:</strong> (Kingdom Mission and Discipleship Multiplication).
                     </p>
@@ -1371,7 +1371,7 @@
                     parentId: null
                 });
 
-                const waMsg = `Blessings ${name}, Credentials for DisciplePath:\nEmail: ${email}\nPassword: ${autoPassword}`;
+                const waMsg = `Blessings ${name}, Credentials for KingdomPath:\nEmail: ${email}\nPassword: ${autoPassword}`;
                 window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 
                 alert(`Root Leader registered! Credentials sent via WhatsApp.`);
@@ -2076,7 +2076,7 @@
         // GENERATE DIGITALLY SIGNED PDF TRANSCRIPT WITH STAGE TOPIC & UNITS TABLE
         window.downloadStageTranscriptPDF = async function(orderNumber) {
             const modulesSnap = await getDocs(collection(db, "modules"));
-            let moduleTitle = `Stage ${orderNumber} Discipleship Module`;
+            let moduleTitle = `Stage ${orderNumber} Kingdom Module`;
             let subTopic = `Core Theological Training`;
 
             modulesSnap.forEach(d => {
@@ -2096,7 +2096,7 @@
             doc.setTextColor(255, 255, 255);
             doc.setFont("helvetica", "bold");
             doc.setFontSize(18);
-            doc.text("GLOBAL DISCIPLESHIP PLATFORM", 105, 20, { align: "center" });
+            doc.text("GLOBAL KINGDOM PLATFORM", 105, 20, { align: "center" });
 
             doc.setFontSize(11);
             doc.setFont("helvetica", "normal");
@@ -2171,7 +2171,7 @@
             doc.setTextColor(212, 175, 55);
             doc.setFont("times", "bold");
             doc.setFontSize(24);
-            doc.text("GLOBAL DISCIPLESHIP PLATFORM", 148.5, 30, { align: "center" });
+            doc.text("GLOBAL KINGDOM PLATFORM", 148.5, 30, { align: "center" });
 
             doc.setFontSize(15);
             doc.setTextColor(255, 255, 255);
@@ -2397,7 +2397,7 @@
     <footer>
         <div class="footer-logo">GLOBAL KINGDOM OF HEAVEN PLATFORM</div>
         <p class="footer-text">
-            © 2026 Global Discipleship Platform. Equipping Nations with the Knowledge of the Gospel of the Kingdom of Heaven.
+            © 2026 Global Kingdom Platform. Equipping Nations with the Knowledge of the Gospel of the Kingdom of Heaven.
         </p>
     </footer>
 </body>
