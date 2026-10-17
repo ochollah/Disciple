@@ -232,22 +232,65 @@
         .phase-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; font-size: 1.25rem; }
         .phase-outcome { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border); font-size: 0.875rem; font-weight: 600; color: var(--success); display: flex; align-items: center; gap: 0.5rem; }
 
-        /* Booklet Cover */
+        /* Booklet Cover Page */
         .booklet-cover {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white; border-radius: var(--radius); padding: 2.5rem 1.5rem;
+            color: white; border-radius: var(--radius); padding: 3rem 2rem;
             text-align: center; margin-bottom: 1.75rem; position: relative;
             border-top: 6px solid var(--gold);
             box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-        .booklet-cover h1 { font-family: 'Cinzel', serif; font-size: clamp(1.6rem, 4vw, 2.5rem); margin-bottom: 0.5rem; }
-        .booklet-cover h3 { color: #94a3b8; font-weight: 400; margin-bottom: 1.5rem; font-style: italic; font-size: 1rem; }
-        .booklet-meta { display: flex; justify-content: center; gap: 1.5rem; font-size: 0.85rem; color: #cbd5e1; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; flex-wrap: wrap; }
+        .booklet-cover:hover { transform: scale(1.01); }
+        .booklet-cover h1 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 0.75rem; }
+        .booklet-cover h3 { color: var(--gold-light); font-weight: 500; margin-bottom: 1.5rem; font-style: italic; font-size: 1.15rem; }
+        .booklet-cover-subtopics {
+            display: inline-block; background: rgba(0, 0, 0, 0.25); backdrop-filter: blur(4px);
+            padding: 0.75rem 1.25rem; border-radius: 8px; font-size: 0.9rem; margin-top: 1rem;
+            max-width: 600px; text-align: left; border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Modernized Published Book Paginated Reader Pages */
+        .modern-booklet-page {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 3rem 2.75rem;
+            margin-bottom: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            line-height: 1.95;
+            color: var(--text-dark);
+            text-align: left;
+            min-height: 420px;
+        }
+        .modern-booklet-page p { margin-bottom: 1.25rem; text-align: left; }
+        .modern-booklet-page h1, .modern-booklet-page h2, .modern-booklet-page h3, .modern-booklet-page h4 {
+            text-align: left; font-family: 'Cinzel', serif; color: var(--primary); margin: 1.25rem 0 0.75rem;
+        }
+        .modern-booklet-page ul, .modern-booklet-page ol {
+            text-align: left; margin-left: 1.5rem; margin-bottom: 1.25rem;
+        }
+
+        .page-navigation-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.15rem 1.5rem;
+            margin-top: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
         /* Video Frame with Anti-Scrubbing Warning Overlay */
         .video-player-container {
             position: relative; border-radius: var(--radius); overflow: hidden;
-            background: #000; box-shadow: var(--shadow-md); margin-bottom: 0.75rem;
+            background: #000; box-shadow: var(--shadow-md); margin-bottom: 1.25rem;
         }
         .video-player-frame { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
         .video-player-frame iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
@@ -303,7 +346,6 @@
             font-size: 0.85rem;
         }
 
-        /* Responsive Breakpoints */
         @media (max-width: 900px) {
             .dashboard-layout { flex-direction: column; }
             .sidebar { width: 100%; position: relative; }
@@ -320,7 +362,7 @@
     <nav>
         <div class="nav-left">
             <button class="btn btn-outline btn-sm" id="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
-            <a href="#" class="logo"><i class="fa-solid fa-crown"></i> KingdomPath</a>
+            <a href="#" class="logo" onclick="showView('landing-view')"><i class="fa-solid fa-crown"></i> KingdomPath</a>
         </div>
 
         <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -336,7 +378,7 @@
         </div>
     </nav>
 
-    <!-- LANDING VIEW COVERING THE ENTIRE MESSAGE OF THE KINGDOM & TREE PICTORIAL FRAMEWORK -->
+    <!-- LANDING VIEW -->
     <div id="landing-view" class="view-section">
         <div class="hero-section">
             <div class="hero-badge"><i class="fa-solid fa-scroll"></i> The Eternal Gospel Framework</div>
@@ -352,13 +394,12 @@
         </div>
 
         <div class="container">
-            
-            <!-- CERTIFICATE & TRANSCRIPT VALIDITY CHECKER ON LANDING PAGE -->
+            <!-- VALIDITY CHECKER -->
             <div id="validity-checker-section" class="card" style="border: 2px solid var(--gold); margin-top: 2rem;">
                 <div style="text-align: center; margin-bottom: 1.5rem;">
                     <span class="badge badge-active" style="background: rgba(212, 175, 55, 0.15); color: var(--gold); border: 1px solid var(--gold);"><i class="fa-solid fa-certificate"></i> Official Credential Verification</span>
                     <h2 style="font-family: 'Cinzel', serif; font-size: 1.8rem; margin-top: 0.5rem; color: var(--text-dark);">Transcript & Certificate Validity Check</h2>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Enter the unique Serial Number printed on the learner's transcript or certificate to confirm authenticity and view complete learner details.</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Enter the unique Serial Number printed on the learner's transcript or certificate to confirm authenticity.</p>
                 </div>
 
                 <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; max-width: 650px; margin: 0 auto;">
@@ -369,6 +410,7 @@
                 <div id="verify-result-container" style="margin-top: 1.5rem; max-width: 650px; margin-left: auto; margin-right: auto;"></div>
             </div>
 
+            <!-- TREE FRAMEWORK SECTION -->
             <!-- TREE PICTORIAL FRAMEWORK SECTION -->
             <div id="tree-framework-section" class="tree-framework-wrapper">
                 <div style="text-align: center; margin-bottom: 2rem;">
@@ -685,14 +727,8 @@
                     <p style="color: var(--text-muted); font-size: 0.85rem;">Sign in to access your ministry portal</p>
                 </div>
                 <form id="login-form">
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" id="login-email" class="form-control" placeholder="leader@ministry.org" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
-                    </div>
+                    <div class="form-group"><label>Email Address</label><input type="email" id="login-email" class="form-control" placeholder="leader@ministry.org" required></div>
+                    <div class="form-group"><label>Password</label><input type="password" id="login-password" class="form-control" placeholder="••••••••" required></div>
                     <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">Sign In to Dashboard</button>
                 </form>
             </div>
@@ -718,29 +754,14 @@
                 <div id="admin-tab-analytics" class="admin-tab">
                     <h2><i class="fa-solid fa-chart-line" style="color:var(--primary);"></i> Platform Analytics</h2>
                     <div class="grid-4" style="margin-top: 1.25rem;">
-                        <div class="card" style="border-left: 4px solid var(--primary);">
-                            <h4 style="color:var(--text-muted); font-size:0.8rem;">Total Modules</h4>
-                            <p id="stat-modules" style="font-size: 1.8rem; font-weight:800; color:var(--text-dark);">0</p>
-                        </div>
-                        <div class="card" style="border-left: 4px solid var(--success);">
-                            <h4 style="color:var(--text-muted); font-size:0.8rem;">Root Leaders</h4>
-                            <p id="stat-roots" style="font-size: 1.8rem; font-weight:800; color:var(--text-dark);">0</p>
-                        </div>
-                        <div class="card" style="border-left: 4px solid var(--warning);">
-                            <h4 style="color:var(--text-muted); font-size:0.8rem;">Active Disciples</h4>
-                            <p id="stat-disciples" style="font-size: 1.8rem; font-weight:800; color:var(--text-dark);">0</p>
-                        </div>
-                        <div class="card" style="border-left: 4px solid var(--danger);">
-                            <h4 style="color:var(--text-muted); font-size:0.8rem;">Pending Clearances</h4>
-                            <p id="stat-pending" style="font-size: 1.8rem; font-weight:800; color:var(--text-dark);">0</p>
-                        </div>
+                        <div class="card" style="border-left: 4px solid var(--primary);"><h4 style="color:var(--text-muted); font-size:0.8rem;">Total Modules</h4><p id="stat-modules" style="font-size: 1.8rem; font-weight:800;">0</p></div>
+                        <div class="card" style="border-left: 4px solid var(--success);"><h4 style="color:var(--text-muted); font-size:0.8rem;">Root Leaders</h4><p id="stat-roots" style="font-size: 1.8rem; font-weight:800;">0</p></div>
+                        <div class="card" style="border-left: 4px solid var(--warning);"><h4 style="color:var(--text-muted); font-size:0.8rem;">Active Disciples</h4><p id="stat-disciples" style="font-size: 1.8rem; font-weight:800;">0</p></div>
+                        <div class="card" style="border-left: 4px solid var(--danger);"><h4 style="color:var(--text-muted); font-size:0.8rem;">Pending Clearances</h4><p id="stat-pending" style="font-size: 1.8rem; font-weight:800;">0</p></div>
                     </div>
-
                     <div class="card" style="margin-top: 1.25rem;">
                         <h3><i class="fa-solid fa-chart-bar" style="color:var(--primary);"></i> Five-Fold Ministry Office Breakdown</h3>
-                        <div style="height: 320px; position: relative; margin-top: 1rem;">
-                            <canvas id="fiveFoldChart"></canvas>
-                        </div>
+                        <div style="height: 320px; position: relative; margin-top: 1rem;"><canvas id="fiveFoldChart"></canvas></div>
                     </div>
                 </div>
 
@@ -751,36 +772,33 @@
                         <form id="module-form" style="margin-top:1.25rem;">
                             <input type="hidden" id="editing-module-id">
                             <div class="grid-2">
-                                <div class="form-group">
-                                    <label>Booklet Order Level (Sequence Position, e.g. 1, 2, 3)</label>
-                                    <input type="number" id="module-order" class="form-control" min="1" value="1" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Booklet Topic Title</label>
-                                    <input type="text" id="module-topic" class="form-control" required placeholder="e.g. Booklet 1: Foundations of Faith">
-                                </div>
+                                <div class="form-group"><label>Booklet Order Level (Sequence Position)</label><input type="number" id="module-order" class="form-control" min="1" value="1" required></div>
+                                <div class="form-group"><label>Booklet Topic Title</label><input type="text" id="module-topic" class="form-control" required placeholder="e.g. Booklet 1: Foundations"></div>
                             </div>
-                            <div class="form-group">
-                                <label>Sub Topics / Lesson Focus (Separate Multiple Sub-Topics with Commas)</label>
-                                <input type="text" id="module-subtopic" class="form-control" required placeholder="e.g. Repentance, Eternal Salvation, Water Baptism">
+                            <div class="form-group"><label>Sub Topics / Lesson Focus (Comma Separated for Cover Display)</label><input type="text" id="module-subtopic" class="form-control" required placeholder="e.g. Repentance, Salvation, Water Baptism"></div>
+
+                            <div class="grid-2">
+                                <div class="form-group"><label>Mandatory Reading Duration Lock (Seconds)</label><input type="number" id="module-duration" class="form-control" required min="5" value="30"></div>
+                                <div class="form-group">
+                                    <label>Automated Cover Background Color Theme</label>
+                                    <select id="module-cover-color" class="form-control">
+                                        <option value="linear-gradient(135deg, #0f172a 0%, #1e293b 100%)">Deep Kingdom Navy (Default)</option>
+                                        <option value="linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%)">Royal Blue & Gold</option>
+                                        <option value="linear-gradient(135deg, #064e3b 0%, #065f46 100%)">Emerald Sanctuary</option>
+                                        <option value="linear-gradient(135deg, #78350f 0%, #92400e 100%)">Burgundy & Amber</option>
+                                        <option value="linear-gradient(135deg, #312e81 0%, #4338ca 100%)">Imperial Indigo</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <label>Mandatory Reading Duration Lock (Seconds)</label>
-                                <input type="number" id="module-duration" class="form-control" required min="5" value="30">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Lesson Body Content</label>
+                                <label>Lesson Body Content (Click toolbar <strong>Page Break</strong> or <strong>Verse</strong> buttons)</label>
                                 <div id="editor-container"></div>
                             </div>
 
-                            <!-- VIDEO LINKS MANAGEMENT (EDIT & DELETE INCLUDED) -->
                             <div class="form-group">
-                                <label>YouTube Embedded Video URLs (Anti-Forwarding Lock Enforced Automatically)</label>
-                                <div id="video-inputs-list" style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:0.5rem;">
-                                    <!-- Video rows inserted dynamically -->
-                                </div>
+                                <label>YouTube Embedded Video URLs (Appended Below Booklet Pages)</label>
+                                <div id="video-inputs-list" style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:0.5rem;"></div>
                                 <button type="button" class="btn btn-outline btn-sm" onclick="addVideoField()"><i class="fa-solid fa-plus"></i> Add Video Link</button>
                             </div>
 
@@ -800,61 +818,33 @@
                         <h2>Register First-Tier Root Leader</h2>
                         <form id="root-register-form" style="margin-top:1.25rem;">
                             <div class="grid-2">
-                                <div class="form-group">
-                                    <label>Full Name</label>
-                                    <input type="text" id="root-name" class="form-control" required placeholder="Pastor John Doe">
-                                </div>
+                                <div class="form-group"><label>Full Name</label><input type="text" id="root-name" class="form-control" required placeholder="Pastor John Doe"></div>
                                 <div class="form-group">
                                     <label>Five-Fold Ministry Office</label>
-                                    <select id="root-office" class="form-control" required>
-                                        <option value="Apostle">Apostle</option>
-                                        <option value="Prophet">Prophet</option>
-                                        <option value="Evangelist">Evangelist</option>
-                                        <option value="Pastor">Pastor</option>
-                                        <option value="Teacher">Teacher</option>
-                                    </select>
+                                    <select id="root-office" class="form-control" required><option value="Apostle">Apostle</option><option value="Prophet">Prophet</option><option value="Evangelist">Evangelist</option><option value="Pastor">Pastor</option><option value="Teacher">Teacher</option></select>
                                 </div>
                             </div>
                             <div class="grid-2">
-                                <div class="form-group">
-                                    <label>Church / Ministry Organization</label>
-                                    <input type="text" id="root-church" class="form-control" required placeholder="Grace Ministry International">
-                                </div>
-                                <div class="form-group">
-                                    <label>WhatsApp Phone (+CountryCode)</label>
-                                    <input type="tel" id="root-phone" class="form-control" placeholder="+254700000000" required>
-                                </div>
+                                <div class="form-group"><label>Church / Ministry Organization</label><input type="text" id="root-church" class="form-control" required placeholder="Grace Ministry"></div>
+                                <div class="form-group"><label>WhatsApp Phone (+CountryCode)</label><input type="tel" id="root-phone" class="form-control" placeholder="+254700000000" required></div>
                             </div>
                             <div class="grid-2">
+                                <div class="form-group"><label>Career / Profession</label><input type="text" id="root-career" class="form-control" required placeholder="Engineer"></div>
                                 <div class="form-group">
-                                    <label>Career / Skilled Profession</label>
-                                    <input type="text" id="root-career" class="form-control" required placeholder="e.g. Accountant, Teacher, Engineer">
-                                </div>
-                                <div class="form-group">
-                                    <label>Highest Level of Education</label>
-                                    <select id="root-education" class="form-control" required>
-                                        <option value="High School">High School</option>
-                                        <option value="Diploma">Diploma</option>
-                                        <option value="Bachelor's Degree">Bachelor's Degree</option>
-                                        <option value="Master's Degree">Master's Degree</option>
-                                        <option value="Doctorate / PhD">Doctorate / PhD</option>
-                                        <option value="Other">Other</option>
-                                    </select>
+                                    <label>Education Level</label>
+                                    <select id="root-education" class="form-control" required><option value="Bachelor's Degree">Bachelor's Degree</option><option value="Master's Degree">Master's Degree</option><option value="Doctorate / PhD">Doctorate / PhD</option></select>
                                 </div>
                             </div>
+                            <div class="form-group"><label>Email Address</label><input type="email" id="root-email" class="form-control" required placeholder="leader@domain.org"></div>
                             <div class="form-group">
-                                <label>Email Address</label>
-                                <input type="email" id="root-email" class="form-control" required placeholder="leader@domain.org">
-                            </div>
-                            <div class="form-group">
-                                <label>Geographic Coordinates</label>
-                                <div style="display:flex; gap:0.5rem; flex-wrap: wrap;">
-                                    <input type="text" id="root-lat" class="form-control" placeholder="Latitude" readonly required style="flex: 1; min-width: 120px;">
-                                    <input type="text" id="root-lng" class="form-control" placeholder="Longitude" readonly required style="flex: 1; min-width: 120px;">
-                                    <button type="button" class="btn btn-outline" onclick="detectLocation()"><i class="fa-solid fa-location-crosshairs"></i> Auto Detect</button>
+                                <label>Coordinates</label>
+                                <div style="display:flex; gap:0.5rem;">
+                                    <input type="text" id="root-lat" class="form-control" placeholder="Lat" readonly required>
+                                    <input type="text" id="root-lng" class="form-control" placeholder="Lng" readonly required>
+                                    <button type="button" class="btn btn-outline" onclick="detectLocation()"><i class="fa-solid fa-location-crosshairs"></i> Auto</button>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Register & Dispatch Credentials via WhatsApp</button>
+                            <button type="submit" class="btn btn-primary">Register & Dispatch Credentials</button>
                         </form>
                     </div>
                 </div>
@@ -865,10 +855,10 @@
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:1rem;">
                             <div>
                                 <h2>Continuous Multi-Tier Discipleship Tree Map</h2>
-                                <p style="color:var(--text-muted); font-size:0.85rem;">Click any <strong>Root Leader</strong> marker to project its downstream network tree infinitely across all tiers.</p>
+                                <p style="color:var(--text-muted); font-size:0.85rem;">Click any <strong>Root Leader</strong> marker to project downstream T1, T2 branches infinitely.</p>
                             </div>
-                            <div style="display:flex; gap:0.5rem; flex-wrap: wrap;">
-                                <button class="btn btn-primary btn-sm" onclick="renderAllRootsAndBranchesOnMap()"><i class="fa-solid fa-sitemap"></i> Project All Infinite Branches</button>
+                            <div style="display:flex; gap:0.5rem;">
+                                <button class="btn btn-primary btn-sm" onclick="renderAllRootsAndBranchesOnMap()"><i class="fa-solid fa-sitemap"></i> Project All Branches</button>
                                 <button class="btn btn-outline btn-sm" onclick="resetMapView()"><i class="fa-solid fa-rotate-left"></i> Reset View</button>
                             </div>
                         </div>
@@ -880,15 +870,11 @@
                 <div id="admin-tab-approvals" class="admin-tab hidden">
                     <div class="card">
                         <h2>Stage Completions & Branch Authorizations</h2>
-                        
                         <h3 style="margin-top:1.5rem;">1. Pending Branch Account Authorizations</h3>
                         <div id="branch-account-approvals-list" style="margin-top: 0.75rem;"></div>
-
                         <h3 style="margin-top:1.5rem;">2. Booklet Stage Clearances (Approved by Root Leaders)</h3>
                         <div id="stage-approvals-list" style="margin-top: 0.75rem;"></div>
-
                         <hr style="margin: 2rem 0; border:0; border-top: 1px solid var(--border);">
-
                         <h3>3. Global Member Directory</h3>
                         <div id="approvals-list" style="margin-top: 1rem;"></div>
                     </div>
@@ -902,11 +888,11 @@
         <div class="container dashboard-layout">
             <div class="sidebar" id="disciple-sidebar">
                 <ul class="sidebar-menu">
-                    <li><a href="#" class="active" id="btn-disc-study" onclick="switchDiscipleTab('study')"><i class="fa-solid fa-graduation-cap"></i> Study Booklet Modules</a></li>
-                    <li><a href="#" id="btn-disc-progress" onclick="switchDiscipleTab('progress')"><i class="fa-solid fa-bars-progress"></i> Stage Progress Tracker</a></li>
-                    <li><a href="#" id="btn-disc-profile" onclick="switchDiscipleTab('profile')"><i class="fa-solid fa-user"></i> My Profile Settings</a></li>
-                    <li id="menu-my-disciples" class="hidden"><a href="#" id="btn-disc-branch" onclick="switchDiscipleTab('my-disciples')"><i class="fa-solid fa-users"></i> My Disciple Menu</a></li>
-                    <li><a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a></li>
+                    <li><a href="#" class="active" id="btn-disc-study" onclick="switchDiscipleTab('study')"><i class="fa-solid fa-graduation-cap"></i> Study Booklets</a></li>
+                    <li><a href="#" id="btn-disc-progress" onclick="switchDiscipleTab('progress')"><i class="fa-solid fa-bars-progress"></i> Stage Progress</a></li>
+                    <li><a href="#" id="btn-disc-profile" onclick="switchDiscipleTab('profile')"><i class="fa-solid fa-user"></i> My Profile</a></li>
+                    <li id="menu-my-disciples" class="hidden"><a href="#" id="btn-disc-branch" onclick="switchDiscipleTab('my-disciples')"><i class="fa-solid fa-users"></i> My Disciples Menu</a></li>
+                    <li><a href="#" onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</a></li>
                 </ul>
             </div>
 
@@ -917,64 +903,45 @@
                         <div id="module-viewer-content">
                             <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
                                 <i class="fa-solid fa-book-open-reader" style="font-size: 3rem; color: var(--border); margin-bottom: 1rem; display: block;"></i>
-                                <p>Select an unlocked discipleship booklet below to open the interactive lesson materials.</p>
+                                <p>Select an unlocked discipleship booklet below to open the interactive published book reader.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="card">
                         <h3>Sequential Discipleship Curriculum</h3>
-                        <div id="disciple-modules-list"></div>
+                        <div id="disciple-modules-list" style="margin-top: 1rem;"></div>
                     </div>
                 </div>
 
                 <!-- PROGRESS TRACKER TAB -->
                 <div id="disciple-tab-progress" class="disciple-tab hidden">
                     <div class="card">
-                        <h2>My Booklet Stage Progress Track & Transcripts</h2>
-                        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom: 1rem;">Real-time overview of your current booklet stage, serial numbers, and digitally signed PDF transcripts and certificates.</p>
-
+                        <h2>My Booklet Stage Progress & Transcripts</h2>
                         <div id="user-progress-summary" style="margin-top:1rem;"></div>
                         <div id="certificates-download-section" style="margin-top: 1.5rem;"></div>
-
-                        <div style="margin-top:2rem;">
-                            <h3>Sequential Booklet Roadmap</h3>
-                            <div id="booklet-roadmap-list" style="margin-top: 1rem;"></div>
-                        </div>
                     </div>
                 </div>
 
-                <!-- PROFILE TAB (PROFILE EDITING ENABLED) -->
+                <!-- PROFILE TAB -->
                 <div id="disciple-tab-profile" class="disciple-tab hidden">
                     <div class="card">
                         <h2>My Profile Settings</h2>
                         <div id="user-profile-details" style="margin: 1.25rem 0;"></div>
-                        
                         <hr style="margin: 1.5rem 0; border:0; border-top: 1px solid var(--border);">
-                        
                         <h3>Edit Learner Profile</h3>
                         <form id="edit-profile-form" style="max-width: 500px; margin-top: 1rem;">
+                            <div class="form-group"><label>Full Name</label><input type="text" id="edit-profile-name" class="form-control" required></div>
+                            <div class="form-group"><label>Church / Ministry Location</label><input type="text" id="edit-profile-church" class="form-control" required></div>
+                            <div class="form-group"><label>Career / Profession</label><input type="text" id="edit-profile-career" class="form-control" required></div>
                             <div class="form-group">
-                                <label>Full Name</label>
-                                <input type="text" id="edit-profile-name" class="form-control" required placeholder="Full Name">
-                            </div>
-                            <div class="form-group">
-                                <label>Church / Ministry Location</label>
-                                <input type="text" id="edit-profile-church" class="form-control" required placeholder="Church / Ministry">
-                            </div>
-                            <div class="form-group">
-                                <label>Career / Skilled Profession</label>
-                                <input type="text" id="edit-profile-career" class="form-control" required placeholder="e.g. Engineer, Teacher">
-                            </div>
-                            <div class="form-group">
-                                <label>Highest Level of Education</label>
+                                <label>Education Level</label>
                                 <select id="edit-profile-education" class="form-control" required>
                                     <option value="High School">High School</option>
                                     <option value="Diploma">Diploma</option>
                                     <option value="Bachelor's Degree">Bachelor's Degree</option>
                                     <option value="Master's Degree">Master's Degree</option>
                                     <option value="Doctorate / PhD">Doctorate / PhD</option>
-                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Profile Changes</button>
@@ -984,14 +951,8 @@
 
                         <h3>Security & Password Update</h3>
                         <form id="change-pass-form" style="max-width: 420px; margin-top: 1rem;">
-                            <div class="form-group">
-                                <label>Current Password</label>
-                                <input type="password" id="current-password" class="form-control" placeholder="••••••••" required>
-                            </div>
-                            <div class="form-group">
-                                <label>New Password</label>
-                                <input type="password" id="new-password" class="form-control" placeholder="••••••••" required minlength="6">
-                            </div>
+                            <div class="form-group"><label>Current Password</label><input type="password" id="current-password" class="form-control" placeholder="••••••••" required></div>
+                            <div class="form-group"><label>New Password</label><input type="password" id="new-password" class="form-control" placeholder="••••••••" required minlength="6"></div>
                             <button type="submit" class="btn btn-primary">Update Security Password</button>
                         </form>
                     </div>
@@ -1001,59 +962,38 @@
                 <div id="disciple-tab-my-disciples" class="disciple-tab hidden">
                     <div class="card">
                         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-                            <div>
-                                <h2>Register New Branch Disciple</h2>
-                                <p style="font-size:0.85rem; color:var(--text-muted);">Accounts will be held for Admin clearance before WhatsApp login dispatch.</p>
-                            </div>
+                            <h2>Register New Branch Disciple</h2>
                             <button class="btn btn-success" onclick="exportMyFullDownstreamBranchNetworkCSV()"><i class="fa-solid fa-file-csv"></i> Export Full Infinite Branches CSV</button>
                         </div>
                         <form id="branch-register-form" style="margin-top: 1.25rem;">
                             <div class="grid-2">
-                                <div class="form-group">
-                                    <label>Full Name</label>
-                                    <input type="text" id="branch-name" class="form-control" required placeholder="Disciple Full Name">
-                                </div>
-                                <div class="form-group">
-                                    <label>Email Address</label>
-                                    <input type="email" id="branch-email" class="form-control" required placeholder="disciple@domain.org">
-                                </div>
+                                <div class="form-group"><label>Full Name</label><input type="text" id="branch-name" class="form-control" required placeholder="Full Name"></div>
+                                <div class="form-group"><label>Email Address</label><input type="email" id="branch-email" class="form-control" required placeholder="email@domain.org"></div>
                             </div>
                             <div class="grid-2">
-                                <div class="form-group">
-                                    <label>WhatsApp Number (+CountryCode)</label>
-                                    <input type="tel" id="branch-phone" class="form-control" placeholder="+254..." required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Church / Ministry Location</label>
-                                    <input type="text" id="branch-church" class="form-control" required placeholder="Branch Location">
-                                </div>
+                                <div class="form-group"><label>WhatsApp Number (+CountryCode)</label><input type="tel" id="branch-phone" class="form-control" placeholder="+254..." required></div>
+                                <div class="form-group"><label>Church / Ministry Location</label><input type="text" id="branch-church" class="form-control" required placeholder="Location"></div>
                             </div>
                             <div class="grid-2">
+                                <div class="form-group"><label>Career / Profession</label><input type="text" id="branch-career" class="form-control" required placeholder="Profession"></div>
                                 <div class="form-group">
-                                    <label>Career / Skilled Profession</label>
-                                    <input type="text" id="branch-career" class="form-control" required placeholder="e.g. Teacher, Nurse, Business">
-                                </div>
-                                <div class="form-group">
-                                    <label>Highest Level of Education</label>
+                                    <label>Education Level</label>
                                     <select id="branch-education" class="form-control" required>
                                         <option value="High School">High School</option>
                                         <option value="Diploma">Diploma</option>
                                         <option value="Bachelor's Degree">Bachelor's Degree</option>
                                         <option value="Master's Degree">Master's Degree</option>
                                         <option value="Doctorate / PhD">Doctorate / PhD</option>
-                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Submit Branch Disciple for Admin Approval</button>
                         </form>
                     </div>
-
                     <div class="card">
                         <h2>My Downstream Network Overview</h2>
                         <h3>Stage Approval Requests Pending Your Review</h3>
                         <div id="branch-stage-approvals-by-root" style="margin-top: 0.75rem; margin-bottom: 1.5rem;"></div>
-
                         <h3>All Downstream Network Disciples</h3>
                         <div id="branch-disciples-list" style="margin-top: 0.75rem;"></div>
                     </div>
@@ -1069,13 +1009,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { 
-            getAuth, signInWithEmailAndPassword, signOut, signInAnonymously, onAuthStateChanged, 
-            updatePassword, EmailAuthProvider, reauthenticateWithCredential, createUserWithEmailAndPassword 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { 
-            getFirestore, collection, addDoc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, query, where, onSnapshot 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, signInAnonymously, createUserWithEmailAndPassword, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCP7muXhNSB2JZgs_8uURs1kkySG53_otk",
@@ -1083,31 +1018,31 @@
             projectId: "disciple-492b0",
             storageBucket: "disciple-492b0.firebasestorage.app",
             messagingSenderId: "587923669688",
-            appId: "1:587923669688:web:2702ae662a9e9bd2496a4d",
-            measurementId: "G-6TM7Q85BH5"
+            appId: "1:587923669688:web:2702ae662a9e9bd2496a4d"
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-
         const secondaryApp = initializeApp(firebaseConfig, "SecondaryAuthApp");
         const secondaryAuth = getAuth(secondaryApp);
 
-        let quill, map, rootMarkersGroup, branchRingsGroup, currentUserData = null, studyTimerInterval = null;
-        let userUnsubscribe = null, progressUnsubscribe = null, disciplesUnsubscribe = null;
-        let cachedAllUsers = [];
-        let fiveFoldChartInstance = null;
+        let quill, map, rootMarkersGroup, branchRingsGroup, currentUserData = null;
+        let userUnsubscribe = null, cachedAllUsers = [], fiveFoldChartInstance = null;
 
-        // Strict anti-scrubbing video states
+        // Paginated Reader & Video States
+        let bookletPages = [];
+        let currentPageIndex = 0;
+        let pageReadTimeRemaining = 30;
+        let pageTimerInterval = null;
+        let timerCompleted = false;
         let requiredVideoIds = [];
         let watchedVideoIds = new Set();
         let videoMaxWatchedTime = {}; 
         let ytPlayers = {}; 
-        let videoWatchPollers = {}; 
-        let timerCompleted = false;
+        let videoWatchPollers = {};
 
-        // Dark/Light Theme Switcher
+        // Expose functions globally to window for HTML inline event handlers
         window.toggleTheme = function() {
             document.body.classList.toggle('dark-theme');
             const icon = document.querySelector('#theme-toggle i');
@@ -1129,9 +1064,46 @@
         window.addEventListener('DOMContentLoaded', () => {
             quill = new Quill('#editor-container', {
                 theme: 'snow',
-                modules: { toolbar: [[{ 'header': [1, 2, false] }], ['bold', 'italic', 'underline'], [{ 'list': 'ordered'}, { 'list': 'bullet' }], ['clean']] }
+                modules: { 
+                    toolbar: {
+                        container: [
+                            [{ 'header': [1, 2, false] }], 
+                            ['bold', 'italic', 'underline'], 
+                            [{ 'list': 'ordered'}, { 'list': 'bullet' }], 
+                            ['pageBreak', 'insertVerse'],
+                            ['clean']
+                        ],
+                        handlers: {
+                            'pageBreak': function() {
+                                const range = quill.getSelection(true);
+                                if (range) {
+                                    quill.insertText(range.index, "\n------PAGE BREAK------\n", 'user');
+                                    quill.setSelection(range.index + 24);
+                                }
+                            },
+                            'insertVerse': function() {
+                                const range = quill.getSelection(true);
+                                if (range) {
+                                    quill.insertText(range.index, "\n> \"For God so loved the world, that he gave his only begotten Son...\" — John 3:16\n", 'user');
+                                }
+                            }
+                        }
+                    } 
+                }
             });
-            addVideoField();
+
+            const pbBtn = document.querySelector('.ql-pageBreak');
+            if (pbBtn) {
+                pbBtn.innerHTML = '<i class="fa-solid fa-file-arrow-down" title="Insert Page Break"></i>';
+                pbBtn.style.width = '32px';
+            }
+            const vsBtn = document.querySelector('.ql-insertVerse');
+            if (vsBtn) {
+                vsBtn.innerHTML = '<i class="fa-solid fa-book-bible" title="Insert Scripture Verse"></i>';
+                vsBtn.style.width = '32px';
+            }
+
+            window.addVideoField();
         });
 
         function convertToEmbedUrl(url) {
@@ -1149,7 +1121,6 @@
             return null;
         }
 
-        // GENERATE UNIQUE SERIAL NUMBER
         function generateCredentialSerial(userId, type, identifier) {
             let hash = 0;
             const str = userId + type + identifier;
@@ -1160,7 +1131,6 @@
             return `GKP-2026-${Math.abs(hash).toString(36).toUpperCase()}`;
         }
 
-        // PUBLIC CREDENTIAL VALIDITY CHECK WITH SECURE FIRESTORE PERMISSION CATCH
         window.verifyCredentialSerial = async function() {
             const serialInput = document.getElementById('verify-serial-input').value.trim().toUpperCase();
             const resultContainer = document.getElementById('verify-result-container');
@@ -1173,11 +1143,7 @@
 
             try {
                 if (!auth.currentUser) {
-                    try { 
-                        await signInAnonymously(auth); 
-                    } catch(anonErr) {
-                        console.warn("Anonymous sign-in note:", anonErr);
-                    }
+                    try { await signInAnonymously(auth); } catch(e) {}
                 }
 
                 const usersSnap = await getDocs(collection(db, "users"));
@@ -1241,23 +1207,12 @@
                     `;
                 }
             } catch (err) {
-                console.error("Firestore Error:", err);
-                resultContainer.innerHTML = `
-                    <div class="card" style="border: 2px solid var(--danger); background: rgba(239, 68, 68, 0.05); margin-top: 1rem; text-align:center;">
-                        <h4 style="color:var(--danger);">Firestore Security Rules Notice</h4>
-                        <p style="font-size:0.85rem; color:var(--text-muted); margin-top: 0.25rem;">
-                            Database connection established, but Firestore blocked public read access.
-                        </p>
-                    </div>
-                `;
+                resultContainer.innerHTML = `<p style="color:var(--danger); text-align:center;">Error verifying serial: ${err.message}</p>`;
             }
         };
 
         window.toggleSidebar = function() {
-            const adminSb = document.getElementById('admin-sidebar');
-            const discipleSb = document.getElementById('disciple-sidebar');
-            if (adminSb) adminSb.classList.toggle('collapsed');
-            if (discipleSb) discipleSb.classList.toggle('collapsed');
+            document.querySelectorAll('.sidebar').forEach(s => s.classList.toggle('collapsed'));
         };
 
         window.showView = function(viewId) {
@@ -1267,15 +1222,12 @@
 
         window.switchAdminTab = function(tabName) {
             document.querySelectorAll('.admin-tab').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('#admin-sidebar .sidebar-menu a').forEach(el => el.classList.remove('active'));
             document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
-            
-            const btnMap = { 'analytics': 'btn-admin-analytics', 'curriculum': 'btn-admin-curriculum', 'root-reg': 'btn-admin-root-reg', 'tree-map': 'btn-admin-tree-map', 'approvals': 'btn-admin-approvals' };
-            if (btnMap[tabName]) document.getElementById(btnMap[tabName]).classList.add('active');
-
-            if(tabName === 'tree-map') initMap();
-            if(tabName === 'analytics') loadAnalytics();
-            if(tabName === 'approvals') loadApprovalsAdmin();
+            if (tabName === 'tree-map') {
+                initMap();
+            }
+            if (tabName === 'analytics') window.loadAnalytics();
+            if (tabName === 'approvals') loadApprovalsAdmin();
         };
 
         window.switchDiscipleTab = function(tabName) {
@@ -1283,33 +1235,22 @@
                 const canAccess = currentUserData && (currentUserData.role === 'root' || (currentUserData.isApproved === true && currentUserData.isCompleted === true));
                 if (!canAccess) {
                     alert("Access Denied: You cannot access the disciple menu until your stage is approved by your Root Leader and declared COMPLETED by the Admin.");
-                    switchDiscipleTab('study');
+                    window.switchDiscipleTab('study');
                     return;
                 }
             }
 
             document.querySelectorAll('.disciple-tab').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('#disciple-sidebar .sidebar-menu a').forEach(el => el.classList.remove('active'));
             document.getElementById(`disciple-tab-${tabName}`).classList.remove('hidden');
-            
-            const btnMap = { 'study': 'btn-disc-study', 'profile': 'btn-disc-profile', 'progress': 'btn-disc-progress', 'my-disciples': 'btn-disc-branch' };
-            if (btnMap[tabName]) document.getElementById(btnMap[tabName]).classList.add('active');
-
-            if(tabName === 'progress') loadDiscipleProgress();
-            if(tabName === 'my-disciples') loadMyDisciples();
+            if (tabName === 'progress') loadDiscipleProgress();
+            if (tabName === 'my-disciples') loadMyDisciples();
         };
-
-        function detachSnapshotListeners() {
-            if (userUnsubscribe) { userUnsubscribe(); userUnsubscribe = null; }
-            if (progressUnsubscribe) { progressUnsubscribe(); progressUnsubscribe = null; }
-            if (disciplesUnsubscribe) { disciplesUnsubscribe(); disciplesUnsubscribe = null; }
-        }
 
         onAuthStateChanged(auth, async (user) => {
             const userBarText = document.getElementById('user-display-text');
             const navActions = document.getElementById('nav-actions');
 
-            detachSnapshotListeners();
+            if (userUnsubscribe) userUnsubscribe();
 
             if (user && !user.isAnonymous) {
                 userUnsubscribe = onSnapshot(doc(db, "users", user.uid), (userDoc) => {
@@ -1321,8 +1262,7 @@
                         if (currentUserData.role === 'admin') {
                             showView('admin-view');
                             loadCurriculumAdmin();
-                            loadApprovalsAdmin();
-                            loadAnalytics();
+                            window.loadAnalytics();
                         } else {
                             showView('disciple-view');
                             setupDiscipleDashboard();
@@ -1340,22 +1280,15 @@
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
-                await signInWithEmailAndPassword(
-                    auth, 
-                    document.getElementById('login-email').value.trim(), 
-                    document.getElementById('login-password').value.trim()
-                );
-            } catch (err) { alert("Authentication Error: " + err.message); }
+                await signInWithEmailAndPassword(auth, document.getElementById('login-email').value.trim(), document.getElementById('login-password').value.trim());
+            } catch (err) { alert("Auth Error: " + err.message); }
         });
 
-        window.logout = function() { 
-            detachSnapshotListeners();
-            signOut(auth); 
-        };
+        window.logout = function() { signOut(auth); };
 
-        // ADD / DELETE / EDIT VIDEO FIELDS
         window.addVideoField = function(urlVal = '') {
             const list = document.getElementById('video-inputs-list');
+            if (!list) return;
             const row = document.createElement('div');
             row.style.display = 'flex';
             row.style.gap = '0.5rem';
@@ -1370,37 +1303,38 @@
             e.preventDefault();
             const editId = document.getElementById('editing-module-id').value;
             const rawVideos = Array.from(document.querySelectorAll('.video-input-url')).map(i => i.value.trim()).filter(i => i.length > 0);
-            const formattedVideos = rawVideos.map(convertToEmbedUrl);
 
             const payload = {
                 order: parseInt(document.getElementById('module-order').value) || 1,
                 topic: document.getElementById('module-topic').value,
                 subtopic: document.getElementById('module-subtopic').value,
-                duration: parseInt(document.getElementById('module-duration').value),
+                duration: parseInt(document.getElementById('module-duration').value) || 30,
+                coverColor: document.getElementById('module-cover-color').value,
                 content: quill.root.innerHTML,
-                videos: formattedVideos,
+                videos: rawVideos.map(convertToEmbedUrl),
                 updatedAt: new Date()
             };
 
             if (editId) {
                 await updateDoc(doc(db, "modules", editId), payload);
-                alert("Booklet Module Updated!");
+                alert("Booklet Updated Successfully!");
             } else {
                 payload.createdAt = new Date();
                 await addDoc(collection(db, "modules"), payload);
-                alert("Booklet Module Published!");
+                alert("Booklet Published Successfully!");
             }
 
             document.getElementById('module-form').reset();
             quill.setText('');
             document.getElementById('editing-module-id').value = '';
             document.getElementById('video-inputs-list').innerHTML = '';
-            addVideoField();
+            window.addVideoField();
             loadCurriculumAdmin();
         });
 
         async function loadCurriculumAdmin() {
             const container = document.getElementById('curriculum-list');
+            if (!container) return;
             container.innerHTML = '';
             const qSnap = await getDocs(collection(db, "modules"));
             let modules = [];
@@ -1413,16 +1347,14 @@
                 div.style.display = 'flex';
                 div.style.justifyContent = 'space-between';
                 div.style.alignItems = 'center';
-                div.style.flexWrap = 'wrap';
-                div.style.gap = '1rem';
                 div.innerHTML = `
                     <div>
-                        <h4><span class="badge badge-active">Order: ${item.order || 1}</span> ${item.topic} - <small style="color:var(--text-muted);">${item.subtopic}</small></h4>
-                        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">Lock Timer: ${item.duration}s | Videos: ${item.videos.length}</p>
+                        <h4><span class="badge badge-active">Order: ${item.order || 1}</span> ${item.topic}</h4>
+                        <p style="font-size:0.8rem; color:var(--text-muted);">${item.subtopic} | Videos: ${(item.videos || []).length}</p>
                     </div>
                     <div style="display:flex; gap:0.5rem;">
                         <button class="btn btn-outline btn-sm" onclick="editModule('${item.id}')"><i class="fa-solid fa-pen"></i> Edit</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteModule('${item.id}')"><i class="fa-solid fa-trash"></i> Delete</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteModule('${item.id}')"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 `;
                 container.appendChild(div);
@@ -1437,18 +1369,17 @@
                 document.getElementById('module-order').value = data.order || 1;
                 document.getElementById('module-topic').value = data.topic;
                 document.getElementById('module-subtopic').value = data.subtopic;
-                document.getElementById('module-duration').value = data.duration;
+                document.getElementById('module-duration').value = data.duration || 30;
+                if(data.coverColor) document.getElementById('module-cover-color').value = data.coverColor;
                 quill.root.innerHTML = data.content;
 
                 const videoList = document.getElementById('video-inputs-list');
                 videoList.innerHTML = '';
                 if (data.videos && data.videos.length > 0) {
-                    data.videos.forEach(v => addVideoField(v));
+                    data.videos.forEach(v => window.addVideoField(v));
                 } else {
-                    addVideoField();
+                    window.addVideoField();
                 }
-
-                document.getElementById('curriculum-title-mode').innerText = "Edit Booklet Module";
             }
         };
 
@@ -1507,7 +1438,7 @@
             }
         });
 
-        async function loadAnalytics() {
+        window.loadAnalytics = async function() {
             const modulesSnap = await getDocs(collection(db, "modules"));
             const usersSnap = await getDocs(collection(db, "users"));
 
@@ -1530,7 +1461,7 @@
             document.getElementById('stat-pending').innerText = pending;
 
             renderFiveFoldChart(fiveFoldCounts);
-        }
+        };
 
         function renderFiveFoldChart(counts) {
             const ctx = document.getElementById('fiveFoldChart').getContext('2d');
@@ -1561,6 +1492,7 @@
             const stageContainer = document.getElementById('stage-approvals-list');
             const userContainer = document.getElementById('approvals-list');
             
+            if (!accountContainer) return;
             accountContainer.innerHTML = '';
             stageContainer.innerHTML = '';
             userContainer.innerHTML = '';
@@ -1589,7 +1521,7 @@
                             <p style="font-size:0.85rem; color:var(--text-muted);">Phone: ${u.phone} | Church: ${u.church} | Career: ${u.career || 'N/A'}</p>
                             <span class="badge badge-pending">New Registration - Pending Authorization</span>
                         </div>
-                        <button class="btn btn-success btn-sm" onclick="approveBranchAccount('${userId}')"><i class="fa-solid fa-check"></i> Approve & Dispatch Credentials</button>
+                        <button class="btn btn-success btn-sm" onclick="approveBranchAccount('${userId}')"><i class="fa-solid fa-check"></i> Approve & Dispatch</button>
                     `;
                     accountContainer.appendChild(card);
                 }
@@ -1610,7 +1542,7 @@
                             <p style="font-size:0.85rem; color:var(--text-muted);">Module: <strong>${u.lastCompletedTopic || 'Booklet Track'}</strong> (Order: ${u.pendingBookletOrder || 1}) | Church: ${u.church}</p>
                             <span class="badge badge-active">Root Approved - Needs Clearance</span>
                         </div>
-                        <button class="btn btn-success btn-sm" onclick="declareUserCompletedByAdmin('${userId}', ${u.pendingBookletOrder || 1})"><i class="fa-solid fa-award"></i> Authorize Clearance & Unlock Next Booklet</button>
+                        <button class="btn btn-success btn-sm" onclick="declareUserCompletedByAdmin('${userId}', ${u.pendingBookletOrder || 1})"><i class="fa-solid fa-award"></i> Authorize Clearance</button>
                     `;
                     stageContainer.appendChild(card);
                 }
@@ -1625,12 +1557,10 @@
                 div.innerHTML = `
                     <div>
                         <h4>${u.name} (${u.email})</h4>
-                        <p style="font-size:0.8rem; color:var(--text-muted);">Church: ${u.church} | Career: ${u.career || 'N/A'} | Status: <strong>${u.status}</strong> | Completed Booklets: <strong>${(u.completedBookletOrders || []).length}</strong></p>
+                        <p style="font-size:0.8rem; color:var(--text-muted);">Church: ${u.church} | Status: <strong>${u.status}</strong></p>
                     </div>
                     <div style="display:flex; gap:0.5rem;">
-                        ${u.status === 'suspended' ? `<button class="btn btn-success btn-sm" onclick="setUserStatus('${userId}', 'active')">Unsuspend</button>` : ''}
-                        ${u.status !== 'suspended' ? `<button class="btn btn-warning btn-sm" onclick="setUserStatus('${userId}', 'suspended')">Suspend</button>` : ''}
-                        <button class="btn btn-danger btn-sm" onclick="setUserStatus('${userId}', 'dropped')">Drop</button>
+                        <button class="btn btn-danger btn-sm" onclick="setUserStatus('${userId}', 'suspended')">Suspend</button>
                     </div>
                 `;
                 userContainer.appendChild(div);
@@ -1644,30 +1574,20 @@
             const userSnap = await getDoc(doc(db, "users", userId));
             if (!userSnap.exists()) return;
             const u = userSnap.data();
-
             await updateDoc(doc(db, "users", userId), { isApproved: true, status: 'active' });
-
-            const waMsg = `Blessings ${u.name}, Your DisciplePath account has been APPROVED by Admin!\nEmail: ${u.email}\nPassword: ${u.tempPassword || 'Check with leader'}`;
-            window.open(`https://wa.me/${u.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(waMsg)}`, '_blank');
-
             alert("Branch account approved & credentials dispatched!");
             loadApprovalsAdmin();
-            loadAnalytics();
+            window.loadAnalytics();
         };
 
         window.declareUserCompletedByAdmin = async function(userId, bookletOrder) {
             const userSnap = await getDoc(doc(db, "users", userId));
             if (!userSnap.exists()) return;
             const uData = userSnap.data();
-
             let existingOrders = uData.completedBookletOrders || [];
-            if (!existingOrders.includes(bookletOrder)) {
-                existingOrders.push(bookletOrder);
-            }
-
+            if (!existingOrders.includes(bookletOrder)) existingOrders.push(bookletOrder);
             const modulesSnap = await getDocs(collection(db, "modules"));
-            const totalModulesCount = modulesSnap.size;
-            const isAllCompleted = existingOrders.length >= totalModulesCount;
+            const isAllCompleted = existingOrders.length >= modulesSnap.size;
 
             await updateDoc(doc(db, "users", userId), { 
                 isCompleted: isAllCompleted, 
@@ -1676,15 +1596,15 @@
                 approvedAt: new Date() 
             });
 
-            alert(`Booklet Order ${bookletOrder} Cleared! Digitally signed transcript now available for user.`);
+            alert(`Booklet Order ${bookletOrder} Cleared! Transcript available.`);
             loadApprovalsAdmin();
-            loadAnalytics();
+            window.loadAnalytics();
         };
 
         window.setUserStatus = async function(id, status) {
             await updateDoc(doc(db, "users", id), { status });
             loadApprovalsAdmin();
-            loadAnalytics();
+            window.loadAnalytics();
         };
 
         function initMap() {
@@ -1703,6 +1623,7 @@
         };
 
         async function renderMapData() {
+            if (!rootMarkersGroup) return;
             rootMarkersGroup.clearLayers();
             branchRingsGroup.clearLayers();
 
@@ -1711,29 +1632,12 @@
             usersSnap.forEach(d => cachedAllUsers.push({ id: d.id, ...d.data() }));
 
             const rootUsers = cachedAllUsers.filter(u => u.role === 'root');
-
             rootUsers.forEach(root => {
                 if (!root.lat || !root.lng) return;
-
-                const rootIcon = L.divIcon({
-                    className: 'map-root-icon',
-                    html: `<i class="fa-solid fa-crown"></i>`,
-                    iconSize: [34, 34]
-                });
-
+                const rootIcon = L.divIcon({ className: 'map-root-icon', html: `<i class="fa-solid fa-crown"></i>`, iconSize: [34, 34] });
                 const rootMarker = L.marker([root.lat, root.lng], { icon: rootIcon }).addTo(rootMarkersGroup);
-                const directBranchesCount = cachedAllUsers.filter(u => u.parentId === root.id).length;
 
-                rootMarker.bindPopup(`
-                    <div style="font-size:0.875rem; line-height: 1.5;">
-                        <strong>Root Leader:</strong> ${root.name}<br>
-                        <strong>Office:</strong> ${root.office}<br>
-                        <strong>Church:</strong> ${root.church}<br>
-                        <strong>Career / Skill:</strong> ${root.career || 'N/A'}<br>
-                        <strong>Direct Branches:</strong> ${directBranchesCount}<br>
-                    </div>
-                `);
-
+                rootMarker.bindPopup(`<strong>Root Leader:</strong> ${root.name}<br><strong>Church:</strong> ${root.church}`);
                 rootMarker.on('click', () => {
                     branchRingsGroup.clearLayers();
                     expandChildBranchesHighlight(root, 1, 0.04);
@@ -1744,7 +1648,6 @@
         function expandChildBranchesHighlight(parentNode, tierLevel, radiusOffset) {
             const childBranches = cachedAllUsers.filter(u => u.parentId === parentNode.id);
             if (childBranches.length === 0) return;
-
             const parentLat = parentNode.lat || 0;
             const parentLng = parentNode.lng || 0;
 
@@ -1752,7 +1655,6 @@
                 const angle = (index / childBranches.length) * (2 * Math.PI);
                 const childLat = parentLat + (radiusOffset * Math.sin(angle));
                 const childLng = parentLng + (radiusOffset * Math.cos(angle));
-
                 child.lat = childLat;
                 child.lng = childLng;
 
@@ -1760,21 +1662,13 @@
                 const branchIcon = L.divIcon({ className: `map-branch-icon ${statusClass}`, html: `T${tierLevel}`, iconSize: [24, 24] });
 
                 L.polyline([[parentLat, parentLng], [childLat, childLng]], { color: '#2563eb', weight: 3, opacity: 0.8 }).addTo(branchRingsGroup);
-                const childMarker = L.marker([childLat, childLng], { icon: branchIcon }).addTo(branchRingsGroup);
-                
-                childMarker.bindPopup(`
-                    <div style="font-size:0.875rem; line-height: 1.5;">
-                        <strong>Tier ${tierLevel} Disciple:</strong> ${child.name}<br>
-                        <strong>Church:</strong> ${child.church}<br>
-                        <strong>Career:</strong> ${child.career || 'N/A'}<br>
-                    </div>
-                `);
+                L.marker([childLat, childLng], { icon: branchIcon }).addTo(branchRingsGroup).bindPopup(`<strong>Tier ${tierLevel} Disciple:</strong> ${child.name}`);
             });
-
             map.setView([parentLat, parentLng], Math.min(9 + tierLevel, 16));
         }
 
         window.renderAllRootsAndBranchesOnMap = async function() {
+            if (!branchRingsGroup) return;
             branchRingsGroup.clearLayers();
             const rootUsers = cachedAllUsers.filter(u => u.role === 'root');
             rootUsers.forEach(root => {
@@ -1792,7 +1686,6 @@
                 const angle = (index / childBranches.length) * (2 * Math.PI);
                 const childLat = parentLat + (radiusOffset * Math.sin(angle));
                 const childLng = parentLng + (radiusOffset * Math.cos(angle));
-
                 child.lat = childLat;
                 child.lng = childLng;
 
@@ -1815,7 +1708,6 @@
                 document.getElementById('menu-my-disciples').classList.add('hidden');
                 document.getElementById('disciple-tab-my-disciples').classList.add('hidden');
             }
-
             loadDiscipleModules();
         }
 
@@ -1824,44 +1716,51 @@
                 <p style="margin-bottom:0.5rem;"><strong>Name:</strong> ${currentUserData.name || 'N/A'}</p>
                 <p style="margin-bottom:0.5rem;"><strong>Email:</strong> ${currentUserData.email || 'N/A'}</p>
                 <p style="margin-bottom:0.5rem;"><strong>Church:</strong> ${currentUserData.church || 'N/A'}</p>
-                <p style="margin-bottom:0.5rem;"><strong>Career / Skilled Profession:</strong> ${currentUserData.career || 'N/A'}</p>
+                <p style="margin-bottom:0.5rem;"><strong>Career / Profession:</strong> ${currentUserData.career || 'N/A'}</p>
                 <p style="margin-bottom:0.5rem;"><strong>Education:</strong> ${currentUserData.education || 'N/A'}</p>
                 <p style="margin-bottom:0.5rem;"><strong>Stage Authorization:</strong> ${currentUserData.isCompleted ? '<span class="badge badge-completed">COMPLETED</span>' : '<span class="badge badge-pending">IN PROGRESS</span>'}</p>
             `;
 
-            // Pre-fill profile editing fields
             document.getElementById('edit-profile-name').value = currentUserData.name || '';
             document.getElementById('edit-profile-church').value = currentUserData.church || '';
             document.getElementById('edit-profile-career').value = currentUserData.career || '';
             document.getElementById('edit-profile-education').value = currentUserData.education || 'High School';
         }
 
-        // PROFILE EDITING EVENT LISTENER
         document.getElementById('edit-profile-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!currentUserData) return;
-
-            const newName = document.getElementById('edit-profile-name').value.trim();
-            const newChurch = document.getElementById('edit-profile-church').value.trim();
-            const newCareer = document.getElementById('edit-profile-career').value.trim();
-            const newEducation = document.getElementById('edit-profile-education').value;
-
             try {
                 await updateDoc(doc(db, "users", currentUserData.id), {
-                    name: newName,
-                    church: newChurch,
-                    career: newCareer,
-                    education: newEducation,
+                    name: document.getElementById('edit-profile-name').value.trim(),
+                    church: document.getElementById('edit-profile-church').value.trim(),
+                    career: document.getElementById('edit-profile-career').value.trim(),
+                    education: document.getElementById('edit-profile-education').value,
                     updatedAt: new Date()
                 });
                 alert("Profile successfully updated!");
-            } catch (err) {
-                alert("Failed to update profile: " + err.message);
-            }
+            } catch (err) { alert("Failed to update profile: " + err.message); }
+        });
+
+        document.getElementById('change-pass-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currPass = document.getElementById('current-password').value;
+            const newPass = document.getElementById('new-password').value;
+            const user = auth.currentUser;
+            if (!user) return;
+
+            try {
+                const cred = EmailAuthProvider.credential(user.email, currPass);
+                await reauthenticateWithCredential(user, cred);
+                await updatePassword(user, newPass);
+                alert("Security Password Successfully Updated!");
+                document.getElementById('change-pass-form').reset();
+            } catch (err) { alert("Password Update Failed: " + err.message); }
         });
 
         async function loadDiscipleModules() {
             const container = document.getElementById('disciple-modules-list');
+            if (!container) return;
             container.innerHTML = '';
             
             const qSnap = await getDocs(collection(db, "modules"));
@@ -1881,19 +1780,14 @@
                 card.style.display = 'flex';
                 card.style.justifyContent = 'space-between';
                 card.style.alignItems = 'center';
-                card.style.flexWrap = 'wrap';
-                card.style.gap = '1rem';
                 if (!isUnlocked) card.style.opacity = '0.65';
 
                 card.innerHTML = `
                     <div>
-                        <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
-                            <span class="badge ${isAlreadyFinished ? 'badge-completed' : (isUnlocked ? 'badge-active' : 'badge-locked')}">
-                                ${isAlreadyFinished ? 'FINISHED' : (isUnlocked ? 'UNLOCKED' : 'LOCKED')}
-                            </span>
-                            <strong style="font-size:0.9rem;">Booklet Stage ${bookletOrder}</strong>
-                        </div>
-                        <h4>${m.topic}</h4>
+                        <span class="badge ${isAlreadyFinished ? 'badge-completed' : (isUnlocked ? 'badge-active' : 'badge-locked')}">
+                            ${isAlreadyFinished ? 'FINISHED' : (isUnlocked ? 'UNLOCKED' : 'LOCKED')}
+                        </span>
+                        <h4>Booklet Stage ${bookletOrder}: ${m.topic}</h4>
                         <p style="font-size:0.85rem; color:var(--text-muted);">${m.subtopic}</p>
                     </div>
                     <div>
@@ -1919,67 +1813,136 @@
             watchedVideoIds.clear();
             videoMaxWatchedTime = {};
             ytPlayers = {};
-            
             Object.values(videoWatchPollers).forEach(p => clearInterval(p));
             videoWatchPollers = {};
             timerCompleted = false;
 
-            let videosHTML = '';
-            (m.videos || []).forEach((v, index) => {
-                const videoId = extractYouTubeId(v);
-                if (videoId) {
-                    requiredVideoIds.push(videoId);
-                    videoMaxWatchedTime[videoId] = 0;
-                }
-                videosHTML += `
-                    <div style="margin-bottom:1.75rem;">
-                        <div class="video-player-container">
-                            <div class="scrub-warning-toast" id="toast-scrub-${index}">
-                                <i class="fa-solid fa-shield-halved"></i> Fast-Forwarding Blocked! Player reset to highest watched time.
-                            </div>
-                            <div class="video-player-frame">
-                                <iframe id="yt-player-${index}" src="${convertToEmbedUrl(v)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
+            const rawContent = m.content || "";
+            bookletPages = rawContent.split('------PAGE BREAK------').map(p => p.trim()).filter(p => p.length > 0);
+            if (bookletPages.length === 0) bookletPages = [rawContent];
+
+            currentPageIndex = 0;
+            renderCurrentBookletPage(m, bookletOrder, moduleId);
+        };
+
+        window.renderCurrentBookletPage = function(m, bookletOrder, moduleId) {
+            const viewer = document.getElementById('module-viewer-content');
+            if (pageTimerInterval) clearInterval(pageTimerInterval);
+            pageReadTimeRemaining = m.duration || 30;
+            timerCompleted = currentPageIndex === 0 ? true : false;
+
+            if (currentPageIndex === 0) {
+                const coverBg = m.coverColor || 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
+                const subtopicsArray = (m.subtopic || '').split(',').map(s => s.trim()).filter(s => s.length > 0);
+                
+                let subtopicsHtml = '';
+                if (subtopicsArray.length > 0) {
+                    subtopicsHtml = `
+                        <div class="booklet-cover-subtopics">
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--gold); letter-spacing: 1px; font-weight: 700; margin-bottom: 0.35rem;"><i class="fa-solid fa-list-check"></i> Curriculum Focus & Sub-Topics:</div>
+                            <ul style="margin-left: 1.25rem; font-size: 0.85rem; color: #e2e8f0; line-height: 1.5;">
+                                ${subtopicsArray.map(st => `<li>${st}</li>`).join('')}
+                            </ul>
                         </div>
-                    </div>`;
-            });
+                    `;
+                }
+
+                viewer.innerHTML = `
+                    <div class="booklet-cover" style="background: ${coverBg};" onclick="changeBookletPage(1, '${moduleId}', ${bookletOrder})">
+                        <span class="badge badge-active" style="margin-bottom:1rem; background:rgba(255,255,255,0.2); color:white;">Booklet Stage ${bookletOrder}</span>
+                        <h1>${m.topic}</h1>
+                        <h3>${m.subtopic}</h3>
+                        ${subtopicsHtml}
+                        <div style="margin-top:2rem; font-family:'Inter'; font-size:0.9rem; color:var(--gold); letter-spacing:1.5px; font-weight:700;">
+                            <i class="fa-solid fa-arrow-right"></i> TAP COVER TO OPEN TO NEXT PAGE
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const contentPageNum = currentPageIndex - 1;
+            let videosHTML = '';
+            if (contentPageNum === bookletPages.length - 1 && m.videos && m.videos.length > 0) {
+                m.videos.forEach((v, index) => {
+                    const videoId = extractYouTubeId(v);
+                    if (videoId) {
+                        requiredVideoIds.push(videoId);
+                        videoMaxWatchedTime[videoId] = 0;
+                    }
+                    videosHTML += `
+                        <div style="margin-top:1.5rem;">
+                            <div class="video-player-container">
+                                <div class="scrub-warning-toast" id="toast-scrub-${index}">Fast-Forwarding Blocked! Player reset to highest watched time.</div>
+                                <div class="video-player-frame">
+                                    <iframe id="yt-player-${index}" src="${convertToEmbedUrl(v)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>`;
+                });
+            }
 
             viewer.innerHTML = `
-                <div class="booklet-cover">
-                    <span class="badge badge-active" style="margin-bottom:0.75rem; background:rgba(255,255,255,0.2); color:white;">Booklet Order ${bookletOrder}</span>
-                    <h1>${m.topic}</h1>
-                    <h3>${m.subtopic}</h3>
+                <div class="modern-booklet-page">
+                    <div style="font-size:0.75rem; text-transform:uppercase; color:var(--gold); font-family:'Cinzel'; margin-bottom:1rem;">${m.topic} • Page ${contentPageNum + 1} of ${bookletPages.length}</div>
+                    ${bookletPages[contentPageNum]}
                 </div>
-                <div style="padding: 1.25rem 0; font-size:1.025rem; line-height:1.8; color:var(--text-dark);">${m.content}</div>
+
                 ${videosHTML}
-                <div style="margin-top:2.5rem; padding:1.75rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); text-align:center;">
-                    <div id="timer-badge" style="font-size:1.1rem; font-weight:800; color:var(--danger); margin:0.5rem 0;">${m.duration} Seconds Reading Lock Remaining</div>
-                    <button id="btn-next-stage" class="btn btn-primary" disabled onclick="completeStage('${moduleId}', '${m.topic.replace(/'/g, "\\'")}', ${bookletOrder})">
-                        <i class="fa-solid fa-check-double"></i> Submit Booklet Stage for Approval
-                    </button>
+
+                <div class="page-navigation-footer">
+                    <div>
+                        <button class="btn btn-outline btn-sm" onclick="changeBookletPage(-1, '${moduleId}', ${bookletOrder})">
+                            <i class="fa-solid fa-arrow-left"></i> Previous Page
+                        </button>
+                    </div>
+                    <div>
+                        <span id="page-timer-badge" style="font-size: 0.85rem; font-weight: 700; color: var(--danger);">
+                            <i class="fa-solid fa-clock"></i> Reading lock: ${pageReadTimeRemaining}s remaining
+                        </span>
+                    </div>
+                    <div>
+                        ${contentPageNum < bookletPages.length - 1 ? 
+                            `<button id="btn-next-page" class="btn btn-primary btn-sm" disabled onclick="changeBookletPage(1, '${moduleId}',${bookletOrder})">
+                                Next Page <i class="fa-solid fa-arrow-right"></i>
+                            </button>` :
+                            `<button id="btn-next-stage" class="btn btn-gold btn-sm" disabled onclick="completeStage('${moduleId}', '${m.topic.replace(/'/g, "\\'")}', ${bookletOrder})">
+                                <i class="fa-solid fa-check-double"></i> Submit Booklet Stage for Approval
+                            </button>`
+                        }
+                    </div>
                 </div>
             `;
 
-            initYouTubeIframePlayers(m.videos || []);
+            if (contentPageNum === bookletPages.length - 1 && m.videos && m.videos.length > 0) {
+                initYouTubeIframePlayers(m.videos || []);
+            }
 
-            let timeLeft = m.duration;
-            if(studyTimerInterval) clearInterval(studyTimerInterval);
+            pageTimerInterval = setInterval(() => {
+                pageReadTimeRemaining--;
+                const badge = document.getElementById('page-timer-badge');
+                if (badge) badge.innerHTML = `<i class="fa-solid fa-clock"></i> Reading lock: ${pageReadTimeRemaining}s remaining`;
 
-            studyTimerInterval = setInterval(() => {
-                timeLeft--;
-                const timerElem = document.getElementById('timer-badge');
-                if (timerElem) timerElem.innerText = `${timeLeft} Seconds Reading Lock Remaining`;
-                
-                if (timeLeft <= 0) {
-                    clearInterval(studyTimerInterval);
+                if (pageReadTimeRemaining <= 0) {
+                    clearInterval(pageTimerInterval);
                     timerCompleted = true;
-                    if (timerElem) {
-                        timerElem.innerText = "Mandatory Reading Duration Satisfied!";
-                        timerElem.style.color = "var(--success)";
+                    if (badge) {
+                        badge.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--success);"></i> Page unlocked!`;
+                        badge.style.color = "var(--success)";
                     }
-                    checkAndEnableStageCompletion();
+                    const nextBtn = document.getElementById('btn-next-page') || document.getElementById('btn-next-stage');
+                    if (nextBtn) nextBtn.disabled = false;
                 }
             }, 1000);
+        };
+
+        window.changeBookletPage = async function(direction, moduleId, bookletOrder) {
+            currentPageIndex += direction;
+            const docSnap = await getDoc(doc(db, "modules", moduleId));
+            if (docSnap.exists()) {
+                renderCurrentBookletPage(docSnap.data(), bookletOrder, moduleId);
+                window.scrollTo({ top: 150, behavior: 'smooth' });
+            }
         };
 
         function initYouTubeIframePlayers(videoUrls) {
@@ -2033,22 +1996,21 @@
                     submittedAt: new Date()
                 });
                 alert("Stage Completion Submitted!");
-                switchDiscipleTab('progress');
+                window.switchDiscipleTab('progress');
             } catch (err) { alert("Error: " + err.message); }
         };
 
         async function loadDiscipleProgress() {
             const summaryContainer = document.getElementById('user-progress-summary');
             const certContainer = document.getElementById('certificates-download-section');
-            if (!currentUserData) return;
+            if (!currentUserData || !summaryContainer) return;
 
-            const u = currentUserData;
             summaryContainer.innerHTML = `
                 <div class="card" style="border-left: 5px solid var(--primary);">
-                    <h4>Account Status: <span class="badge badge-completed">${u.stageStatus || 'In Progress'}</span></h4>
+                    <h4>Account Status: <span class="badge badge-completed">${currentUserData.stageStatus || 'In Progress'}</span></h4>
                     <p style="margin-top:0.5rem; font-size:0.9rem;">
-                        <strong>Completed Booklets:</strong> ${(u.completedBookletOrders || []).length}<br>
-                        <strong>Church:</strong> ${u.church || 'N/A'}
+                        <strong>Completed Booklets:</strong> ${(currentUserData.completedBookletOrders || []).length}<br>
+                        <strong>Church:</strong> ${currentUserData.church || 'N/A'}
                     </p>
                 </div>
             `;
@@ -2061,47 +2023,37 @@
             });
 
             let certsHTML = `<h3><i class="fa-solid fa-file-pdf" style="color:var(--danger);"></i> Digitally Signed Transcripts & Certificates</h3>`;
-            const completedOrders = u.completedBookletOrders || [];
+            const completedOrders = currentUserData.completedBookletOrders || [];
 
             if (completedOrders.length > 0) {
                 certsHTML += `<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">`;
-                
                 completedOrders.forEach(order => {
                     if (order !== 100) {
-                        const serialNum = generateCredentialSerial(u.id, 'TRANSCRIPT', order);
-                        const modData = modulesMap[order] || {};
-                        const subTopicsList = (modData.subtopic || 'Theological Training').split(',').map(s => s.trim()).filter(s => s.length > 0);
-
-                        let unitsListHTML = `<ol style="margin-left: 1.25rem; font-size:0.85rem; color:var(--text-muted); margin-top:0.35rem;">`;
-                        subTopicsList.forEach(st => { unitsListHTML += `<li>${st}</li>`; });
-                        unitsListHTML += `</ol>`;
-
+                        const serialNum = generateCredentialSerial(currentUserData.id, 'TRANSCRIPT', order);
                         certsHTML += `
                             <div class="card" style="padding: 1.25rem;">
                                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
                                     <div>
                                         <h4 style="font-size:0.95rem;"><i class="fa-solid fa-award" style="color:var(--primary);"></i> Booklet Stage ${order} Transcript</h4>
-                                        <p style="font-size:0.8rem; color:var(--gold); font-weight:700; margin-top:0.2rem;">Serial Number: ${serialNum}</p>
-                                        ${unitsListHTML}
+                                        <p style="font-size:0.8rem; color:var(--gold); font-weight:700;">Serial: ${serialNum}</p>
                                     </div>
-                                    <button class="btn btn-primary btn-sm" onclick="downloadStageTranscriptPDF(${order})"><i class="fa-solid fa-download"></i> Download Signed Transcript PDF</button>
+                                    <button class="btn btn-primary btn-sm" onclick="downloadStageTranscriptPDF(${order})"><i class="fa-solid fa-download"></i> Download Transcript PDF</button>
                                 </div>
                             </div>
                         `;
                     }
                 });
 
-                if (completedOrders.length >= modulesSnap.size || u.isCompleted) {
-                    const finalSerial = generateCredentialSerial(u.id, 'CERTIFICATE', 'FINAL');
+                if (completedOrders.length >= modulesSnap.size || currentUserData.isCompleted) {
+                    const finalSerial = generateCredentialSerial(currentUserData.id, 'CERTIFICATE', 'FINAL');
                     certsHTML += `
                         <div class="card" style="border: 2px solid var(--success); background: rgba(16, 185, 129, 0.03); padding: 1.25rem;">
                             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
                                 <div>
                                     <h4 style="font-size:1.05rem; color:var(--success);"><i class="fa-solid fa-certificate"></i> Final Completion Certificate</h4>
-                                    <p style="font-size:0.85rem; color:var(--gold); font-weight:700; margin-top:0.2rem;">Certificate Serial Number: ${finalSerial}</p>
-                                    <p style="font-size:0.85rem; color:var(--text-muted);">Official Graduation Certificate Digitally Signed by Root Leader & Admin.</p>
+                                    <p style="font-size:0.85rem; color:var(--gold); font-weight:700;">Serial: ${finalSerial}</p>
                                 </div>
-                                <button class="btn btn-success" onclick="downloadFinalCertificatePDF()"><i class="fa-solid fa-award"></i> Download Signed Certificate PDF</button>
+                                <button class="btn btn-success" onclick="downloadFinalCertificatePDF()"><i class="fa-solid fa-award"></i> Download Certificate PDF</button>
                             </div>
                         </div>
                     `;
@@ -2110,89 +2062,26 @@
             } else {
                 certsHTML += `<p style="color:var(--text-muted); font-size:0.85rem; margin-top: 0.75rem;">Complete booklet stages to generate transcripts.</p>`;
             }
-
             certContainer.innerHTML = certsHTML;
         }
 
         window.downloadStageTranscriptPDF = async function(orderNumber) {
-            const modulesSnap = await getDocs(collection(db, "modules"));
-            let moduleTitle = `Stage ${orderNumber} Kingdom Module`;
-            let subTopicStr = `Core Theological Training`;
-
-            modulesSnap.forEach(d => {
-                const data = d.data();
-                if ((data.order || 1) === orderNumber) {
-                    moduleTitle = data.topic || moduleTitle;
-                    subTopicStr = data.subtopic || subTopicStr;
-                }
-            });
-
             const serialNum = generateCredentialSerial(currentUserData.id, 'TRANSCRIPT', orderNumber);
-            const subTopicsList = subTopicStr.split(',').map(s => s.trim()).filter(s => s.length > 0);
-
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-
             doc.setFillColor(15, 23, 42);
             doc.rect(0, 0, 210, 40, 'F');
-
             doc.setTextColor(255, 255, 255);
             doc.setFont("helvetica", "bold");
             doc.setFontSize(18);
             doc.text("GLOBAL KINGDOM PLATFORM", 105, 18, { align: "center" });
-
             doc.setFontSize(10);
-            doc.setFont("helvetica", "normal");
             doc.text(`OFFICIAL TRANSCRIPT | SERIAL: ${serialNum}`, 105, 28, { align: "center" });
-
             doc.setTextColor(15, 23, 42);
             doc.setFontSize(13);
-            doc.setFont("helvetica", "bold");
-            doc.text(`Stage Topic: ${moduleTitle}`, 20, 50);
-
+            doc.text(`Stage Order: ${orderNumber} Kingdom Module`, 20, 50);
             doc.setFontSize(10);
-            doc.setFont("helvetica", "normal");
             doc.text(`Student Name: ${currentUserData.name} | Church: ${currentUserData.church || 'N/A'}`, 20, 58);
-            doc.text(`Career: ${currentUserData.career || 'N/A'} | Date Issued: ${new Date().toLocaleDateString()}`, 20, 65);
-
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(11);
-            doc.text("Ordered Units of Study:", 20, 78);
-
-            let startY = 84;
-            doc.setFillColor(241, 245, 249);
-            doc.rect(20, startY, 170, 8, 'F');
-            doc.setFontSize(9);
-            doc.text("Unit #", 25, startY + 5.5);
-            doc.text("Sub-Topic / Unit Title", 45, startY + 5.5);
-            doc.text("Status", 160, startY + 5.5);
-
-            startY += 8;
-            doc.setFont("helvetica", "normal");
-
-            subTopicsList.forEach((st, idx) => {
-                doc.rect(20, startY, 170, 9);
-                doc.text(`${idx + 1}`, 25, startY + 6);
-                doc.text(st, 45, startY + 6);
-                doc.setTextColor(16, 185, 129);
-                doc.setFont("helvetica", "bold");
-                doc.text("PASSED", 160, startY + 6);
-                doc.setTextColor(15, 23, 42);
-                doc.setFont("helvetica", "normal");
-                startY += 9;
-            });
-
-            startY += 15;
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(10);
-            doc.text("DIGITAL SIGNATURES & AUTHENTICITY VERIFICATION", 20, startY);
-
-            startY += 8;
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(8.5);
-            doc.text("[DIGITALLY SIGNED & VERIFIED BY ROOT LEADER]", 20, startY);
-            doc.text("[DIGITALLY SIGNED & VERIFIED BY GLOBAL ADMIN]", 115, startY);
-
             doc.save(`Transcript_Stage_${orderNumber}_${currentUserData.name.replace(/\s+/g, '_')}.pdf`);
         };
 
@@ -2200,74 +2089,35 @@
             const finalSerial = generateCredentialSerial(currentUserData.id, 'CERTIFICATE', 'FINAL');
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: 'landscape' });
-
             doc.setFillColor(15, 23, 42);
             doc.rect(0, 0, 297, 210, 'F');
-
             doc.setDrawColor(212, 175, 55);
             doc.setLineWidth(2);
             doc.rect(10, 10, 277, 190);
-
             doc.setTextColor(212, 175, 55);
             doc.setFont("times", "bold");
             doc.setFontSize(22);
             doc.text("GLOBAL KINGDOM PLATFORM", 148.5, 28, { align: "center" });
-
             doc.setFontSize(10);
             doc.text(`CERTIFICATE SERIAL NUMBER: ${finalSerial}`, 148.5, 36, { align: "center" });
-
-            doc.setFontSize(14);
-            doc.setTextColor(255, 255, 255);
-            doc.text("Completion of the Knowledge of Gospel of the Kingdom of Heaven", 148.5, 48, { align: "center" });
-
-            doc.setFontSize(12);
-            doc.setFont("times", "italic");
-            doc.setTextColor(203, 213, 225);
-            doc.text("This is proudly presented to", 148.5, 66, { align: "center" });
-
             doc.setFontSize(24);
-            doc.setFont("times", "bold");
             doc.setTextColor(255, 255, 255);
             doc.text(currentUserData.name, 148.5, 82, { align: "center" });
-
-            doc.setFontSize(11);
-            doc.setFont("times", "normal");
-            doc.setTextColor(203, 213, 225);
-            doc.text(`Church: ${currentUserData.church || 'N/A'}  |  Career: ${currentUserData.career || 'N/A'}`, 148.5, 94, { align: "center" });
-
-            doc.setFontSize(10);
-            doc.text("For successfully completing all sequential curriculum booklets and leadership training requirements.", 148.5, 110, { align: "center" });
-            doc.text(`Issued On: ${new Date().toLocaleDateString()}`, 148.5, 122, { align: "center" });
-
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(9);
-            doc.setTextColor(212, 175, 55);
-            doc.text("___________________________________", 50, 165);
-            doc.text("ROOT LEADER SIGNATURE [VERIFIED]", 50, 172);
-
-            doc.text("___________________________________", 185, 165);
-            doc.text("GLOBAL ADMIN SIGNATURE [VERIFIED]", 185, 172);
-
             doc.save(`Certificate_Completion_${currentUserData.name.replace(/\s+/g, '_')}.pdf`);
         };
 
         document.getElementById('branch-register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!currentUserData) return;
-
             const autoPassword = "DP-" + Math.random().toString(36).substring(2, 8).toUpperCase();
-            const email = document.getElementById('branch-email').value.trim();
-            const name = document.getElementById('branch-name').value;
-            const phone = document.getElementById('branch-phone').value;
-            const church = document.getElementById('branch-church').value;
-            const career = document.getElementById('branch-career').value;
-
             try {
-                const userCred = await createUserWithEmailAndPassword(secondaryAuth, email, autoPassword);
-                const uid = userCred.user.uid;
-
-                await setDoc(doc(db, "users", uid), {
-                    name, email, phone, church, career,
+                const userCred = await createUserWithEmailAndPassword(secondaryAuth, document.getElementById('branch-email').value.trim(), autoPassword);
+                await setDoc(doc(db, "users", userCred.user.uid), {
+                    name: document.getElementById('branch-name').value,
+                    email: document.getElementById('branch-email').value.trim(),
+                    phone: document.getElementById('branch-phone').value,
+                    church: document.getElementById('branch-church').value,
+                    career: document.getElementById('branch-career').value,
                     education: document.getElementById('branch-education').value,
                     parentId: currentUserData.id,
                     role: 'branch',
@@ -2279,7 +2129,6 @@
                     tempPassword: autoPassword,
                     createdAt: new Date()
                 });
-
                 alert("Branch Disciple Account Created! Pending Admin Approval.");
                 document.getElementById('branch-register-form').reset();
                 loadMyDisciples();
@@ -2290,6 +2139,7 @@
             if (!currentUserData) return;
             const approvalsContainer = document.getElementById('branch-stage-approvals-by-root');
             const listContainer = document.getElementById('branch-disciples-list');
+            if (!approvalsContainer) return;
             approvalsContainer.innerHTML = '';
             listContainer.innerHTML = '';
 
@@ -2305,13 +2155,8 @@
                     card.style.display = 'flex';
                     card.style.justifyContent = 'space-between';
                     card.style.alignItems = 'center';
-                    card.style.flexWrap = 'wrap';
-                    card.style.gap = '1rem';
                     card.innerHTML = `
-                        <div>
-                            <h4>${u.name}</h4>
-                            <p style="font-size:0.85rem; color:var(--text-muted);">Church: ${u.church} | Submitted: <strong>${u.lastCompletedTopic || 'Stage'}</strong></p>
-                        </div>
+                        <div><h4>${u.name}</h4><p style="font-size:0.85rem; color:var(--text-muted);">Church: ${u.church}</p></div>
                         <button class="btn btn-primary btn-sm" onclick="approveDiscipleStageByRoot('${branchId}')"><i class="fa-solid fa-check"></i> Approve Stage</button>
                     `;
                     approvalsContainer.appendChild(card);
@@ -2322,14 +2167,9 @@
                 item.style.display = 'flex';
                 item.style.justifyContent = 'space-between';
                 item.style.alignItems = 'center';
-                item.style.flexWrap = 'wrap';
-                item.style.gap = '1rem';
                 item.innerHTML = `
-                    <div>
-                        <h4>${u.name} (${u.email})</h4>
-                        <p style="font-size:0.8rem; color:var(--text-muted);">Church: ${u.church} | Completed Booklets: ${(u.completedBookletOrders || []).length}</p>
-                    </div>
-                    <div><span class="badge ${u.isApproved ? 'badge-completed' : 'badge-pending'}">${u.isApproved ? 'Authorized' : 'Pending Approval'}</span></div>
+                    <div><h4>${u.name} (${u.email})</h4><p style="font-size:0.8rem; color:var(--text-muted);">Church: ${u.church}</p></div>
+                    <div><span class="badge ${u.isApproved ? 'badge-completed' : 'badge-pending'}">${u.isApproved ? 'Authorized' : 'Pending'}</span></div>
                 `;
                 listContainer.appendChild(item);
             });
@@ -2372,22 +2212,6 @@
             a.setAttribute('download', `Discipleship_Network_${currentUserData.name.replace(/\s+/g, '_')}.csv`);
             a.click();
         };
-
-        document.getElementById('change-pass-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const currPass = document.getElementById('current-password').value;
-            const newPass = document.getElementById('new-password').value;
-            const user = auth.currentUser;
-            if (!user) return;
-
-            try {
-                const cred = EmailAuthProvider.credential(user.email, currPass);
-                await reauthenticateWithCredential(user, cred);
-                await updatePassword(user, newPass);
-                alert("Security Password Successfully Updated!");
-                document.getElementById('change-pass-form').reset();
-            } catch (err) { alert("Password Update Failed: " + err.message); }
-        });
     </script>
 
     <!-- FOOTER -->
