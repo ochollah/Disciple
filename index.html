@@ -252,26 +252,112 @@
 
         /* Modernized Published Book Paginated Reader Pages */
         .modern-booklet-page {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 3rem 2.75rem;
-            margin-bottom: 1.25rem;
-            box-shadow: var(--shadow-sm);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
-            line-height: 1.95;
-            color: var(--text-dark);
-            text-align: left;
-            min-height: 420px;
-        }
-        .modern-booklet-page p { margin-bottom: 1.25rem; text-align: left; }
-        .modern-booklet-page h1, .modern-booklet-page h2, .modern-booklet-page h3, .modern-booklet-page h4 {
-            text-align: left; font-family: 'Cinzel', serif; color: var(--primary); margin: 1.25rem 0 0.75rem;
-        }
-        .modern-booklet-page ul, .modern-booklet-page ol {
-            text-align: left; margin-left: 1.5rem; margin-bottom: 1.25rem;
-        }
+         /* ==========================================
+   PUBLISHED BOOKLET READER CONTENT STYLES
+   ========================================== */
+.booklet-content-page {
+    background: var(--surface, #ffffff);
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: var(--radius, 12px);
+    padding: 3.5rem 3.25rem;
+    margin: 0 auto 1.5rem auto;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 2.0;
+    color: var(--text-dark, #0f172a);
+    text-align: left;
+    min-height: 480px;
+    position: relative;
+    word-break: break-word;
+}
+
+/* Elegant First Paragraph Drop Cap (Like published books) */
+.booklet-content-page p:first-of-type::first-letter {
+    font-family: 'Cinzel', serif;
+    font-size: 3.4rem;
+    float: left;
+    line-height: 0.75;
+    padding-right: 0.75rem;
+    padding-top: 0.15rem;
+    color: var(--gold, #d4af37);
+    font-weight: 700;
+}
+
+/* Paragraph Flow & Spacing */
+.booklet-content-page p {
+    margin-bottom: 1.35rem;
+    text-align: left;
+    letter-spacing: -0.003em;
+}
+
+/* Book Headings */
+.booklet-content-page h1, 
+.booklet-content-page h2, 
+.booklet-content-page h3, 
+.booklet-content-page h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--primary, #2563eb);
+    margin: 2rem 0 1rem 0;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: left;
+}
+
+.booklet-content-page h2 { 
+    font-size: 1.6rem; 
+    border-bottom: 1.5px solid var(--border, #e2e8f0); 
+    padding-bottom: 0.4rem; 
+}
+
+.booklet-content-page h3 { 
+    font-size: 1.35rem; 
+}
+
+/* Built-in Scripture Callout Box (Like .scripture-card) */
+.booklet-content-page blockquote,
+.booklet-scripture-callout {
+    background: rgba(212, 175, 55, 0.05);
+    border-left: 4px solid var(--gold, #d4af37);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.75rem 0;
+    font-style: italic;
+    color: var(--text-dark, #0f172a);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.booklet-scripture-callout cite,
+.booklet-content-page blockquote footer {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--gold, #d4af37);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Lists Styling */
+.booklet-content-page ul, 
+.booklet-content-page ol {
+    margin: 1.25rem 0 1.25rem 2rem;
+}
+
+.booklet-content-page li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Mobile Scaling */
+@media (max-width: 768px) {
+    .booklet-content-page {
+        padding: 2rem 1.5rem;
+        font-size: 1.05rem;
+        line-height: 1.85;
+    }
+}
 
         .page-navigation-footer {
             display: flex;
